@@ -1,8 +1,4 @@
-"""ChromaDB vector store and Sentence Transformer embedding module for Alethia.
-
-Provides persistent vector storage, embedding generation with 'all-MiniLM-L6-v2',
-idempotent chunk indexing, duplicate prevention, and semantic search.
-"""
+"""ChromaDB vector store and embedding generation for Alethia."""
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union

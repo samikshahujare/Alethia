@@ -1,21 +1,7 @@
-"""Intelligent Multi-Part Question Decomposition for Alethia (Phase 3).
+"""Question decomposition module for Alethia.
 
-Analyzes user questions to detect multi-intent requirements and decompose
-them into independent, self-contained sub-questions. Executes targeted
-retrievals across sub-questions, fuses candidate chunks with Reciprocal
-Rank Fusion, deduplicates by chunk_id, and tracks matched_subqueries metadata.
-
-Key Principles:
-1. Single-Intent Optimization: Simple single-intent questions skip decomposition
-   and bypass unnecessary Groq API calls.
-2. Rule-Based & LLM Hybrid: Uses fast regex/grammatical analysis for unambiguous
-   clauses, reserving LLM decomposition for complex queries.
-3. Terminology & Value Preservation: Strictly preserves all model names,
-   equations, variable names, and numerical values.
-4. Robust Parsing & Safe Fallback: Validates JSON schemas, rejects empty or
-   duplicate questions, and safely falls back to the original question.
-5. Traceability: Enriches chunk metadata with 'matched_subqueries' to record
-   which sub-questions discovered each evidence chunk.
+Analyzes composite or multi-intent questions and decomposes them into
+independent sub-questions to perform targeted evidence retrieval.
 """
 
 import json

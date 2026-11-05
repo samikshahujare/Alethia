@@ -1,10 +1,7 @@
-"""LangGraph-compatible workflow node functions for Alethia.
+"""Workflow nodes for the Alethia LangGraph engine.
 
-Implements three standalone, independently testable LLM nodes:
-1. retrieve_node: Evidence-aware retrieval preserving initial chunks and detecting newly retrieved chunks.
-2. generate_node: Generates draft answers strictly from retrieved context (temperature 0.1).
-3. judge_node: Strictly evaluates factual faithfulness of drafts (temperature 0.0).
-4. rewrite_node: Targeted query reformulation isolating missing sub-questions with anti-looping protection.
+Implements standalone nodes for evidence retrieval, draft synthesis,
+factual verification (Judge), and targeted query rewriting.
 """
 
 import re

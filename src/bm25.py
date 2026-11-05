@@ -1,8 +1,7 @@
-"""Pure-Python Okapi BM25 implementation for Alethia.
+"""Okapi BM25 implementation for Alethia.
 
-Implements the standard Okapi BM25 ranking function using standard-library
-components only (math, re, collections). Designed for sparse lexical retrieval
-over chunked text documents synchronized with the ChromaDB vector store.
+Implements standard Okapi BM25 lexical search over chunked documents
+synchronized with the vector store.
 """
 
 from collections import Counter, defaultdict

@@ -1,16 +1,7 @@
-"""Hybrid retrieval module for Alethia combining dense semantic search and Okapi BM25.
+"""Hybrid retrieval combining dense semantic search and Okapi BM25.
 
-Fuses dense semantic similarity rankings (ChromaDB + all-MiniLM-L6-v2) and sparse
-lexical rankings (BM25Index) using Reciprocal Rank Fusion (RRF).
-
-Key Design Principles:
-1. Pure rank-based fusion: Operates on ordinal ranks (1-based), never mixing raw
-   cosine distances with raw BM25 scores.
-2. Metadata preservation: Preserves chunk_id, text, source, chunk_index, and metadata.
-3. Diagnostic transparency: Retains dense_rank, bm25_rank, dense_distance,
-   dense_similarity, bm25_score, and rrf_score.
-4. Deterministic tie-breaking: Breaks score ties deterministically by chunk_id ascending.
-5. Backward compatibility: Supports strategy selection ('hybrid', 'dense', 'bm25').
+Fuses dense ChromaDB semantic search and sparse BM25 lexical rankings
+using Reciprocal Rank Fusion (RRF).
 """
 
 from typing import Any, Dict, List, Optional, Union

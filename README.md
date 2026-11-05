@@ -1,86 +1,88 @@
 # Alethia
 
-A minimal, deterministic, and self-correcting Retrieval-Augmented Generation (RAG) engine designed for high-accuracy document intelligence and factual verification.
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Streamlit_Cloud-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://alethia-rag.streamlit.app/)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph-orange?style=flat-square)](https://github.com/langchain-ai/langgraph)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
-Alethia combines dense semantic search, sparse lexical retrieval, intelligent question decomposition, and an agentic verification loop to deliver grounded, hallucination-free answers with verifiable citations.
+A minimal, deterministic, and self-correcting Retrieval-Augmented Generation (RAG) engine designed for verified document intelligence. 
+
+Alethia combines dense semantic search, sparse lexical retrieval, question decomposition, and an agentic verification loop to deliver accurate, hallucination-free answers with precise citations.
+
+---
+
+## Live Demo & Interface
+
+Experience the deployed application:  
+**[Launch Alethia Web App](https://alethia-rag.streamlit.app/)**
+
+![Alethia UI](docs/screenshots/alethia_ui_running.png)
 
 ---
 
 ## Key Capabilities
 
-- **Hybrid Retrieval**: Combines dense vector similarity (`all-MiniLM-L6-v2` via ChromaDB) with sparse lexical search (Okapi BM25) using Reciprocal Rank Fusion (RRF).
-- **Targeted Document Resolution**: Detects queries referencing specific files (e.g. `abc.txt`, `report.pdf`) and scopes retrieval to avoid noise from unrelated documents.
-- **Self-Correcting Verification Loop**: Orchestrated via LangGraph to evaluate factual faithfulness against retrieved passages and reformulate queries if evidence is missing.
-- **Multi-Format Ingestion**: Ingests `.pdf`, `.txt`, and direct text notes with automatic sentence-aware chunking and duplicate prevention.
-- **Minimalist Interface**: Dark-first Streamlit UI featuring stepped execution status, citation cards with similarity scores, and execution diagnostics.
+- **Hybrid Search (Dense + BM25)**: Fuses vector search (`all-MiniLM-L6-v2` via ChromaDB) with lexical rankings (Okapi BM25) through Reciprocal Rank Fusion (RRF).
+- **Targeted Document Isolation**: Automatically recognizes when a query specifies a file (e.g. `abc.txt`, `report.pdf`) and filters retrieval directly to that document, preventing cross-file noise.
+- **Self-Correcting Verification Loop**: Employs an LLM Judge in a LangGraph cycle to evaluate factual grounding against retrieved chunks, reformulating queries if information is missing.
+- **Multi-Format Ingestion**: Ingests `.pdf`, `.txt`, and direct text notes with sentence-aware chunking and duplicate detection.
+- **Minimalist Dark UI**: Fast, responsive Streamlit interface with progressive step execution indicators and clean citation cards.
 
 ---
 
-## Architecture Overview
+## How It Works
 
 ```
 User Query
    │
-   ├──> Document Target Detection (Optional Scoped Search)
+   ├──> Target Document Detection (Scopes search if file is mentioned)
    │
    ├──> Hybrid Retrieval (ChromaDB Vector Store + Okapi BM25 + RRF)
    │
-   ├──> LangGraph Cyclic Workflow:
-   │       ├── Generate Draft (Groq Llama 3)
-   │       ├── Judge Faithfulness (Strict Fact Checking)
-   │       └── Targeted Rewrite & Re-retrieval (Max 2 Attempts)
+   ├──> LangGraph Cyclic Verification:
+   │       ├── Synthesize Draft (Groq Llama 3)
+   │       ├── Evaluate Faithfulness (Strict Fact Check)
+   │       └── Targeted Rewrite & Re-retrieve (Max 2 Attempts)
    │
-   └──> Verified Response + Source Citations + Execution Diagnostics
+   └──> Verified Response with Document Citations & Execution Trace
 ```
 
 ---
 
-## Tech Stack
+## Quickstart
 
-| Component | Technology |
-|---|---|
-| **Orchestration** | LangGraph (Cyclic State Machine) |
-| **LLM Inference** | Groq (`llama-3.3-70b-versatile`) |
-| **Vector Store** | ChromaDB (Cosine similarity metric) |
-| **Embeddings** | Sentence-Transformers (`all-MiniLM-L6-v2`, 384d) |
-| **Sparse Retrieval** | Okapi BM25 (Pure-Python implementation) |
-| **PDF Extraction** | `pypdf` |
-| **Frontend UI** | Streamlit (Custom Dark SaaS Theme) |
-
----
-
-## Getting Started
-
-### 1. Clone & Setup
+### 1. Clone & Set Up
 
 ```bash
-git clone https://github.com/your-username/alethia.git
-cd alethia
+git clone https://github.com/samikshahujare/Alethia.git
+cd Alethia
 
 python -m venv .venv
-# Windows:
+# Windows
 .venv\Scripts\activate
-# macOS/Linux:
+# macOS/Linux
 source .venv/bin/activate
 
 pip install -r requirements.txt
 ```
 
 ### 2. Configure Environment
+### 2. Configure Environment
 
+Create a `.env` file in the project root:
 Create a `.env` file in the project root:
 
 ```ini
 GROQ_API_KEY=your_groq_api_key_here
 ```
 
-### 3. Start the Web App
+### 3. Run Locally
 
 ```bash
 streamlit run app.py
 ```
 
-The application will be available at `http://localhost:8501`.
+The web app will open at `http://localhost:8501`.
 
 ---
 
@@ -88,27 +90,27 @@ The application will be available at `http://localhost:8501`.
 
 ```
 Alethia/
-├── app.py                     # Streamlit application entrypoint
+├── app.py                     # Application entrypoint
 ├── src/
-│   ├── config.py              # Configuration and environment validation
-│   ├── document_loader.py     # Document loaders (PDF, TXT, text input)
-│   ├── text_cleaner.py        # Text normalization and formatting
+│   ├── config.py              # Configuration & environment variables
+│   ├── document_loader.py     # PDF, TXT, and text note parsing
+│   ├── text_cleaner.py        # Text normalization
 │   ├── chunker.py             # Sentence-aware document chunking
-│   ├── store.py               # ChromaDB vector store wrapper
-│   ├── bm25.py                # Okapi BM25 index and tokenizer
-│   ├── hybrid_retriever.py    # Hybrid sparse-dense fusion via RRF
-│   ├── document_inspection.py # Targeted document reference resolution
+│   ├── store.py               # ChromaDB persistence & search
+│   ├── bm25.py                # Okapi BM25 index & tokenizer
+│   ├── hybrid_retriever.py    # Reciprocal Rank Fusion (RRF)
+│   ├── document_inspection.py # Document targeting & extraction
 │   ├── decomposition.py       # Multi-intent question decomposition
-│   ├── prompts.py             # LLM system and evaluation prompts
 │   ├── nodes.py               # LangGraph workflow nodes
-│   ├── graph.py               # Compiled cyclic graph pipeline
-│   └── llm.py                 # Groq client wrapper with error handling
+│   ├── graph.py               # StateGraph compilation
+│   └── llm.py                 # Groq client wrapper
 ├── ui/
-│   ├── styles.py              # Minimalist dark theme CSS
-│   ├── sidebar.py             # Ingestion, document manager & specs
+│   ├── styles.py              # Dark-first minimalist styling
+│   ├── sidebar.py             # Ingestion, file manager & capacity specs
 │   ├── chat.py                # Chat interface & progressive status
-│   ├── sources.py             # Citation cards with match percentages
+│   ├── sources.py             # Citation cards with similarity scores
 │   └── trace.py               # Execution diagnostics timeline
+├── docs/                      # Documentation and screenshots
 └── tests/                     # Unit and integration test suite
 ```
 
@@ -116,9 +118,11 @@ Alethia/
 
 ## Running Tests
 
-Execute the automated test suite with pytest:
+Run all unit and integration tests with pytest:
 
 ```bash
+pytest tests/
+```
 pytest tests/
 ```
 
@@ -126,4 +130,4 @@ pytest tests/
 
 ## License
 
-MIT License.
+This project is licensed under the [MIT License](LICENSE).

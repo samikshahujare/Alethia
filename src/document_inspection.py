@@ -1,12 +1,7 @@
-"""Document Inspection and Extraction Module for Alethia.
+"""Document inspection and whole-document extraction module for Alethia.
 
-Provides specialized whole-document inspection and extraction routines for:
-1. Question extraction (e.g. "Which questions are present in this file?")
-2. Document summarization and overview (e.g. "What is this document about?", "Summarize this document")
-3. List extraction (e.g. "List all skills mentioned in the document", "What topics are covered?")
-
-Bypasses the localized top-k chunk bottleneck by retrieving all ordered chunks for
-the targeted document, preserving sequential context, original wording, and document order.
+Provides whole-document summarization, question extraction, and
+explicit document reference resolution.
 """
 
 from pathlib import Path
