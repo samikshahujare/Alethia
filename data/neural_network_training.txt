@@ -1,0 +1,8 @@
+Training deep neural networks requires propagating input signals through computational graphs during forward propagation and transmitting loss gradients backward using backpropagation. Backpropagation applies the mathematical chain rule of calculus to compute partial derivatives of objective loss functions with respect to every trainable network weight.
+
+Non-linear activation functions enable multi-layer networks to approximate arbitrary functions. The Rectified Linear Unit (ReLU) accelerates convergence by preventing gradient saturation for positive values. However, modern transformer architectures frequently substitute ReLU with the Gaussian Error Linear Unit (GELU). GELU weights inputs by their probability under a Gaussian cumulative distribution, which smooths gradient flows in models like BERT and GPT.
+
+Gradient stabilization is critical for deep architectures. Deep recurrent or highly stacked feedforward networks frequently suffer from vanishing gradients, where error signals shrink exponentially, or exploding gradients, where values diverge to infinity. To maintain numerical stability, gradient clipping with a maximum norm threshold of 1.0 restricts gradient magnitudes before weight updates.
+
+Layer normalization operates by computing mean and variance normalization statistics across all hidden feature channels for each individual token independently. Unlike batch normalization, layer normalization is completely independent of batch size, making it ideal for variable-length sequence processing.
+

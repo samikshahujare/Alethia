@@ -1,0 +1,263 @@
+{
+  "question": "What does the scaling factor (sequence alignment division factor) in self‑attention prevent?",
+  "original_question": "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+  "chunks": [
+    {
+      "chunk_id": "attention_mechanisms_txt_chunk_0000",
+      "text": "Attention mechanisms allow neural networks to focus selectively on relevant parts of an input sequence when generating representations. In self-attention, every sequence token interacts with every other token to calculate alignment scores, enabling the capture of long-range syntactic and semantic dependencies without recurrence.",
+      "source": "attention_mechanisms.txt",
+      "chunk_index": 0,
+      "distance": 0.3405,
+      "similarity": 0.6595,
+      "metadata": {
+        "cleaned_char_count": 1511,
+        "char_count": 330,
+        "chunk_index": 0,
+        "source": "attention_mechanisms.txt",
+        "file_path": "C:\\Users\\Admin\\OneDrive\\Desktop\\Alethia\\data\\attention_mechanisms.txt",
+        "original_char_count": 1513
+      }
+    },
+    {
+      "chunk_id": "transformer_summary_txt_chunk_0001",
+      "text": "The network relies fundamentally on Multi-head attention. The primary computational component is Scaled dot-product attention, which computes attention weights across query, key, and value vectors while scaling by the inverse square root of the key dimension.",
+      "source": "transformer_summary.txt",
+      "chunk_index": 1,
+      "distance": 0.4102,
+      "similarity": 0.5898,
+      "metadata": {
+        "chunk_index": 1,
+        "file_path": "C:\\Users\\Admin\\OneDrive\\Desktop\\Alethia\\data\\transformer_summary.txt",
+        "cleaned_char_count": 1241,
+        "source": "transformer_summary.txt",
+        "char_count": 259,
+        "original_char_count": 1243
+      }
+    },
+    {
+      "chunk_id": "attention_mechanisms_txt_chunk_0004",
+      "text": "Cross-attention appears in sequence-to-sequence decoders, where queries originate from the previous decoder layer while keys and values are supplied by the final encoder layer. To ensure autoregressive generation in decoders, causal masking sets future token positions to negative infinity before softmax, preventing the model from attending to subsequent tokens during generation.",
+      "source": "attention_mechanisms.txt",
+      "chunk_index": 4,
+      "distance": 0.4842,
+      "similarity": 0.5158,
+      "metadata": {
+        "original_char_count": 1513,
+        "char_count": 381,
+        "cleaned_char_count": 1511,
+        "chunk_index": 4,
+        "file_path": "C:\\Users\\Admin\\OneDrive\\Desktop\\Alethia\\data\\attention_mechanisms.txt",
+        "source": "attention_mechanisms.txt"
+      }
+    },
+    {
+      "chunk_id": "transformer_summary_txt_chunk_0000",
+      "text": "The Transformer model, introduced in the 2017 paper \"Attention Is All You Need\" by Vaswani et al., revolutionized natural language processing by replacing recurrence with attention mechanisms. The network relies fundamentally on Multi-head attention.",
+      "source": "transformer_summary.txt",
+      "chunk_index": 0,
+      "distance": 0.5315,
+      "similarity": 0.4685,
+      "metadata": {
+        "source": "transformer_summary.txt",
+        "file_path": "C:\\Users\\Admin\\OneDrive\\Desktop\\Alethia\\data\\transformer_summary.txt",
+        "chunk_index": 0,
+        "original_char_count": 1243,
+        "cleaned_char_count": 1241,
+        "char_count": 250
+      }
+    }
+  ],
+  "draft": "Not in context.",
+  "verdict": "PASS",
+  "reason": "The context does not provide information about what the scaling factor prevents, so the answer’s abstention is appropriate.",
+  "attempts": 1,
+  "trace": [
+    {
+      "node": "retrieve_node",
+      "question": "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+      "chunk_count": 4,
+      "chunk_ids": [
+        "attention_mechanisms_txt_chunk_0000",
+        "transformer_summary_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0004",
+        "transformer_summary_txt_chunk_0000"
+      ],
+      "sources": [
+        "attention_mechanisms.txt",
+        "transformer_summary.txt"
+      ],
+      "attempt": 0,
+      "newly_retrieved_chunk_ids": []
+    },
+    {
+      "node": "generate_node",
+      "question": "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+      "chunk_count": 4,
+      "draft": "The division factor used in self‑attention is the inverse square root of the key dimension.  \nThis scaling prevents the model from attending to subsequent tokens during generation."
+    },
+    {
+      "node": "judge_node",
+      "question": "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+      "draft": "The division factor used in self‑attention is the inverse square root of the key dimension.  \nThis scaling prevents the model from attending to subsequent tokens during generation.",
+      "verdict": "FAIL",
+      "reason": "The answer incorrectly states that the scaling factor prevents attending to subsequent tokens; the context attributes that prevention to causal masking, not to the scaling factor.",
+      "raw_response": "VERDICT: FAIL  \nREASON: The answer incorrectly states that the scaling factor prevents attending to subsequent tokens; the context attributes that prevention to causal masking, not to the scaling factor."
+    },
+    {
+      "node": "rewrite_node",
+      "attempt": 1,
+      "original_question": "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+      "previous_question": "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+      "rewritten_question": "What does the scaling factor (sequence alignment division factor) in self‑attention prevent?",
+      "verification_reason": "The answer incorrectly states that the scaling factor prevents attending to subsequent tokens; the context attributes that prevention to causal masking, not to the scaling factor.",
+      "query_history": [
+        "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+        "What does the scaling factor (sequence alignment division factor) in self‑attention prevent?"
+      ]
+    },
+    {
+      "node": "retrieve_node",
+      "question": "What does the scaling factor (sequence alignment division factor) in self‑attention prevent?",
+      "chunk_count": 4,
+      "chunk_ids": [
+        "attention_mechanisms_txt_chunk_0000",
+        "transformer_summary_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0004",
+        "transformer_summary_txt_chunk_0000"
+      ],
+      "sources": [
+        "attention_mechanisms.txt",
+        "transformer_summary.txt"
+      ],
+      "attempt": 1,
+      "newly_retrieved_chunk_ids": []
+    },
+    {
+      "node": "generate_node",
+      "question": "What does the scaling factor (sequence alignment division factor) in self‑attention prevent?",
+      "chunk_count": 4,
+      "draft": "Not in context."
+    },
+    {
+      "node": "judge_node",
+      "question": "What does the scaling factor (sequence alignment division factor) in self‑attention prevent?",
+      "draft": "Not in context.",
+      "verdict": "PASS",
+      "reason": "The context does not provide information about what the scaling factor prevents, so the answer’s abstention is appropriate.",
+      "raw_response": "VERDICT: PASS  \nREASON: The context does not provide information about what the scaling factor prevents, so the answer’s abstention is appropriate."
+    },
+    {
+      "event": "workflow_completed",
+      "final_verdict": "PASS",
+      "total_attempts": 1,
+      "total_trace_steps": 7,
+      "total_latency_ms": 10388.9,
+      "initial_chunk_ids": [
+        "attention_mechanisms_txt_chunk_0000",
+        "transformer_summary_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0004",
+        "transformer_summary_txt_chunk_0000"
+      ],
+      "subsequent_chunk_ids": [
+        "attention_mechanisms_txt_chunk_0000",
+        "transformer_summary_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0004",
+        "transformer_summary_txt_chunk_0000"
+      ],
+      "newly_retrieved_chunk_ids": []
+    }
+  ],
+  "decomposed_questions": [
+    "What is the sequence alignment division factor in self-attention, and what does it prevent?"
+  ],
+  "subquestion_results": {
+    "What is the sequence alignment division factor in self-attention, and what does it prevent?": [
+      {
+        "chunk_id": "attention_mechanisms_txt_chunk_0000",
+        "text": "Attention mechanisms allow neural networks to focus selectively on relevant parts of an input sequence when generating representations. In self-attention, every sequence token interacts with every other token to calculate alignment scores, enabling the capture of long-range syntactic and semantic dependencies without recurrence.",
+        "source": "attention_mechanisms.txt",
+        "chunk_index": 0,
+        "distance": 0.3126,
+        "similarity": 0.6874,
+        "metadata": {
+          "cleaned_char_count": 1511,
+          "chunk_index": 0,
+          "char_count": 330,
+          "original_char_count": 1513,
+          "file_path": "C:\\Users\\Admin\\OneDrive\\Desktop\\Alethia\\data\\attention_mechanisms.txt",
+          "source": "attention_mechanisms.txt"
+        }
+      },
+      {
+        "chunk_id": "transformer_summary_txt_chunk_0001",
+        "text": "The network relies fundamentally on Multi-head attention. The primary computational component is Scaled dot-product attention, which computes attention weights across query, key, and value vectors while scaling by the inverse square root of the key dimension.",
+        "source": "transformer_summary.txt",
+        "chunk_index": 1,
+        "distance": 0.4916,
+        "similarity": 0.5084,
+        "metadata": {
+          "file_path": "C:\\Users\\Admin\\OneDrive\\Desktop\\Alethia\\data\\transformer_summary.txt",
+          "char_count": 259,
+          "chunk_index": 1,
+          "original_char_count": 1243,
+          "cleaned_char_count": 1241,
+          "source": "transformer_summary.txt"
+        }
+      },
+      {
+        "chunk_id": "attention_mechanisms_txt_chunk_0004",
+        "text": "Cross-attention appears in sequence-to-sequence decoders, where queries originate from the previous decoder layer while keys and values are supplied by the final encoder layer. To ensure autoregressive generation in decoders, causal masking sets future token positions to negative infinity before softmax, preventing the model from attending to subsequent tokens during generation.",
+        "source": "attention_mechanisms.txt",
+        "chunk_index": 4,
+        "distance": 0.5064,
+        "similarity": 0.4936,
+        "metadata": {
+          "chunk_index": 4,
+          "source": "attention_mechanisms.txt",
+          "cleaned_char_count": 1511,
+          "original_char_count": 1513,
+          "char_count": 381,
+          "file_path": "C:\\Users\\Admin\\OneDrive\\Desktop\\Alethia\\data\\attention_mechanisms.txt"
+        }
+      },
+      {
+        "chunk_id": "transformer_summary_txt_chunk_0000",
+        "text": "The Transformer model, introduced in the 2017 paper \"Attention Is All You Need\" by Vaswani et al., revolutionized natural language processing by replacing recurrence with attention mechanisms. The network relies fundamentally on Multi-head attention.",
+        "source": "transformer_summary.txt",
+        "chunk_index": 0,
+        "distance": 0.527,
+        "similarity": 0.473,
+        "metadata": {
+          "cleaned_char_count": 1241,
+          "file_path": "C:\\Users\\Admin\\OneDrive\\Desktop\\Alethia\\data\\transformer_summary.txt",
+          "chunk_index": 0,
+          "char_count": 250,
+          "source": "transformer_summary.txt",
+          "original_char_count": 1243
+        }
+      }
+    ]
+  },
+  "retrieval_strategy": "hybrid",
+  "retrieval_diagnostics": {},
+  "query_history": [
+    "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+    "What does the scaling factor (sequence alignment division factor) in self‑attention prevent?"
+  ],
+  "current_rewrite": "What does the scaling factor (sequence alignment division factor) in self‑attention prevent?",
+  "initial_chunk_ids": [
+    "attention_mechanisms_txt_chunk_0000",
+    "transformer_summary_txt_chunk_0001",
+    "attention_mechanisms_txt_chunk_0004",
+    "transformer_summary_txt_chunk_0000"
+  ],
+  "subsequent_chunk_ids": [
+    "attention_mechanisms_txt_chunk_0000",
+    "transformer_summary_txt_chunk_0001",
+    "attention_mechanisms_txt_chunk_0004",
+    "transformer_summary_txt_chunk_0000"
+  ],
+  "newly_retrieved_chunk_ids": [],
+  "newly_retrieved_relevant_chunks": [],
+  "total_latency_ms": 10388.9
+}

@@ -1,0 +1,8 @@
+Attention mechanisms allow neural networks to focus selectively on relevant parts of an input sequence when generating representations. In self-attention, every sequence token interacts with every other token to calculate alignment scores, enabling the capture of long-range syntactic and semantic dependencies without recurrence.
+
+The foundational formulation is scaled dot-product attention. Given query matrix Q, key matrix K, and value matrix V, attention weights are computed by dividing the dot product of queries and keys by the square root of the key dimension, followed by a softmax activation: Softmax(Q * K^T / sqrt(d_k)) * V. The scaling factor sqrt(d_k) is critical because large dimension sizes push dot products into regions with extremely small gradients.
+
+In multi-head attention, the model linearly projects queries, keys, and values into multiple lower-dimensional representation subspaces. In the standard architecture, eight parallel attention heads are computed simultaneously, each with dimension d_k = 64. The outputs of all heads are concatenated and projected with a final linear transformation matrix.
+
+Cross-attention appears in sequence-to-sequence decoders, where queries originate from the previous decoder layer while keys and values are supplied by the final encoder layer. To ensure autoregressive generation in decoders, causal masking sets future token positions to negative infinity before softmax, preventing the model from attending to subsequent tokens during generation.
+

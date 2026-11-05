@@ -1,0 +1,8 @@
+Optimization algorithms adjust neural network parameters to minimize empirical loss functions over training steps. The baseline algorithm is Stochastic Gradient Descent (SGD), which updates weights along the steepest descent vector of mini-batch gradients. Incorporating classical momentum or Nesterov accelerated momentum dampens pathological oscillations along steep ravines.
+
+Adaptive learning rate methods dynamically adjust step sizes for individual parameters. RMSprop divides the gradient by a running root-mean-square average of recent squared gradients, preventing rapid decay in frequent parameter directions. The Adam optimizer combines the benefits of momentum and RMSprop by tracking exponentially decaying averages of past gradients and squared gradients.
+
+Standard Adam uses default hyperparameter configurations: beta_1 equals 0.9 for first-moment momentum, beta_2 equals 0.999 for second-moment variance tracking, and epsilon equals 1e-8 to prevent division by zero. However, standard Adam implements weight decay incorrectly when paired with L2 regularization.
+
+The AdamW optimizer resolves this flaw by decoupling weight decay from gradient updates, directly decaying weights proportionally at each step. In transformer training, AdamW is typically paired with a learning rate warmup schedule, which linearly increases the learning rate during the initial steps before transitioning to cosine annealing decay.
+

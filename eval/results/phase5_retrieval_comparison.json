@@ -1,0 +1,1561 @@
+{
+  "metadata": {
+    "title": "Alethia Phase 5 Retrieval Strategy Benchmark Comparison",
+    "phase": "Phase 5",
+    "corpus_documents": 7,
+    "corpus_chunks": 35,
+    "total_queries": 30,
+    "evaluated_answerable_queries": 20,
+    "unanswerable_queries_excluded": 10,
+    "ground_truth_methodology": "Explicit chunk ID match and verified multi-token keyphrase evidence"
+  },
+  "comparison_table": {
+    "dense_only": {
+      "hit_rate_at_1": 0.85,
+      "hit_rate_at_3": 1.0,
+      "hit_rate_at_5": 1.0,
+      "recall_at_1": 0.8,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 0.85,
+      "precision_at_3": 0.3666,
+      "precision_at_5": 0.22,
+      "mrr": 0.925
+    },
+    "bm25_only": {
+      "hit_rate_at_1": 0.9,
+      "hit_rate_at_3": 0.95,
+      "hit_rate_at_5": 0.95,
+      "recall_at_1": 0.85,
+      "recall_at_3": 0.95,
+      "recall_at_5": 0.95,
+      "precision_at_1": 0.9,
+      "precision_at_3": 0.35,
+      "precision_at_5": 0.21,
+      "mrr": 0.925
+    },
+    "hybrid": {
+      "hit_rate_at_1": 0.9,
+      "hit_rate_at_3": 1.0,
+      "hit_rate_at_5": 1.0,
+      "recall_at_1": 0.85,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 0.9,
+      "precision_at_3": 0.3666,
+      "precision_at_5": 0.22,
+      "mrr": 0.9417
+    }
+  },
+  "query_breakdowns": {
+    "dense": [
+      {
+        "id": "FAC-01",
+        "category": "factual",
+        "question": "How many encoder and decoder layers does the base Transformer architecture use?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0004",
+          "neural_network_training_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0000",
+          "optimizers_guide_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-02",
+        "category": "factual",
+        "question": "What BLEU score did the original Transformer achieve on English-to-German translation?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0004"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0004",
+          "nlp_concepts_txt_chunk_0004",
+          "optimizers_guide_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0000",
+          "nlp_concepts_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-03",
+        "category": "factual",
+        "question": "What is the mathematical formulation of scaled dot-product attention?",
+        "expected_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0001"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0003",
+          "attention_mechanisms_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0000"
+        ],
+        "hit_at_1": 0,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 0.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "FAC-04",
+        "category": "factual",
+        "question": "How many parallel attention heads are computed simultaneously in standard multi-head attention?",
+        "expected_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0000",
+          "attention_mechanisms_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-05",
+        "category": "factual",
+        "question": "What is the key difference in penalty formulation between L1 Lasso and L2 Ridge regularization?",
+        "expected_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "machine_learning_fundamentals_txt_chunk_0004"
+        ],
+        "retrieved_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0004",
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0000",
+          "neural_network_training_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.5,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.6667,
+        "precision_at_5": 0.4,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-06",
+        "category": "factual",
+        "question": "What standard ratio is recommended for partitioning training, validation, and test datasets?",
+        "expected_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005"
+        ],
+        "retrieved_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005",
+          "machine_learning_fundamentals_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0004",
+          "neural_network_training_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-07",
+        "category": "factual",
+        "question": "Why is GELU preferred over ReLU activation in models like BERT and GPT?",
+        "expected_chunk_ids": [
+          "neural_network_training_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "neural_network_training_txt_chunk_0002",
+          "neural_network_training_txt_chunk_0001",
+          "optimizers_guide_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0004",
+          "transformer_summary_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-08",
+        "category": "factual",
+        "question": "What maximum norm threshold is enforced during gradient clipping to prevent exploding gradients?",
+        "expected_chunk_ids": [
+          "neural_network_training_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "neural_network_training_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0000",
+          "attention_mechanisms_txt_chunk_0002",
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "neural_network_training_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-09",
+        "category": "factual",
+        "question": "What default hyperparameter values are used for beta_1 and beta_2 in the Adam optimizer?",
+        "expected_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0001",
+          "optimizers_guide_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0004",
+          "optimizers_guide_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-10",
+        "category": "factual",
+        "question": "How many officially recognized natural moons does Jupiter possess according to astronomical surveys?",
+        "expected_chunk_ids": [
+          "solar_system_txt_chunk_0001"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0002",
+          "solar_system_txt_chunk_0000",
+          "solar_system_txt_chunk_0004",
+          "solar_system_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-01",
+        "category": "ambiguous",
+        "question": "How many layers?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0002",
+          "neural_network_training_txt_chunk_0004",
+          "attention_mechanisms_txt_chunk_0003",
+          "neural_network_training_txt_chunk_0001",
+          "neural_network_training_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-02",
+        "category": "ambiguous",
+        "question": "What are the beta parameters?",
+        "expected_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "attention_mechanisms_txt_chunk_0002",
+          "attention_mechanisms_txt_chunk_0001",
+          "machine_learning_fundamentals_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-03",
+        "category": "ambiguous",
+        "question": "What is the formula?",
+        "expected_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0001"
+        ],
+        "retrieved_chunk_ids": [
+          "neural_network_training_txt_chunk_0000",
+          "attention_mechanisms_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0002",
+          "nlp_concepts_txt_chunk_0003"
+        ],
+        "hit_at_1": 0,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 0.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "AMB-04",
+        "category": "ambiguous",
+        "question": "Tell me about the moons.",
+        "expected_chunk_ids": [
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0002",
+          "solar_system_txt_chunk_0004",
+          "solar_system_txt_chunk_0000",
+          "solar_system_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.5,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.6667,
+        "precision_at_5": 0.4,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-05",
+        "category": "ambiguous",
+        "question": "What is the split ratio?",
+        "expected_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005"
+        ],
+        "retrieved_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005",
+          "attention_mechanisms_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0002",
+          "nlp_concepts_txt_chunk_0002",
+          "nlp_concepts_txt_chunk_0001"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-01",
+        "category": "challenge",
+        "question": "How does AdamW resolve the weight decay flaw present in standard Adam paired with L2 regularization?",
+        "expected_chunk_ids": [
+          "optimizers_guide_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0003",
+          "machine_learning_fundamentals_txt_chunk_0004",
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "neural_network_training_txt_chunk_0003"
+        ],
+        "hit_at_1": 0,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 0.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "CHL-02",
+        "category": "challenge",
+        "question": "What mathematical metric is defined as the exponentiated average negative log-likelihood per token?",
+        "expected_chunk_ids": [
+          "nlp_concepts_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "nlp_concepts_txt_chunk_0003",
+          "neural_network_training_txt_chunk_0002",
+          "attention_mechanisms_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0002",
+          "neural_network_training_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-03",
+        "category": "challenge",
+        "question": "In the original Transformer paper, what BLEU score was achieved on the WMT 2014 English-to-French benchmark?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0004"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0004",
+          "nlp_concepts_txt_chunk_0004",
+          "optimizers_guide_txt_chunk_0003",
+          "neural_network_training_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-04",
+        "category": "challenge",
+        "question": "Which specific subword tokenization algorithm treats input text as a raw stream of characters including whitespace to avoid pre-segmentation?",
+        "expected_chunk_ids": [
+          "nlp_concepts_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "nlp_concepts_txt_chunk_0002",
+          "nlp_concepts_txt_chunk_0000",
+          "nlp_concepts_txt_chunk_0001",
+          "nlp_concepts_txt_chunk_0004",
+          "attention_mechanisms_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-05",
+        "category": "challenge",
+        "question": "What is the name and height of the tallest planetary volcano documented in the solar system?",
+        "expected_chunk_ids": [
+          "solar_system_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0003",
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0002",
+          "solar_system_txt_chunk_0000",
+          "solar_system_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      }
+    ],
+    "bm25": [
+      {
+        "id": "FAC-01",
+        "category": "factual",
+        "question": "How many encoder and decoder layers does the base Transformer architecture use?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0002",
+          "attention_mechanisms_txt_chunk_0004",
+          "transformer_summary_txt_chunk_0003",
+          "nlp_concepts_txt_chunk_0004",
+          "attention_mechanisms_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-02",
+        "category": "factual",
+        "question": "What BLEU score did the original Transformer achieve on English-to-German translation?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0004"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0004",
+          "nlp_concepts_txt_chunk_0004",
+          "transformer_summary_txt_chunk_0000",
+          "neural_network_training_txt_chunk_0001",
+          "optimizers_guide_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-03",
+        "category": "factual",
+        "question": "What is the mathematical formulation of scaled dot-product attention?",
+        "expected_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0001"
+        ],
+        "retrieved_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0002",
+          "neural_network_training_txt_chunk_0000",
+          "transformer_summary_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-04",
+        "category": "factual",
+        "question": "How many parallel attention heads are computed simultaneously in standard multi-head attention?",
+        "expected_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0000",
+          "transformer_summary_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-05",
+        "category": "factual",
+        "question": "What is the key difference in penalty formulation between L1 Lasso and L2 Ridge regularization?",
+        "expected_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "machine_learning_fundamentals_txt_chunk_0004"
+        ],
+        "retrieved_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "machine_learning_fundamentals_txt_chunk_0004",
+          "attention_mechanisms_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0001",
+          "optimizers_guide_txt_chunk_0002"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.5,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.6667,
+        "precision_at_5": 0.4,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-06",
+        "category": "factual",
+        "question": "What standard ratio is recommended for partitioning training, validation, and test datasets?",
+        "expected_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005"
+        ],
+        "retrieved_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005",
+          "optimizers_guide_txt_chunk_0002",
+          "machine_learning_fundamentals_txt_chunk_0002",
+          "machine_learning_fundamentals_txt_chunk_0000",
+          "transformer_summary_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-07",
+        "category": "factual",
+        "question": "Why is GELU preferred over ReLU activation in models like BERT and GPT?",
+        "expected_chunk_ids": [
+          "neural_network_training_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "neural_network_training_txt_chunk_0002",
+          "neural_network_training_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0002",
+          "attention_mechanisms_txt_chunk_0001",
+          "optimizers_guide_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-08",
+        "category": "factual",
+        "question": "What maximum norm threshold is enforced during gradient clipping to prevent exploding gradients?",
+        "expected_chunk_ids": [
+          "neural_network_training_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "neural_network_training_txt_chunk_0003",
+          "neural_network_training_txt_chunk_0000",
+          "optimizers_guide_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0000",
+          "optimizers_guide_txt_chunk_0001"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-09",
+        "category": "factual",
+        "question": "What default hyperparameter values are used for beta_1 and beta_2 in the Adam optimizer?",
+        "expected_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0004",
+          "optimizers_guide_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0003",
+          "attention_mechanisms_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-10",
+        "category": "factual",
+        "question": "How many officially recognized natural moons does Jupiter possess according to astronomical surveys?",
+        "expected_chunk_ids": [
+          "solar_system_txt_chunk_0001"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0000",
+          "nlp_concepts_txt_chunk_0004",
+          "nlp_concepts_txt_chunk_0000",
+          "transformer_summary_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-01",
+        "category": "ambiguous",
+        "question": "How many layers?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0002",
+          "nlp_concepts_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-02",
+        "category": "ambiguous",
+        "question": "What are the beta parameters?",
+        "expected_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "machine_learning_fundamentals_txt_chunk_0004",
+          "attention_mechanisms_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-03",
+        "category": "ambiguous",
+        "question": "What is the formula?",
+        "expected_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0001"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0000",
+          "attention_mechanisms_txt_chunk_0002",
+          "solar_system_txt_chunk_0000"
+        ],
+        "hit_at_1": 0,
+        "hit_at_3": 0,
+        "hit_at_5": 0,
+        "recall_at_1": 0.0,
+        "recall_at_3": 0.0,
+        "recall_at_5": 0.0,
+        "precision_at_1": 0.0,
+        "precision_at_3": 0.0,
+        "precision_at_5": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      {
+        "id": "AMB-04",
+        "category": "ambiguous",
+        "question": "Tell me about the moons.",
+        "expected_chunk_ids": [
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0000",
+          "solar_system_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.5,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.6667,
+        "precision_at_5": 0.4,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-05",
+        "category": "ambiguous",
+        "question": "What is the split ratio?",
+        "expected_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005"
+        ],
+        "retrieved_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005",
+          "solar_system_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0000",
+          "attention_mechanisms_txt_chunk_0002"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-01",
+        "category": "challenge",
+        "question": "How does AdamW resolve the weight decay flaw present in standard Adam paired with L2 regularization?",
+        "expected_chunk_ids": [
+          "optimizers_guide_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0003",
+          "machine_learning_fundamentals_txt_chunk_0004",
+          "attention_mechanisms_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0001"
+        ],
+        "hit_at_1": 0,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 0.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "CHL-02",
+        "category": "challenge",
+        "question": "What mathematical metric is defined as the exponentiated average negative log-likelihood per token?",
+        "expected_chunk_ids": [
+          "nlp_concepts_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "nlp_concepts_txt_chunk_0003",
+          "nlp_concepts_txt_chunk_0002",
+          "attention_mechanisms_txt_chunk_0004",
+          "neural_network_training_txt_chunk_0000",
+          "solar_system_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-03",
+        "category": "challenge",
+        "question": "In the original Transformer paper, what BLEU score was achieved on the WMT 2014 English-to-French benchmark?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0004"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0004",
+          "nlp_concepts_txt_chunk_0004",
+          "transformer_summary_txt_chunk_0000",
+          "optimizers_guide_txt_chunk_0003",
+          "solar_system_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-04",
+        "category": "challenge",
+        "question": "Which specific subword tokenization algorithm treats input text as a raw stream of characters including whitespace to avoid pre-segmentation?",
+        "expected_chunk_ids": [
+          "nlp_concepts_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "nlp_concepts_txt_chunk_0002",
+          "nlp_concepts_txt_chunk_0000",
+          "optimizers_guide_txt_chunk_0000",
+          "nlp_concepts_txt_chunk_0003",
+          "machine_learning_fundamentals_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-05",
+        "category": "challenge",
+        "question": "What is the name and height of the tallest planetary volcano documented in the solar system?",
+        "expected_chunk_ids": [
+          "solar_system_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0003",
+          "solar_system_txt_chunk_0002",
+          "solar_system_txt_chunk_0000",
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      }
+    ],
+    "hybrid": [
+      {
+        "id": "FAC-01",
+        "category": "factual",
+        "question": "How many encoder and decoder layers does the base Transformer architecture use?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0004",
+          "transformer_summary_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0000",
+          "attention_mechanisms_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-02",
+        "category": "factual",
+        "question": "What BLEU score did the original Transformer achieve on English-to-German translation?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0004"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0004",
+          "nlp_concepts_txt_chunk_0004",
+          "transformer_summary_txt_chunk_0000",
+          "optimizers_guide_txt_chunk_0003",
+          "neural_network_training_txt_chunk_0001"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-03",
+        "category": "factual",
+        "question": "What is the mathematical formulation of scaled dot-product attention?",
+        "expected_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0001"
+        ],
+        "retrieved_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0000",
+          "attention_mechanisms_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-04",
+        "category": "factual",
+        "question": "How many parallel attention heads are computed simultaneously in standard multi-head attention?",
+        "expected_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0000",
+          "transformer_summary_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-05",
+        "category": "factual",
+        "question": "What is the key difference in penalty formulation between L1 Lasso and L2 Ridge regularization?",
+        "expected_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "machine_learning_fundamentals_txt_chunk_0004"
+        ],
+        "retrieved_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "machine_learning_fundamentals_txt_chunk_0004",
+          "optimizers_guide_txt_chunk_0002",
+          "attention_mechanisms_txt_chunk_0001",
+          "optimizers_guide_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.5,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.6667,
+        "precision_at_5": 0.4,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-06",
+        "category": "factual",
+        "question": "What standard ratio is recommended for partitioning training, validation, and test datasets?",
+        "expected_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005"
+        ],
+        "retrieved_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005",
+          "machine_learning_fundamentals_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0004",
+          "machine_learning_fundamentals_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-07",
+        "category": "factual",
+        "question": "Why is GELU preferred over ReLU activation in models like BERT and GPT?",
+        "expected_chunk_ids": [
+          "neural_network_training_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "neural_network_training_txt_chunk_0002",
+          "neural_network_training_txt_chunk_0001",
+          "optimizers_guide_txt_chunk_0003",
+          "nlp_concepts_txt_chunk_0004",
+          "attention_mechanisms_txt_chunk_0001"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-08",
+        "category": "factual",
+        "question": "What maximum norm threshold is enforced during gradient clipping to prevent exploding gradients?",
+        "expected_chunk_ids": [
+          "neural_network_training_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "neural_network_training_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0000",
+          "neural_network_training_txt_chunk_0000",
+          "attention_mechanisms_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-09",
+        "category": "factual",
+        "question": "What default hyperparameter values are used for beta_1 and beta_2 in the Adam optimizer?",
+        "expected_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0004",
+          "optimizers_guide_txt_chunk_0003",
+          "attention_mechanisms_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "FAC-10",
+        "category": "factual",
+        "question": "How many officially recognized natural moons does Jupiter possess according to astronomical surveys?",
+        "expected_chunk_ids": [
+          "solar_system_txt_chunk_0001"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0000",
+          "machine_learning_fundamentals_txt_chunk_0002",
+          "nlp_concepts_txt_chunk_0004",
+          "transformer_summary_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-01",
+        "category": "ambiguous",
+        "question": "How many layers?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0002",
+          "neural_network_training_txt_chunk_0004",
+          "nlp_concepts_txt_chunk_0004",
+          "attention_mechanisms_txt_chunk_0003",
+          "neural_network_training_txt_chunk_0001"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-02",
+        "category": "ambiguous",
+        "question": "What are the beta parameters?",
+        "expected_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "machine_learning_fundamentals_txt_chunk_0004",
+          "attention_mechanisms_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0001"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-03",
+        "category": "ambiguous",
+        "question": "What is the formula?",
+        "expected_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0001"
+        ],
+        "retrieved_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0001",
+          "transformer_summary_txt_chunk_0000",
+          "nlp_concepts_txt_chunk_0003"
+        ],
+        "hit_at_1": 0,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 0.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 0.3333
+      },
+      {
+        "id": "AMB-04",
+        "category": "ambiguous",
+        "question": "Tell me about the moons.",
+        "expected_chunk_ids": [
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0002",
+          "solar_system_txt_chunk_0000",
+          "solar_system_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0002"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.5,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.6667,
+        "precision_at_5": 0.4,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "AMB-05",
+        "category": "ambiguous",
+        "question": "What is the split ratio?",
+        "expected_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005"
+        ],
+        "retrieved_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0005",
+          "attention_mechanisms_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0001",
+          "solar_system_txt_chunk_0002",
+          "transformer_summary_txt_chunk_0000"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-01",
+        "category": "challenge",
+        "question": "How does AdamW resolve the weight decay flaw present in standard Adam paired with L2 regularization?",
+        "expected_chunk_ids": [
+          "optimizers_guide_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0003",
+          "machine_learning_fundamentals_txt_chunk_0004",
+          "machine_learning_fundamentals_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0001"
+        ],
+        "hit_at_1": 0,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 0.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 0.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "CHL-02",
+        "category": "challenge",
+        "question": "What mathematical metric is defined as the exponentiated average negative log-likelihood per token?",
+        "expected_chunk_ids": [
+          "nlp_concepts_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "nlp_concepts_txt_chunk_0003",
+          "nlp_concepts_txt_chunk_0002",
+          "neural_network_training_txt_chunk_0000",
+          "optimizers_guide_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0002"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-03",
+        "category": "challenge",
+        "question": "In the original Transformer paper, what BLEU score was achieved on the WMT 2014 English-to-French benchmark?",
+        "expected_chunk_ids": [
+          "transformer_summary_txt_chunk_0004"
+        ],
+        "retrieved_chunk_ids": [
+          "transformer_summary_txt_chunk_0004",
+          "nlp_concepts_txt_chunk_0004",
+          "optimizers_guide_txt_chunk_0003",
+          "transformer_summary_txt_chunk_0000",
+          "neural_network_training_txt_chunk_0001"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-04",
+        "category": "challenge",
+        "question": "Which specific subword tokenization algorithm treats input text as a raw stream of characters including whitespace to avoid pre-segmentation?",
+        "expected_chunk_ids": [
+          "nlp_concepts_txt_chunk_0002"
+        ],
+        "retrieved_chunk_ids": [
+          "nlp_concepts_txt_chunk_0002",
+          "nlp_concepts_txt_chunk_0000",
+          "optimizers_guide_txt_chunk_0000",
+          "nlp_concepts_txt_chunk_0001",
+          "nlp_concepts_txt_chunk_0003"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "CHL-05",
+        "category": "challenge",
+        "question": "What is the name and height of the tallest planetary volcano documented in the solar system?",
+        "expected_chunk_ids": [
+          "solar_system_txt_chunk_0003"
+        ],
+        "retrieved_chunk_ids": [
+          "solar_system_txt_chunk_0003",
+          "solar_system_txt_chunk_0002",
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0000",
+          "solar_system_txt_chunk_0004"
+        ],
+        "hit_at_1": 1,
+        "hit_at_3": 1,
+        "hit_at_5": 1,
+        "recall_at_1": 1.0,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "precision_at_1": 1.0,
+        "precision_at_3": 0.3333,
+        "precision_at_5": 0.2,
+        "reciprocal_rank": 1.0
+      }
+    ]
+  }
+}

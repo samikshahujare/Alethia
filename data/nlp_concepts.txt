@@ -1,0 +1,8 @@
+Natural language processing workflows convert unstructured text into numeric token representations through subword tokenization algorithms. Subword tokenization mitigates out-of-vocabulary problems by decomposing unknown words into frequent subword units. Byte-Pair Encoding (BPE) starts with an alphabet of individual characters and iteratively merges the most frequently co-occurring byte pairs into unified vocabulary entries.
+
+WordPiece and SentencePiece build upon subword tokenization principles. WordPiece scores potential token mergers using maximum likelihood estimation rather than raw frequency counts. SentencePiece treats input text as a raw stream of characters, including whitespace characters, allowing seamless language-independent tokenization without pre-segmentation steps.
+
+Language model evaluation employs perplexity as an intrinsic quality metric. Perplexity is mathematically defined as the exponentiated average negative log-likelihood per token, corresponding to the effective branching factor of the model's predictive distribution. Lower perplexity scores indicate higher certainty in predicting ground-truth text tokens.
+
+For generation tasks, downstream evaluation relies on BLEU and ROUGE metrics. The BLEU score computes modified n-gram precision against human reference translations and incorporates a brevity penalty to penalize excessively terse outputs. In contrast, ROUGE focuses on n-gram recall, measuring how much reference information is successfully captured in generated summaries.
+

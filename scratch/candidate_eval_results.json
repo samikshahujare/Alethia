@@ -1,0 +1,133 @@
+[
+  {
+    "query": "Why is Olympus Mons classified as a shield volcano, and what is its height in kilometers?",
+    "attempts": 1,
+    "verdict": "PASS",
+    "initial_chunks": [
+      "solar_system_txt_chunk_0003",
+      "solar_system_txt_chunk_0004",
+      "solar_system_txt_chunk_0001",
+      "solar_system_txt_chunk_0002"
+    ],
+    "subsequent_chunks": [
+      "solar_system_txt_chunk_0003",
+      "solar_system_txt_chunk_0001",
+      "solar_system_txt_chunk_0002",
+      "machine_learning_fundamentals_txt_chunk_0002"
+    ],
+    "new_chunks": [
+      "machine_learning_fundamentals_txt_chunk_0002"
+    ],
+    "draft": "Not in context.",
+    "reason": "The context does not provide an explanation for why Olympus Mons is classified as a shield volcano, so the correct response is to abstain.",
+    "trace_nodes": [
+      "retrieve_node",
+      "generate_node",
+      "judge_node",
+      "rewrite_node",
+      "retrieve_node",
+      "generate_node",
+      "judge_node",
+      "workflow_completed"
+    ]
+  },
+  {
+    "query": "How does Adam calculate its second moment vector and why does it fail with standard L2 weight decay?",
+    "attempts": 2,
+    "verdict": "PASS",
+    "initial_chunks": [
+      "optimizers_guide_txt_chunk_0002",
+      "optimizers_guide_txt_chunk_0003",
+      "optimizers_guide_txt_chunk_0001",
+      "machine_learning_fundamentals_txt_chunk_0004"
+    ],
+    "subsequent_chunks": [
+      "optimizers_guide_txt_chunk_0002",
+      "optimizers_guide_txt_chunk_0001",
+      "optimizers_guide_txt_chunk_0003",
+      "optimizers_guide_txt_chunk_0000"
+    ],
+    "new_chunks": [
+      "optimizers_guide_txt_chunk_0000"
+    ],
+    "draft": "**Adam second‑moment vector calculation**\n\nAdam keeps an exponentially decaying average of the squared gradients.  \nWith a gradient \\(g_t\\) at step \\(t\\) the se",
+    "reason": "The answer accurately states the second‑moment update formula and explains that standard Adam’s weight decay is applied within the gradient update, mixing with momentum and RMS scaling, which matches the context’s description of Adam’s incorrect weight‑decay handling and the AdamW fix.",
+    "trace_nodes": [
+      "retrieve_node",
+      "generate_node",
+      "judge_node",
+      "rewrite_node",
+      "retrieve_node",
+      "generate_node",
+      "judge_node",
+      "rewrite_node",
+      "retrieve_node",
+      "generate_node",
+      "judge_node",
+      "workflow_completed"
+    ]
+  },
+  {
+    "query": "Why does scaled dot-product attention divide by the square root of d_k, and what happens without it?",
+    "attempts": 0,
+    "verdict": "PASS",
+    "initial_chunks": [
+      "attention_mechanisms_txt_chunk_0001",
+      "attention_mechanisms_txt_chunk_0002",
+      "transformer_summary_txt_chunk_0001",
+      "attention_mechanisms_txt_chunk_0003"
+    ],
+    "subsequent_chunks": [],
+    "new_chunks": [],
+    "draft": "The division by \\(\\sqrt{d_k}\\) is used to scale the dot‑product of the query and key vectors.  \nWithout this scaling, the dot products become large when the key",
+    "reason": "The answer accurately reflects the context’s explanation that scaling by √d_k prevents large dot products that push the softmax into extreme regions with tiny gradients, thereby maintaining useful gradients for training.",
+    "trace_nodes": [
+      "retrieve_node",
+      "generate_node",
+      "judge_node",
+      "workflow_completed"
+    ]
+  },
+  {
+    "query": "What projection matrices are applied to queries, keys, and values before multi-head attention?",
+    "attempts": 0,
+    "verdict": "PASS",
+    "initial_chunks": [
+      "attention_mechanisms_txt_chunk_0003",
+      "attention_mechanisms_txt_chunk_0004",
+      "transformer_summary_txt_chunk_0001",
+      "attention_mechanisms_txt_chunk_0001"
+    ],
+    "subsequent_chunks": [],
+    "new_chunks": [],
+    "draft": "Linear projection matrices that map the query, key, and value matrices into lower‑dimensional subspaces before the multi‑head attention operation.",
+    "reason": "The answer accurately reflects the context stating that queries, keys, and values are linearly projected into lower‑dimensional subspaces before multi‑head attention.",
+    "trace_nodes": [
+      "retrieve_node",
+      "generate_node",
+      "judge_node",
+      "workflow_completed"
+    ]
+  },
+  {
+    "query": "How does causal masking in sequence-to-sequence decoders enforce autoregressive generation, and what value is masked?",
+    "attempts": 0,
+    "verdict": "PASS",
+    "initial_chunks": [
+      "attention_mechanisms_txt_chunk_0004",
+      "nlp_concepts_txt_chunk_0004",
+      "transformer_summary_txt_chunk_0003",
+      "attention_mechanisms_txt_chunk_0000"
+    ],
+    "subsequent_chunks": [],
+    "new_chunks": [],
+    "draft": "Causal masking sets the attention scores for future token positions to **negative infinity** before the softmax, so the decoder cannot attend to tokens that com",
+    "reason": "The answer accurately states that causal masking sets future token positions to negative infinity before softmax, preventing the decoder from attending to subsequent tokens, which matches the retrieved context.",
+    "trace_nodes": [
+      "retrieve_node",
+      "generate_node",
+      "judge_node",
+      "workflow_completed"
+    ]
+  }
+]

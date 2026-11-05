@@ -1,0 +1,1371 @@
+{
+  "metadata": {
+    "benchmark_name": "Alethia Self-Correction Benchmark",
+    "model": "openai/gpt-oss-20b",
+    "max_allowed_rewrites": 2,
+    "total_cases": 16
+  },
+  "summary": {
+    "total_evaluated": 16,
+    "total_answerable": 12,
+    "total_unanswerable": 4,
+    "cases_requiring_correction": 0,
+    "classification_counts": {
+      "initial_success": 12,
+      "successful_correction": 0,
+      "failed_correction": 0,
+      "abstention": 4,
+      "false_positive_pass": 0,
+      "false_negative_fail": 0
+    },
+    "first_attempt_success_rate": 100.0,
+    "successful_correction_rate_of_required": "N/A",
+    "successful_correction_rate_of_total": 0.0,
+    "failed_correction_rate": "N/A",
+    "correct_abstention_rate": 100.0,
+    "max_rewrite_compliance_rate": "N/A",
+    "average_rewrites_per_query": 0.0,
+    "average_latency_seconds": {
+      "overall_mean": 6.734,
+      "zero_rewrites_mean": 6.734,
+      "one_rewrite_mean": 0.0,
+      "two_rewrites_mean": 0.0,
+      "min_seconds": 1.536,
+      "max_seconds": 26.434
+    },
+    "total_out_of_scope": 2,
+    "total_corpus_boundary": 2,
+    "answer_accuracy": 100.0,
+    "out_of_scope_abstention_rate": 100.0,
+    "corpus_boundary_abstention_rate": 100.0,
+    "overall_abstention_rate": 25.0,
+    "overall_decision_correctness": 100.0,
+    "total_live_corrections": 0
+  },
+  "cases": [
+    {
+      "id": "SC-01",
+      "category": "cross_domain",
+      "question": "What is the penalty that creates sparse features?",
+      "final_question": "What is the penalty that creates sparse features?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "L1 regularization (Lasso regression) penalizes the absolute values of weights, driving non-essential coefficients to zero and producing sparse feature representations.",
+      "correction_reason": "Vague phrasing without model or method name; initial retrieval may pull general ML or L2 regularization; requires reformulation to L1 Lasso to isolate sparsity mechanism.",
+      "supporting_facts": [
+        "l1",
+        "regularization"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "L1 regularization (the L1 penalty).",
+      "attempts": 0,
+      "latency_seconds": 26.434,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "machine_learning_fundamentals_txt_chunk_0003",
+            "machine_learning_fundamentals_txt_chunk_0004",
+            "attention_mechanisms_txt_chunk_0002",
+            "neural_network_training_txt_chunk_0003"
+          ],
+          "retrieved_sources": [
+            "attention_mechanisms.txt",
+            "machine_learning_fundamentals.txt",
+            "neural_network_training.txt"
+          ],
+          "draft": "L1 regularization (the L1 penalty).",
+          "judge_verdict": "PASS",
+          "judge_reason": "The context explicitly states that L1 regularization introduces a penalty that drives coefficients to zero, producing sparse feature representations, matching the answer.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What is the penalty that creates sparse features?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "machine_learning_fundamentals_txt_chunk_0003",
+            "machine_learning_fundamentals_txt_chunk_0004",
+            "attention_mechanisms_txt_chunk_0002",
+            "neural_network_training_txt_chunk_0003"
+          ],
+          "sources": [
+            "attention_mechanisms.txt",
+            "machine_learning_fundamentals.txt",
+            "neural_network_training.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What is the penalty that creates sparse features?",
+          "chunk_count": 4,
+          "draft": "L1 regularization (the L1 penalty)."
+        },
+        {
+          "node": "judge_node",
+          "question": "What is the penalty that creates sparse features?",
+          "draft": "L1 regularization (the L1 penalty).",
+          "verdict": "PASS",
+          "reason": "The context explicitly states that L1 regularization introduces a penalty that drives coefficients to zero, producing sparse feature representations, matching the answer.",
+          "raw_response": "VERDICT: PASS  \nREASON: The context explicitly states that L1 regularization introduces a penalty that drives coefficients to zero, producing sparse feature representations, matching the answer."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "l1",
+        "regularization"
+      ],
+      "relevant_chunk_ids": [
+        "machine_learning_fundamentals_txt_chunk_0003"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-02",
+      "category": "lexical_trap",
+      "question": "How is the running root-mean-square average used in parameter step sizing?",
+      "final_question": "How is the running root-mean-square average used in parameter step sizing?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "RMSprop divides the gradient by a running root-mean-square average of recent squared gradients to prevent rapid decay in frequent parameter directions.",
+      "correction_reason": "Query omits the optimizer name; initial retrieval may pull general SGD or Adam; rewriter must identify RMSprop adaptive learning rate dynamics.",
+      "supporting_facts": [
+        "root",
+        "gradient"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "It divides the gradient by the running root‑mean‑square average of recent squared gradients, scaling the step size for each parameter.",
+      "attempts": 0,
+      "latency_seconds": 1.589,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "optimizers_guide_txt_chunk_0001",
+            "attention_mechanisms_txt_chunk_0002",
+            "optimizers_guide_txt_chunk_0002",
+            "neural_network_training_txt_chunk_0004"
+          ],
+          "retrieved_sources": [
+            "attention_mechanisms.txt",
+            "neural_network_training.txt",
+            "optimizers_guide.txt"
+          ],
+          "draft": "It divides the gradient by the running root‑mean‑square average of recent squared gradients, scaling the step size for each parameter.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The answer accurately reflects the statement in the context that RMSprop divides the gradient by a running root‑mean‑square average of recent squared gradients to adjust step sizes.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "How is the running root-mean-square average used in parameter step sizing?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "optimizers_guide_txt_chunk_0001",
+            "attention_mechanisms_txt_chunk_0002",
+            "optimizers_guide_txt_chunk_0002",
+            "neural_network_training_txt_chunk_0004"
+          ],
+          "sources": [
+            "attention_mechanisms.txt",
+            "neural_network_training.txt",
+            "optimizers_guide.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "How is the running root-mean-square average used in parameter step sizing?",
+          "chunk_count": 4,
+          "draft": "It divides the gradient by the running root‑mean‑square average of recent squared gradients, scaling the step size for each parameter."
+        },
+        {
+          "node": "judge_node",
+          "question": "How is the running root-mean-square average used in parameter step sizing?",
+          "draft": "It divides the gradient by the running root‑mean‑square average of recent squared gradients, scaling the step size for each parameter.",
+          "verdict": "PASS",
+          "reason": "The answer accurately reflects the statement in the context that RMSprop divides the gradient by a running root‑mean‑square average of recent squared gradients to adjust step sizes.",
+          "raw_response": "VERDICT: PASS  \nREASON: The answer accurately reflects the statement in the context that RMSprop divides the gradient by a running root‑mean‑square average of recent squared gradients to adjust step sizes."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "root",
+        "gradient"
+      ],
+      "relevant_chunk_ids": [
+        "optimizers_guide_txt_chunk_0002"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-03",
+      "category": "ambiguous",
+      "question": "Why do we divide by the square root during sequence alignment?",
+      "final_question": "Why do we divide by the square root during sequence alignment?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "In scaled dot-product attention, dividing by sqrt(d_k) scales the dot products to prevent large key dimensions from pushing values into regions with extremely small gradients.",
+      "correction_reason": "Colloquial terminology ('sequence alignment' vs 'scaled dot-product attention'); reformulation must specify attention scaling factor sqrt(d_k).",
+      "supporting_facts": [
+        "d_k",
+        "gradient"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "Because the scaling factor √(d_k) normalizes the dot‑product scores. As the dimensionality d_k grows, raw dot products become large, pushing the softmax into a region with very small gradients. Dividing by √(d_k) keeps the scores in a range that yields stable, non‑vanishing gradients during training.",
+      "attempts": 0,
+      "latency_seconds": 2.178,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "transformer_summary_txt_chunk_0003",
+            "attention_mechanisms_txt_chunk_0002",
+            "attention_mechanisms_txt_chunk_0000",
+            "optimizers_guide_txt_chunk_0002"
+          ],
+          "retrieved_sources": [
+            "attention_mechanisms.txt",
+            "optimizers_guide.txt",
+            "transformer_summary.txt"
+          ],
+          "draft": "Because the scaling factor √(d_k) normalizes the dot‑product scores. As the dimensionality d_k grows, raw dot products become large, pushing the softmax into a region with very small gradients. Dividing by √(d_k) keeps the scores in a range that yields stable, non‑vanishing gradients during training.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The answer correctly cites the scaling factor √(d_k) as critical for preventing large dot products that push softmax into regions with very small gradients, which is directly supported by Document Chunk 2.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "Why do we divide by the square root during sequence alignment?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "transformer_summary_txt_chunk_0003",
+            "attention_mechanisms_txt_chunk_0002",
+            "attention_mechanisms_txt_chunk_0000",
+            "optimizers_guide_txt_chunk_0002"
+          ],
+          "sources": [
+            "attention_mechanisms.txt",
+            "optimizers_guide.txt",
+            "transformer_summary.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "Why do we divide by the square root during sequence alignment?",
+          "chunk_count": 4,
+          "draft": "Because the scaling factor √(d_k) normalizes the dot‑product scores. As the dimensionality d_k grows, raw dot products become large, pushing the softmax into a region with very small gradients. Dividing by √(d_k) keeps the scores in a range that yields stable, non‑vanishing gradients during training."
+        },
+        {
+          "node": "judge_node",
+          "question": "Why do we divide by the square root during sequence alignment?",
+          "draft": "Because the scaling factor √(d_k) normalizes the dot‑product scores. As the dimensionality d_k grows, raw dot products become large, pushing the softmax into a region with very small gradients. Dividing by √(d_k) keeps the scores in a range that yields stable, non‑vanishing gradients during training.",
+          "verdict": "PASS",
+          "reason": "The answer correctly cites the scaling factor √(d_k) as critical for preventing large dot products that push softmax into regions with very small gradients, which is directly supported by Document Chunk 2.",
+          "raw_response": "VERDICT: PASS  \nREASON: The answer correctly cites the scaling factor √(d_k) as critical for preventing large dot products that push softmax into regions with very small gradients, which is directly supported by Document Chunk 2."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "d_k",
+        "gradient"
+      ],
+      "relevant_chunk_ids": [
+        "attention_mechanisms_txt_chunk_0001"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-04",
+      "category": "insufficient_context",
+      "question": "What causes gradient saturation and how do we smooth its flow?",
+      "final_question": "What causes gradient saturation and how do we smooth its flow?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "ReLU causes saturation for non-positive values, while GELU weights inputs by their probability under a Gaussian cumulative distribution, smoothing gradient flows in models like BERT and GPT.",
+      "correction_reason": "Conflates two activation functions; initial retrieval often fetches general training or ReLU; rewriter must add GELU and Gaussian cumulative smoothing.",
+      "supporting_facts": [
+        "gelu",
+        "gaussian"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "Gradient saturation is caused by the vanishing‑ or exploding‑gradient problem that deep recurrent or highly stacked feed‑forward networks frequently suffer from.  To smooth its flow, two techniques are mentioned in the context:  \n\n1. **Gradient clipping** – restricting gradient magnitudes to a maximum norm threshold of 1.0 before weight updates.  \n2. **GELU activation** – weighting inputs by their probability under a Gaussian cumulative distribution, which smooths gradient flows in models such as BERT and GPT.",
+      "attempts": 0,
+      "latency_seconds": 1.536,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "neural_network_training_txt_chunk_0003",
+            "optimizers_guide_txt_chunk_0000",
+            "neural_network_training_txt_chunk_0002",
+            "neural_network_training_txt_chunk_0000"
+          ],
+          "retrieved_sources": [
+            "neural_network_training.txt",
+            "optimizers_guide.txt"
+          ],
+          "draft": "Gradient saturation is caused by the vanishing‑ or exploding‑gradient problem that deep recurrent or highly stacked feed‑forward networks frequently suffer from.  To smooth its flow, two techniques are mentioned in the context:  \n\n1. **Gradient clipping** – restricting gradient magnitudes to a maximum norm threshold of 1.0 before weight updates.  \n2. **GELU activation** – weighting inputs by their probability under a Gaussian cumulative distribution, which smooths gradient flows in models such as BERT and GPT.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The answer accurately cites vanishing/exploding gradients as the cause of saturation and correctly lists gradient clipping and GELU activation as smoothing techniques, all directly supported by the provided context.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What causes gradient saturation and how do we smooth its flow?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "neural_network_training_txt_chunk_0003",
+            "optimizers_guide_txt_chunk_0000",
+            "neural_network_training_txt_chunk_0002",
+            "neural_network_training_txt_chunk_0000"
+          ],
+          "sources": [
+            "neural_network_training.txt",
+            "optimizers_guide.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What causes gradient saturation and how do we smooth its flow?",
+          "chunk_count": 4,
+          "draft": "Gradient saturation is caused by the vanishing‑ or exploding‑gradient problem that deep recurrent or highly stacked feed‑forward networks frequently suffer from.  To smooth its flow, two techniques are mentioned in the context:  \n\n1. **Gradient clipping** – restricting gradient magnitudes to a maximum norm threshold of 1.0 before weight updates.  \n2. **GELU activation** – weighting inputs by their probability under a Gaussian cumulative distribution, which smooths gradient flows in models such as BERT and GPT."
+        },
+        {
+          "node": "judge_node",
+          "question": "What causes gradient saturation and how do we smooth its flow?",
+          "draft": "Gradient saturation is caused by the vanishing‑ or exploding‑gradient problem that deep recurrent or highly stacked feed‑forward networks frequently suffer from.  To smooth its flow, two techniques are mentioned in the context:  \n\n1. **Gradient clipping** – restricting gradient magnitudes to a maximum norm threshold of 1.0 before weight updates.  \n2. **GELU activation** – weighting inputs by their probability under a Gaussian cumulative distribution, which smooths gradient flows in models such as BERT and GPT.",
+          "verdict": "PASS",
+          "reason": "The answer accurately cites vanishing/exploding gradients as the cause of saturation and correctly lists gradient clipping and GELU activation as smoothing techniques, all directly supported by the provided context.",
+          "raw_response": "VERDICT: PASS  \nREASON: The answer accurately cites vanishing/exploding gradients as the cause of saturation and correctly lists gradient clipping and GELU activation as smoothing techniques, all directly supported by the provided context."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "gelu",
+        "gaussian"
+      ],
+      "relevant_chunk_ids": [
+        "neural_network_training_txt_chunk_0002"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-05",
+      "category": "lexical_trap",
+      "question": "How are future tokens hidden during autoregressive generation?",
+      "final_question": "How are future tokens hidden during autoregressive generation?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "Causal masking in sequence-to-sequence decoders sets future token positions to negative infinity before softmax, preventing the model from attending to subsequent tokens.",
+      "correction_reason": "Casual language ('hidden during generation'); rewriter must target causal masking and negative infinity in decoders.",
+      "supporting_facts": [
+        "causal mask",
+        "negative infinity"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "Causal masking sets future token positions to negative infinity before softmax, preventing the model from attending to subsequent tokens during generation.",
+      "attempts": 0,
+      "latency_seconds": 1.723,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "attention_mechanisms_txt_chunk_0004",
+            "attention_mechanisms_txt_chunk_0000",
+            "transformer_summary_txt_chunk_0003",
+            "neural_network_training_txt_chunk_0002"
+          ],
+          "retrieved_sources": [
+            "attention_mechanisms.txt",
+            "neural_network_training.txt",
+            "transformer_summary.txt"
+          ],
+          "draft": "Causal masking sets future token positions to negative infinity before softmax, preventing the model from attending to subsequent tokens during generation.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The answer directly quotes the statement from Document Chunk 1, which explains that causal masking sets future token positions to negative infinity before softmax to hide future tokens during autoregressive generation.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "How are future tokens hidden during autoregressive generation?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "attention_mechanisms_txt_chunk_0004",
+            "attention_mechanisms_txt_chunk_0000",
+            "transformer_summary_txt_chunk_0003",
+            "neural_network_training_txt_chunk_0002"
+          ],
+          "sources": [
+            "attention_mechanisms.txt",
+            "neural_network_training.txt",
+            "transformer_summary.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "How are future tokens hidden during autoregressive generation?",
+          "chunk_count": 4,
+          "draft": "Causal masking sets future token positions to negative infinity before softmax, preventing the model from attending to subsequent tokens during generation."
+        },
+        {
+          "node": "judge_node",
+          "question": "How are future tokens hidden during autoregressive generation?",
+          "draft": "Causal masking sets future token positions to negative infinity before softmax, preventing the model from attending to subsequent tokens during generation.",
+          "verdict": "PASS",
+          "reason": "The answer directly quotes the statement from Document Chunk 1, which explains that causal masking sets future token positions to negative infinity before softmax to hide future tokens during autoregressive generation.",
+          "raw_response": "VERDICT: PASS  \nREASON: The answer directly quotes the statement from Document Chunk 1, which explains that causal masking sets future token positions to negative infinity before softmax to hide future tokens during autoregressive generation."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "causal mask",
+        "negative infinity"
+      ],
+      "relevant_chunk_ids": [
+        "attention_mechanisms_txt_chunk_0003"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-06",
+      "category": "ambiguous",
+      "question": "What prevents weights from oscillating wildly along steep valleys?",
+      "final_question": "What prevents weights from oscillating wildly along steep valleys?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "Classical momentum or Nesterov accelerated momentum dampens pathological oscillations along steep ravines in stochastic gradient descent.",
+      "correction_reason": "Metaphorical phrasing ('steep valleys'); rewriter must translate to momentum dampening oscillations along ravines.",
+      "supporting_facts": [
+        "momentum",
+        "nesterov"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "Classical momentum or Nesterov accelerated momentum.",
+      "attempts": 0,
+      "latency_seconds": 1.857,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "optimizers_guide_txt_chunk_0000",
+            "neural_network_training_txt_chunk_0003",
+            "optimizers_guide_txt_chunk_0003",
+            "neural_network_training_txt_chunk_0002"
+          ],
+          "retrieved_sources": [
+            "neural_network_training.txt",
+            "optimizers_guide.txt"
+          ],
+          "draft": "Classical momentum or Nesterov accelerated momentum.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The context explicitly states that classical momentum or Nesterov accelerated momentum dampens oscillations along steep ravines, directly supporting the answer.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What prevents weights from oscillating wildly along steep valleys?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "optimizers_guide_txt_chunk_0000",
+            "neural_network_training_txt_chunk_0003",
+            "optimizers_guide_txt_chunk_0003",
+            "neural_network_training_txt_chunk_0002"
+          ],
+          "sources": [
+            "neural_network_training.txt",
+            "optimizers_guide.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What prevents weights from oscillating wildly along steep valleys?",
+          "chunk_count": 4,
+          "draft": "Classical momentum or Nesterov accelerated momentum."
+        },
+        {
+          "node": "judge_node",
+          "question": "What prevents weights from oscillating wildly along steep valleys?",
+          "draft": "Classical momentum or Nesterov accelerated momentum.",
+          "verdict": "PASS",
+          "reason": "The context explicitly states that classical momentum or Nesterov accelerated momentum dampens oscillations along steep ravines, directly supporting the answer.",
+          "raw_response": "VERDICT: PASS  \nREASON: The context explicitly states that classical momentum or Nesterov accelerated momentum dampens oscillations along steep ravines, directly supporting the answer."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "momentum",
+        "nesterov"
+      ],
+      "relevant_chunk_ids": [
+        "optimizers_guide_txt_chunk_0001"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-07",
+      "category": "insufficient_context",
+      "question": "Which subword algorithm avoids pre-segmentation on spaces?",
+      "final_question": "Which subword algorithm avoids pre-segmentation on spaces?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "SentencePiece treats input text as a raw stream of characters including whitespace characters, allowing seamless language-independent tokenization without pre-segmentation.",
+      "correction_reason": "Query omits tokenizer name; initial retrieval may pull BPE or WordPiece; rewriter must focus on SentencePiece raw character stream without pre-segmentation.",
+      "supporting_facts": [
+        "sentencepiece"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "SentencePiece.",
+      "attempts": 0,
+      "latency_seconds": 1.803,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "nlp_concepts_txt_chunk_0002",
+            "nlp_concepts_txt_chunk_0000",
+            "optimizers_guide_txt_chunk_0000",
+            "nlp_concepts_txt_chunk_0004"
+          ],
+          "retrieved_sources": [
+            "nlp_concepts.txt",
+            "optimizers_guide.txt"
+          ],
+          "draft": "SentencePiece.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The context explicitly states that SentencePiece treats input text as a raw stream of characters, including whitespace, and does not require pre-segmentation, supporting the answer.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "Which subword algorithm avoids pre-segmentation on spaces?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "nlp_concepts_txt_chunk_0002",
+            "nlp_concepts_txt_chunk_0000",
+            "optimizers_guide_txt_chunk_0000",
+            "nlp_concepts_txt_chunk_0004"
+          ],
+          "sources": [
+            "nlp_concepts.txt",
+            "optimizers_guide.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "Which subword algorithm avoids pre-segmentation on spaces?",
+          "chunk_count": 4,
+          "draft": "SentencePiece."
+        },
+        {
+          "node": "judge_node",
+          "question": "Which subword algorithm avoids pre-segmentation on spaces?",
+          "draft": "SentencePiece.",
+          "verdict": "PASS",
+          "reason": "The context explicitly states that SentencePiece treats input text as a raw stream of characters, including whitespace, and does not require pre-segmentation, supporting the answer.",
+          "raw_response": "VERDICT: PASS  \nREASON: The context explicitly states that SentencePiece treats input text as a raw stream of characters, including whitespace, and does not require pre-segmentation, supporting the answer."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "sentencepiece"
+      ],
+      "relevant_chunk_ids": [
+        "nlp_concepts_txt_chunk_0002"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-08",
+      "category": "insufficient_context",
+      "question": "How do we penalize overly brief translated text?",
+      "final_question": "How do we penalize overly brief translated text?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "The BLEU score incorporates a brevity penalty to penalize excessively terse translation outputs when comparing against human reference translations.",
+      "correction_reason": "Describes metric function without naming BLEU; rewrite must supply BLEU brevity penalty.",
+      "supporting_facts": [
+        "bleu",
+        "brevity penalty"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "BLEU incorporates a **brevity penalty** to penalize overly brief translations.",
+      "attempts": 0,
+      "latency_seconds": 2.529,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "nlp_concepts_txt_chunk_0004",
+            "transformer_summary_txt_chunk_0004",
+            "nlp_concepts_txt_chunk_0002",
+            "nlp_concepts_txt_chunk_0003"
+          ],
+          "retrieved_sources": [
+            "nlp_concepts.txt",
+            "transformer_summary.txt"
+          ],
+          "draft": "BLEU incorporates a **brevity penalty** to penalize overly brief translations.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The context explicitly states that BLEU incorporates a brevity penalty to penalize excessively terse outputs, matching the generated answer.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "How do we penalize overly brief translated text?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "nlp_concepts_txt_chunk_0004",
+            "transformer_summary_txt_chunk_0004",
+            "nlp_concepts_txt_chunk_0002",
+            "nlp_concepts_txt_chunk_0003"
+          ],
+          "sources": [
+            "nlp_concepts.txt",
+            "transformer_summary.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "How do we penalize overly brief translated text?",
+          "chunk_count": 4,
+          "draft": "BLEU incorporates a **brevity penalty** to penalize overly brief translations."
+        },
+        {
+          "node": "judge_node",
+          "question": "How do we penalize overly brief translated text?",
+          "draft": "BLEU incorporates a **brevity penalty** to penalize overly brief translations.",
+          "verdict": "PASS",
+          "reason": "The context explicitly states that BLEU incorporates a brevity penalty to penalize excessively terse outputs, matching the generated answer.",
+          "raw_response": "VERDICT: PASS  \nREASON: The context explicitly states that BLEU incorporates a brevity penalty to penalize excessively terse outputs, matching the generated answer."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "bleu",
+        "brevity penalty"
+      ],
+      "relevant_chunk_ids": [
+        "nlp_concepts_txt_chunk_0004"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-09",
+      "category": "ambiguous",
+      "question": "What metric is independent of batch size for normalizing tokens?",
+      "final_question": "What metric is independent of batch size for normalizing tokens?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "Layer normalization computes mean and variance statistics across hidden feature channels independently of batch size.",
+      "correction_reason": "Asks for normalization technique without naming LayerNorm; rewrite targets layer normalization hidden channels.",
+      "supporting_facts": [
+        "layer normalization"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "Layer normalization.",
+      "attempts": 0,
+      "latency_seconds": 8.126,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "neural_network_training_txt_chunk_0004",
+            "nlp_concepts_txt_chunk_0000",
+            "nlp_concepts_txt_chunk_0002",
+            "attention_mechanisms_txt_chunk_0001"
+          ],
+          "retrieved_sources": [
+            "attention_mechanisms.txt",
+            "neural_network_training.txt",
+            "nlp_concepts.txt"
+          ],
+          "draft": "Layer normalization.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The context explicitly states that layer normalization is independent of batch size, supporting the answer.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What metric is independent of batch size for normalizing tokens?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "neural_network_training_txt_chunk_0004",
+            "nlp_concepts_txt_chunk_0000",
+            "nlp_concepts_txt_chunk_0002",
+            "attention_mechanisms_txt_chunk_0001"
+          ],
+          "sources": [
+            "attention_mechanisms.txt",
+            "neural_network_training.txt",
+            "nlp_concepts.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What metric is independent of batch size for normalizing tokens?",
+          "chunk_count": 4,
+          "draft": "Layer normalization."
+        },
+        {
+          "node": "judge_node",
+          "question": "What metric is independent of batch size for normalizing tokens?",
+          "draft": "Layer normalization.",
+          "verdict": "PASS",
+          "reason": "The context explicitly states that layer normalization is independent of batch size, supporting the answer.",
+          "raw_response": "VERDICT: PASS  \nREASON: The context explicitly states that layer normalization is independent of batch size, supporting the answer."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "layer normalization"
+      ],
+      "relevant_chunk_ids": [
+        "neural_network_training_txt_chunk_0004"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-10",
+      "category": "ambiguous",
+      "question": "What are the rings composed of?",
+      "final_question": "What are the rings composed of?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "Saturn's planetary rings consist predominantly of billions of small water ice particles ranging in size from micrometers to meters, along with rocky silicates and tholin organic compounds.",
+      "correction_reason": "Heavily ambiguous entity (omits Saturn); rewriter must resolve entity reference to Saturn's ring system.",
+      "supporting_facts": [
+        "water",
+        "ice",
+        "silicate"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "The rings are composed mainly of billions of small water‑ice particles, with trace amounts of rocky silicates and tholin organic compounds.",
+      "attempts": 0,
+      "latency_seconds": 8.308,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "solar_system_txt_chunk_0004",
+            "transformer_summary_txt_chunk_0002",
+            "solar_system_txt_chunk_0002",
+            "solar_system_txt_chunk_0001"
+          ],
+          "retrieved_sources": [
+            "solar_system.txt",
+            "transformer_summary.txt"
+          ],
+          "draft": "The rings are composed mainly of billions of small water‑ice particles, with trace amounts of rocky silicates and tholin organic compounds.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The answer accurately reflects the composition described in the retrieved context.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What are the rings composed of?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "solar_system_txt_chunk_0004",
+            "transformer_summary_txt_chunk_0002",
+            "solar_system_txt_chunk_0002",
+            "solar_system_txt_chunk_0001"
+          ],
+          "sources": [
+            "solar_system.txt",
+            "transformer_summary.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What are the rings composed of?",
+          "chunk_count": 4,
+          "draft": "The rings are composed mainly of billions of small water‑ice particles, with trace amounts of rocky silicates and tholin organic compounds."
+        },
+        {
+          "node": "judge_node",
+          "question": "What are the rings composed of?",
+          "draft": "The rings are composed mainly of billions of small water‑ice particles, with trace amounts of rocky silicates and tholin organic compounds.",
+          "verdict": "PASS",
+          "reason": "The answer accurately reflects the composition described in the retrieved context.",
+          "raw_response": "VERDICT: PASS  \nREASON: The answer accurately reflects the composition described in the retrieved context."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "water",
+        "ice",
+        "silicate"
+      ],
+      "relevant_chunk_ids": [
+        "solar_system_txt_chunk_0003"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-11",
+      "category": "ambiguous",
+      "question": "What is the height of the largest mountain?",
+      "final_question": "What is the height of the largest mountain?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "Olympus Mons on Mars stands approximately 21.9 kilometers high, making it the tallest planetary mountain documented in the solar system.",
+      "correction_reason": "Ambiguous entity and planetary body; rewriter must target Olympus Mons on Mars at 21.9 km.",
+      "supporting_facts": [
+        "olympus",
+        "mons",
+        "21.9"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "The largest mountain, Olympus Mons on Mars, stands approximately **21.9 kilometers** high.",
+      "attempts": 0,
+      "latency_seconds": 7.792,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "solar_system_txt_chunk_0003",
+            "solar_system_txt_chunk_0002",
+            "solar_system_txt_chunk_0001",
+            "optimizers_guide_txt_chunk_0000"
+          ],
+          "retrieved_sources": [
+            "optimizers_guide.txt",
+            "solar_system.txt"
+          ],
+          "draft": "The largest mountain, Olympus Mons on Mars, stands approximately **21.9 kilometers** high.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The context states that Olympus Mons is approximately 21.9 kilometers high, which matches the answer.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What is the height of the largest mountain?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "solar_system_txt_chunk_0003",
+            "solar_system_txt_chunk_0002",
+            "solar_system_txt_chunk_0001",
+            "optimizers_guide_txt_chunk_0000"
+          ],
+          "sources": [
+            "optimizers_guide.txt",
+            "solar_system.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What is the height of the largest mountain?",
+          "chunk_count": 4,
+          "draft": "The largest mountain, Olympus Mons on Mars, stands approximately **21.9 kilometers** high."
+        },
+        {
+          "node": "judge_node",
+          "question": "What is the height of the largest mountain?",
+          "draft": "The largest mountain, Olympus Mons on Mars, stands approximately **21.9 kilometers** high.",
+          "verdict": "PASS",
+          "reason": "The context states that Olympus Mons is approximately 21.9 kilometers high, which matches the answer.",
+          "raw_response": "VERDICT: PASS  \nREASON: The context states that Olympus Mons is approximately 21.9 kilometers high, which matches the answer."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "olympus",
+        "mons",
+        "21.9"
+      ],
+      "relevant_chunk_ids": [
+        "solar_system_txt_chunk_0002"
+      ],
+      "actual_outcome": "initial_success"
+    },
+    {
+      "id": "SC-12",
+      "category": "unanswerable",
+      "question": "What is the capital city of France?",
+      "final_question": "What is the capital city of France?",
+      "expected_behavior": "abstain",
+      "expected_answer": "Not in context.",
+      "correction_reason": "Completely out-of-domain general geography query; must immediately return 'Not in context.' on cycle 1 without wasteful rewrites.",
+      "supporting_facts": [],
+      "final_verdict": "PASS",
+      "final_draft": "Not in context.",
+      "attempts": 0,
+      "latency_seconds": 6.689,
+      "classification": "abstention",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "solar_system_txt_chunk_0001",
+            "transformer_summary_txt_chunk_0002",
+            "solar_system_txt_chunk_0003",
+            "solar_system_txt_chunk_0002"
+          ],
+          "retrieved_sources": [
+            "solar_system.txt",
+            "transformer_summary.txt"
+          ],
+          "draft": "Not in context.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The context contains no information about France or its capital, so the answer \"Not in context.\" is appropriate.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What is the capital city of France?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "solar_system_txt_chunk_0001",
+            "transformer_summary_txt_chunk_0002",
+            "solar_system_txt_chunk_0003",
+            "solar_system_txt_chunk_0002"
+          ],
+          "sources": [
+            "solar_system.txt",
+            "transformer_summary.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What is the capital city of France?",
+          "chunk_count": 4,
+          "draft": "Not in context."
+        },
+        {
+          "node": "judge_node",
+          "question": "What is the capital city of France?",
+          "draft": "Not in context.",
+          "verdict": "PASS",
+          "reason": "The context contains no information about France or its capital, so the answer \"Not in context.\" is appropriate.",
+          "raw_response": "VERDICT: PASS  \nREASON: The context contains no information about France or its capital, so the answer \"Not in context.\" is appropriate."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "unanswerable",
+      "expected_decision": "abstain",
+      "mandatory_facts": [],
+      "relevant_chunk_ids": [],
+      "actual_outcome": "abstention"
+    },
+    {
+      "id": "SC-13",
+      "category": "unanswerable",
+      "question": "What quantum gate sequence is used in the attention mechanism?",
+      "final_question": "What quantum gate sequence is used in the attention mechanism?",
+      "expected_behavior": "abstain",
+      "expected_answer": "Not in context.",
+      "correction_reason": "Domain collision with neural attention; quantum computing is completely absent from the corpus, requiring clean abstention.",
+      "supporting_facts": [],
+      "final_verdict": "PASS",
+      "final_draft": "Not in context.",
+      "attempts": 0,
+      "latency_seconds": 8.511,
+      "classification": "abstention",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "attention_mechanisms_txt_chunk_0000",
+            "attention_mechanisms_txt_chunk_0004",
+            "transformer_summary_txt_chunk_0000",
+            "transformer_summary_txt_chunk_0001"
+          ],
+          "retrieved_sources": [
+            "attention_mechanisms.txt",
+            "transformer_summary.txt"
+          ],
+          "draft": "Not in context.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The context contains no information about quantum gate sequences, so answering \"Not in context.\" is correct.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What quantum gate sequence is used in the attention mechanism?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "attention_mechanisms_txt_chunk_0000",
+            "attention_mechanisms_txt_chunk_0004",
+            "transformer_summary_txt_chunk_0000",
+            "transformer_summary_txt_chunk_0001"
+          ],
+          "sources": [
+            "attention_mechanisms.txt",
+            "transformer_summary.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What quantum gate sequence is used in the attention mechanism?",
+          "chunk_count": 4,
+          "draft": "Not in context."
+        },
+        {
+          "node": "judge_node",
+          "question": "What quantum gate sequence is used in the attention mechanism?",
+          "draft": "Not in context.",
+          "verdict": "PASS",
+          "reason": "The context contains no information about quantum gate sequences, so answering \"Not in context.\" is correct.",
+          "raw_response": "VERDICT: PASS  \nREASON: The context contains no information about quantum gate sequences, so answering \"Not in context.\" is correct."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "unanswerable",
+      "expected_decision": "abstain",
+      "mandatory_facts": [],
+      "relevant_chunk_ids": [],
+      "actual_outcome": "abstention"
+    },
+    {
+      "id": "SC-14",
+      "category": "corpus_boundary",
+      "question": "What was the exact numerical learning rate value used for the base Transformer on WMT 2014 English-to-German?",
+      "final_question": "What was the exact numerical learning rate value used for the base Transformer on WMT 2014 English-to-German?",
+      "expected_behavior": "abstain",
+      "expected_answer": "Not in context.",
+      "correction_reason": "Corpus boundary test: text mentions Adam optimizer with warmup and 28.4 BLEU, but completely omits the exact numerical learning rate; pipeline must cleanly abstain rather than hallucinating.",
+      "supporting_facts": [],
+      "final_verdict": "PASS",
+      "final_draft": "Not in context.",
+      "attempts": 0,
+      "latency_seconds": 10.311,
+      "classification": "abstention",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "transformer_summary_txt_chunk_0004",
+            "optimizers_guide_txt_chunk_0003",
+            "neural_network_training_txt_chunk_0001",
+            "transformer_summary_txt_chunk_0000"
+          ],
+          "retrieved_sources": [
+            "neural_network_training.txt",
+            "optimizers_guide.txt",
+            "transformer_summary.txt"
+          ],
+          "draft": "Not in context.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The retrieved context does not contain any specific numerical learning rate value for the base Transformer on WMT 2014 English-to-German.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What was the exact numerical learning rate value used for the base Transformer on WMT 2014 English-to-German?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "transformer_summary_txt_chunk_0004",
+            "optimizers_guide_txt_chunk_0003",
+            "neural_network_training_txt_chunk_0001",
+            "transformer_summary_txt_chunk_0000"
+          ],
+          "sources": [
+            "neural_network_training.txt",
+            "optimizers_guide.txt",
+            "transformer_summary.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What was the exact numerical learning rate value used for the base Transformer on WMT 2014 English-to-German?",
+          "chunk_count": 4,
+          "draft": "Not in context."
+        },
+        {
+          "node": "judge_node",
+          "question": "What was the exact numerical learning rate value used for the base Transformer on WMT 2014 English-to-German?",
+          "draft": "Not in context.",
+          "verdict": "PASS",
+          "reason": "The retrieved context does not contain any specific numerical learning rate value for the base Transformer on WMT 2014 English-to-German.",
+          "raw_response": "VERDICT: PASS  \nREASON: The retrieved context does not contain any specific numerical learning rate value for the base Transformer on WMT 2014 English-to-German."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "unanswerable",
+      "expected_decision": "abstain",
+      "mandatory_facts": [],
+      "relevant_chunk_ids": [],
+      "actual_outcome": "abstention"
+    },
+    {
+      "id": "SC-15",
+      "category": "corpus_boundary",
+      "question": "What was the batch size used when training GPT with GELU activation?",
+      "final_question": "What was the batch size used when training GPT with GELU activation?",
+      "expected_behavior": "abstain",
+      "expected_answer": "Not in context.",
+      "correction_reason": "Corpus boundary test: document mentions GELU in GPT and BERT, but omits the training batch size; tests bounded termination without hallucinating numerical values.",
+      "supporting_facts": [],
+      "final_verdict": "PASS",
+      "final_draft": "Not in context.",
+      "attempts": 0,
+      "latency_seconds": 9.978,
+      "classification": "abstention",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "neural_network_training_txt_chunk_0002",
+            "neural_network_training_txt_chunk_0004",
+            "optimizers_guide_txt_chunk_0002",
+            "optimizers_guide_txt_chunk_0003"
+          ],
+          "retrieved_sources": [
+            "neural_network_training.txt",
+            "optimizers_guide.txt"
+          ],
+          "draft": "Not in context.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The context does not mention any batch size for GPT training, so “Not in context.” is correct.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "What was the batch size used when training GPT with GELU activation?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "neural_network_training_txt_chunk_0002",
+            "neural_network_training_txt_chunk_0004",
+            "optimizers_guide_txt_chunk_0002",
+            "optimizers_guide_txt_chunk_0003"
+          ],
+          "sources": [
+            "neural_network_training.txt",
+            "optimizers_guide.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "What was the batch size used when training GPT with GELU activation?",
+          "chunk_count": 4,
+          "draft": "Not in context."
+        },
+        {
+          "node": "judge_node",
+          "question": "What was the batch size used when training GPT with GELU activation?",
+          "draft": "Not in context.",
+          "verdict": "PASS",
+          "reason": "The context does not mention any batch size for GPT training, so “Not in context.” is correct.",
+          "raw_response": "VERDICT: PASS  \nREASON: The context does not mention any batch size for GPT training, so “Not in context.” is correct."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "unanswerable",
+      "expected_decision": "abstain",
+      "mandatory_facts": [],
+      "relevant_chunk_ids": [],
+      "actual_outcome": "abstention"
+    },
+    {
+      "id": "SC-16",
+      "category": "control",
+      "question": "How many encoder and decoder layers does the base Transformer architecture use?",
+      "final_question": "How many encoder and decoder layers does the base Transformer architecture use?",
+      "expected_behavior": "initial_success",
+      "expected_answer": "Six encoder layers and six decoder layers in the base Transformer architecture.",
+      "correction_reason": "Control query: unambiguous, directly answerable question with prominent evidence; tests clean first-attempt success (zero rewrites).",
+      "supporting_facts": [
+        "six encoder",
+        "six decoder"
+      ],
+      "final_verdict": "PASS",
+      "final_draft": "Six encoder layers and six decoder layers.",
+      "attempts": 0,
+      "latency_seconds": 8.378,
+      "classification": "initial_success",
+      "trace_verification_details": {},
+      "attempt_history": {
+        "attempt_0": {
+          "retrieved_chunk_ids": [
+            "transformer_summary_txt_chunk_0002",
+            "transformer_summary_txt_chunk_0004",
+            "neural_network_training_txt_chunk_0001",
+            "transformer_summary_txt_chunk_0000"
+          ],
+          "retrieved_sources": [
+            "neural_network_training.txt",
+            "transformer_summary.txt"
+          ],
+          "draft": "Six encoder layers and six decoder layers.",
+          "judge_verdict": "PASS",
+          "judge_reason": "The retrieved context explicitly states that the base architecture contains six encoder layers and six decoder layers.",
+          "rewritten_query": null
+        }
+      },
+      "raw_trace": [
+        {
+          "node": "retrieve_node",
+          "question": "How many encoder and decoder layers does the base Transformer architecture use?",
+          "chunk_count": 4,
+          "chunk_ids": [
+            "transformer_summary_txt_chunk_0002",
+            "transformer_summary_txt_chunk_0004",
+            "neural_network_training_txt_chunk_0001",
+            "transformer_summary_txt_chunk_0000"
+          ],
+          "sources": [
+            "neural_network_training.txt",
+            "transformer_summary.txt"
+          ]
+        },
+        {
+          "node": "generate_node",
+          "question": "How many encoder and decoder layers does the base Transformer architecture use?",
+          "chunk_count": 4,
+          "draft": "Six encoder layers and six decoder layers."
+        },
+        {
+          "node": "judge_node",
+          "question": "How many encoder and decoder layers does the base Transformer architecture use?",
+          "draft": "Six encoder layers and six decoder layers.",
+          "verdict": "PASS",
+          "reason": "The retrieved context explicitly states that the base architecture contains six encoder layers and six decoder layers.",
+          "raw_response": "VERDICT: PASS  \nREASON: The retrieved context explicitly states that the base architecture contains six encoder layers and six decoder layers."
+        },
+        {
+          "event": "workflow_completed",
+          "final_verdict": "PASS",
+          "total_attempts": 0,
+          "total_trace_steps": 3
+        }
+      ],
+      "answerability": "answerable",
+      "expected_decision": "answer",
+      "mandatory_facts": [
+        "six encoder",
+        "six decoder"
+      ],
+      "relevant_chunk_ids": [
+        "transformer_summary_txt_chunk_0002"
+      ],
+      "actual_outcome": "initial_success"
+    }
+  ]
+}

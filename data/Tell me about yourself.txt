@@ -1,0 +1,111 @@
+Tell me about yourself:
+
+Good morning sir/ma'am.
+My name is Samiksha Hujare, and I am currently pursuing my B.Tech in Computer Science and Engineering with a specialization in Data Science from D. Y. Patil College of Engineering and Technology, Kolhapur, with a CGPA of 8.4.
+Throughout my academics, I have developed strong analytical and quality verification skills. I have worked extensively with Microsoft Excel, SQL, Power BI, and Python for data validation, reporting, and dashboard development.
+One project that closely relates to this role was a Campus Placement Analytics project where I coordinated a team of 15 members, performed data cleaning, validation, and de-duplication using Excel, and ensured 100% record accuracy before preparing reports for faculty.
+I also developed Power BI dashboards and KPI reports that helped monitor data quality and reporting accuracy.
+Apart from academics, I secured National Rank 2 in the DashBattle Analytics Competition, where I analyzed over 50,000 records, which strengthened my attention to detail and quality checking abilities.
+I consider my biggest strengths to be accuracy, responsibility, quick learning, and maintaining high-quality work under deadlines.
+That is why I believe the Quality Check Manager role matches both my technical skills and my interest in maintaining data accuracy and process quality.
+Thank you.
+
+What is SOP?
+A documented step-by-step process that everyone follows to ensure work is consistent and accurate.
+
+Walk me through your resume:
+
+I am currently pursuing my B.Tech in Computer Science and Engineering (Data Science). My coursework has helped me build a foundation in databases, statistics, and communication. I have developed practical skills in Microsoft Excel, Google Workspace, SQL, Power BI, and data validation. I led a campus placement dashboard project where I managed placement data, ensured data accuracy, created SOPs, and developed dashboards. I also built a business operations dashboard using Python, REST APIs, Excel, and Power BI to transform and report data. Additionally, I secured National Rank 2 in the DashBattle Analytics Competition. Through these experiences, I've developed attention to detail, teamwork, and reporting skills that I believe are valuable for a KYC Specialist or Process Associate role.
+
+Why should we hire you?
+As a fresher, I may not have industry experience, but I have built a strong foundation through my academic projects. I have worked with Microsoft Excel, documentation, data validation, and reporting, which are important for this role. I am a quick learner, pay attention to detail, and enjoy working in a structured environment. If given the opportunity, I will work sincerely, learn from my team, and contribute to the company's goals.
+
+What are your strengths:
+One of my biggest strengths is attention to detail. During my projects, I carefully checked and organized data to ensure accuracy before creating reports. I also believe I have good teamwork skills because I worked as the team lead on a project involving multiple members. Additionally, I manage my time well and always try to complete tasks before deadlines while maintaining quality.
+
+What is your biggest weakness:
+Earlier, I used to spend too much time trying to make every task perfect, which sometimes slowed me down. Over time, I've learned to balance accuracy with efficiency by planning my work better and prioritizing important tasks.
+
+Why do you want to join our company:
+I want to join your company because it offers a good learning environment for fresh graduates. The role matches my skills in data validation, documentation, and reporting. I believe working here will help me develop professionally while allowing me to contribute through accuracy, teamwork, and continuous learning.
+
+Why do you want this role:
+For KYC Specialist-
+"I enjoy working with structured data and maintaining accuracy. I find document verification, compliance, and record management interesting because they require attention to detail and responsibility. I believe my projects have prepared me with similar transferable skills."
+
+For Process Associate-
+"I enjoy organizing information, preparing reports, and improving processes. My projects involved documentation, Excel, reporting, and teamwork, which closely relate to the responsibilities of a Process Associate. I believe this role will allow me to build on those skills while learning new business processes."
+
+Why should we choose you over other candidates:
+Every candidate has unique strengths. What I can offer is a strong willingness to learn, attention to detail, and a disciplined approach to work. Through my projects, I have gained experience in data validation, documentation, Excel, and reporting. If selected, I will work hard, adapt quickly, and contribute positively to the team.
+
+
+Tell me about a challenge you faced:
+While leading the placement dashboard project, our team received data in different formats. I created standard data-entry guidelines, divided responsibilities clearly, and reviewed the final records before reporting. This helped us maintain accurate data and complete the project on time.
+
+What is KYC:
+KYC stands for Know Your Customer. It is the process of verifying a customer's identity using valid documents before providing financial or business services. The main purpose of KYC is to prevent fraud, money laundering, identity theft, and other illegal activities while ensuring compliance with regulatory requirements.
+
+What does a KYC Specialist do:
+A KYC Specialist verifies customer information and documents, ensures records are accurate and complete, follows company compliance procedures, maintains confidentiality, and escalates any suspicious or incomplete cases for further review.
+
+What is a Process Associate?
+A Process Associate is responsible for ensuring that daily business operations run smoothly by processing information accurately, following company procedures, maintaining records, and completing tasks on time.
+
+What is Data Processing?
+Data processing means collecting, organizing, cleaning, and preparing information so it can be used accurately for reporting or business operations.
+
+Why is Documentation important?
+Documentation ensures that information is recorded accurately, making it easier to track work, maintain consistency, and support future decision-making.
+
+Why do you want this role?
+I enjoy working with structured data, documentation, and reporting. My academic projects helped me develop these skills, and I believe this role will allow me to contribute while learning more about business operations.
+
+What if your manager gives multiple tasks at once?
+I would understand the priority of each task, clarify deadlines if necessary, and complete them in the most efficient order while keeping my manager informed.
+
+
+what is detail oriented:
+Being detail-oriented means paying close attention to small details while performing a task. During my placement dashboard project, I carefully checked placement records, corrected inconsistencies in Excel, and verified the data before creating reports. This helped maintain accurate records.
+
+What is Analytical Thinking?
+Analytical thinking means understanding a problem, analyzing the available information, and finding the most suitable solution. During my projects, I analyzed datasets, identified inconsistencies, and corrected them before generating reports.
+
+What all can you do in Excel?
+I use Excel for data cleaning, sorting, filtering, conditional formatting, removing duplicates, creating formulas, generating reports, and organizing datasets. I have also used Excel in my projects to clean and validate data before creating Power BI dashboards.
+
+What is google workspace?
+Google Workspace is a collection of cloud-based productivity tools such as Google Docs, Google Sheets, Google Drive, Gmail, and Google Meet. These tools help teams collaborate, share documents, and manage work efficiently.
+
+What exactly is Data Validation?
+Data Validation is the process of checking whether data follows the required format and rules before it is used. For example, ensuring a phone number contains the correct number of digits or mandatory fields are not left empty.
+
+What is Data Verification?
+Data Verification means checking whether the entered information matches the original source or supporting documents.
+
+Your specialization is Data Science. Why are you applying for a KYC Specialist or Process Associate role?
+My Data Science background helped me develop strong analytical, data validation, reporting, and documentation skills. These skills are highly relevant to KYC and Process Associate roles because both require accuracy, structured thinking, and handling data responsibly. I'm also interested in building a strong foundation in business operations while continuing to learn and grow.
+
+Applied stats:
+Applied Statistics helps analyze data, identify trends, and support decision-making. Even in operations roles, basic statistical thinking is useful when interpreting reports or monitoring performance.
+
+VLookUP:
+VLOOKUP is used to search for a value in the first column of a table and return related information from another column. For example, if I have a Student ID, I can use VLOOKUP to retrieve the student's department or placement company.
+
+Campus Placement Operations Dashboard (Power BI + Excel)
+
+"The Campus Placement Operations Dashboard is a Power BI and Excel-based analytics project developed to analyze and visualize our college's placement performance. The main objective was to help students and college management understand placement trends, company participation, salary packages, and department-wise placement statistics.
+This was a team project involving 15 members, and I worked as the team leader. I divided the team into five groups responsible for data collection, data cleaning, data analysis, dashboard development, and report generation. Along with leading the team, I was personally involved in the data cleaning process and ensured smooth collaboration throughout the project.
+The dataset contained approximately 55,000 placement records with columns such as Student Name, Department, Company Name, Placement Status, Package Offered, Placement Year, and Contact Number. During data cleaning, I helped remove duplicate records, handled missing values, standardized inconsistent text formatting, and validated the data to ensure accuracy and consistency.
+Initially, we attempted to clean the data using Power Query in Power BI, but we faced issues during the data preparation process. To resolve this, we cleaned and validated the entire dataset in Excel before importing the cleaned data into Power BI. This improved the reliability of our dashboard.
+The dashboard included KPI cards such as Highest Package, Average Package, and Total Students Placed. We also created bar charts, line charts, pie charts, and slicers to analyze department-wise placements, yearly placement trends, top recruiting companies, and package distributions.
+The final dashboard enabled students and college management to quickly understand placement performance, identify recruitment trends, compare departments, and make informed decisions based on accurate placement data.
+
+Seconf project::
+
+My project is called the Real-Time API Data Integration & Analytics Dashboard. The main objective of this project was to automate the collection of economic data from the World Bank API and visualize it through an interactive Power BI dashboard instead of manually downloading datasets.
+I used the publicly available World Bank REST API to collect data for multiple countries, including India, the United States, China, Germany, and Brazil. The project retrieves key economic indicators such as GDP, GDP per Capita, Inflation Rate, GDP Growth, Population, CO₂ Emissions, and Life Expectancy.
+For data extraction, I used Python with the Requests library to fetch the API responses. Since the API returns data in JSON format, I used the Pandas library to clean and transform the data. This included flattening the nested JSON structure, handling missing values, standardizing the data, merging multiple datasets, and converting them into a structured master CSV file suitable for analysis.
+The cleaned CSV file was then imported into Power BI, where I created an interactive dashboard. The dashboard includes KPI cards for Total GDP, Average GDP per Capita, Average Inflation Rate, and Average GDP Growth. I also created line charts to analyze GDP trends over time, bar charts for country-wise GDP comparisons, and slicers that allow users to filter the dashboard by country and year.
+The biggest challenge in this project was converting raw API responses into a clean tabular format because the API data was nested and spread across multiple responses. I solved this by using Python and Pandas to automate the transformation process before loading the data into Power BI.
+The final dashboard provides a clear overview of global economic performance, enabling users to compare countries, analyze economic trends over time, and make data-driven decisions through interactive visualizations.

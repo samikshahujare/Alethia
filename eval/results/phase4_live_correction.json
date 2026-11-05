@@ -1,0 +1,171 @@
+{
+  "metadata": {
+    "title": "Alethia Phase 4 Live Self-Correction & LangGraph Orchestration Evaluation",
+    "phase": "Phase 4 Audit",
+    "timestamp": "2026-11-04T16:50:00Z",
+    "model": "openai/gpt-oss-20b",
+    "provider": "Groq",
+    "vector_store": "ChromaDB (35 chunks, 7 documents)",
+    "retrieval_engine": "Hybrid (all-MiniLM-L6-v2 Dense + Pure-Python BM25 + RRF k=60)",
+    "judge_rubric": "Hardened 5-Rule LLM Fact-Checker",
+    "max_allowed_rewrites": 2
+  },
+  "audit_summary": {
+    "overall_classification": "no_genuine_evidence_driven_correction_demonstrated",
+    "explanation": "Mechanical orchestration (LangGraph cyclic routing, normalized duplicate prevention, targeted query rewriting, and evidence-aware state tracking) functions with 100% fidelity. However, under strict verification criteria, no live run demonstrated genuine evidence-driven self-correction. In Case 1 (Adam second-moment), the single newly retrieved chunk (optimizers_guide_txt_chunk_0000) was irrelevant to the missing second-moment formula, and the final answer relied entirely on chunks already retrieved on Attempt 0. In Case 2 (Olympus Mons) and Case 3 (Attention Scaling Factor), post-rewrite retrieval returned zero relevant new chunks, and the pipeline calibrated to valid Rule 2 abstentions ('Not in context.')."
+  },
+  "live_case_studies": [
+    {
+      "case_id": "LIVE-P4-01",
+      "category": "multi_attempt_cyclic_reformulation",
+      "query": "How does Adam calculate its second moment vector and why does it fail with standard L2 weight decay?",
+      "execution_counts": {
+        "rewrite_node_executions": 2,
+        "generate_node_executions": 3,
+        "judge_node_executions": 3,
+        "retrieve_node_executions": 3,
+        "total_attempts": 2,
+        "final_verdict": "PASS"
+      },
+      "retrieval_evidence_analysis": {
+        "initial_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0001",
+          "machine_learning_fundamentals_txt_chunk_0004"
+        ],
+        "post_rewrite_chunk_ids": [
+          "optimizers_guide_txt_chunk_0002",
+          "optimizers_guide_txt_chunk_0001",
+          "optimizers_guide_txt_chunk_0003",
+          "optimizers_guide_txt_chunk_0000"
+        ],
+        "genuinely_new_chunk_ids": [
+          "optimizers_guide_txt_chunk_0000"
+        ],
+        "new_chunk_content": "Optimization algorithms adjust neural network parameters to minimize empirical loss functions over training steps. The baseline algorithm is Stochastic Gradient Descent (SGD), which updates weights along the steepest descent vector of mini-batch gradients. Incorporating classical momentum or Nesterov accelerated momentum dampens pathological oscillations along steep ravines.",
+        "supports_missing_fact": false,
+        "relevance_verdict": "IRRELEVANT_TO_MISSING_FACT",
+        "supporting_excerpts_present_in_attempt_0": [
+          "Standard Adam uses default hyperparameter configurations: beta_1 equals 0.9 for first-moment momentum, beta_2 equals 0.999 for second-moment variance tracking, and epsilon equals 1e-8 to prevent division by zero. However, standard Adam implements weight decay incorrectly when paired with L2 regularization. (optimizers_guide_txt_chunk_0002)",
+          "The AdamW optimizer resolves this flaw by decoupling weight decay from gradient updates, directly decaying weights proportionally at each step. (optimizers_guide_txt_chunk_0003)"
+        ]
+      },
+      "condition_checklist": {
+        "condition_1_initial_failure_or_unsupported_claim": true,
+        "condition_2_initial_judge_fail": true,
+        "condition_3_rewrite_node_executes": true,
+        "condition_4_retrieval_executes_after_rewrite": true,
+        "condition_5_at_least_one_new_relevant_chunk_retrieved": false,
+        "condition_6_final_answer_uses_new_evidence": false,
+        "condition_7_final_judge_pass": true
+      },
+      "case_classification": "unsuccessful_evidence_driven_correction",
+      "trace_step_sequence": [
+        "retrieve_node",
+        "generate_node",
+        "judge_node",
+        "rewrite_node",
+        "retrieve_node",
+        "generate_node",
+        "judge_node",
+        "rewrite_node",
+        "retrieve_node",
+        "generate_node",
+        "judge_node",
+        "workflow_completed"
+      ]
+    },
+    {
+      "case_id": "LIVE-P4-02",
+      "category": "targeted_rewrite_and_calibrated_abstention",
+      "query": "Why is Olympus Mons classified as a shield volcano, and what is its height in kilometers?",
+      "execution_counts": {
+        "rewrite_node_executions": 1,
+        "generate_node_executions": 2,
+        "judge_node_executions": 2,
+        "retrieve_node_executions": 2,
+        "total_attempts": 1,
+        "final_verdict": "PASS"
+      },
+      "retrieval_evidence_analysis": {
+        "initial_chunk_ids": [
+          "solar_system_txt_chunk_0003",
+          "solar_system_txt_chunk_0004",
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0002"
+        ],
+        "post_rewrite_chunk_ids": [
+          "solar_system_txt_chunk_0003",
+          "solar_system_txt_chunk_0001",
+          "solar_system_txt_chunk_0002",
+          "machine_learning_fundamentals_txt_chunk_0002"
+        ],
+        "genuinely_new_chunk_ids": [
+          "machine_learning_fundamentals_txt_chunk_0002"
+        ],
+        "supports_missing_fact": false,
+        "relevance_verdict": "IRRELEVANT_NEW_CHUNK",
+        "final_draft": "Not in context.",
+        "judge_rule": "Rule 2 (CORRECT ABSTENTION ON MISSING CONTEXT)"
+      },
+      "condition_checklist": {
+        "condition_1_initial_failure_or_unsupported_claim": true,
+        "condition_2_initial_judge_fail": true,
+        "condition_3_rewrite_node_executes": true,
+        "condition_4_retrieval_executes_after_rewrite": true,
+        "condition_5_at_least_one_new_relevant_chunk_retrieved": false,
+        "condition_6_final_answer_uses_new_evidence": false,
+        "condition_7_final_judge_pass": true
+      },
+      "case_classification": "calibrated_abstention_not_evidence_correction"
+    },
+    {
+      "case_id": "LIVE-P4-03",
+      "category": "conflation_detection_and_reformulation",
+      "query": "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+      "execution_counts": {
+        "rewrite_node_executions": 1,
+        "generate_node_executions": 2,
+        "judge_node_executions": 2,
+        "retrieve_node_executions": 2,
+        "total_attempts": 1,
+        "final_verdict": "PASS"
+      },
+      "retrieval_evidence_analysis": {
+        "initial_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0000",
+          "transformer_summary_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0004",
+          "transformer_summary_txt_chunk_0000"
+        ],
+        "post_rewrite_chunk_ids": [
+          "attention_mechanisms_txt_chunk_0000",
+          "transformer_summary_txt_chunk_0001",
+          "attention_mechanisms_txt_chunk_0004",
+          "transformer_summary_txt_chunk_0000"
+        ],
+        "genuinely_new_chunk_ids": [],
+        "supports_missing_fact": false,
+        "relevance_verdict": "NO_NEW_CHUNKS_RETRIEVED",
+        "initial_draft_failure": "The division factor used in self‑attention is the inverse square root of the key dimension. This scaling prevents the model from attending to subsequent tokens during generation.",
+        "initial_judge_verdict": "FAIL",
+        "initial_judge_reason": "The answer incorrectly states that the scaling factor prevents attending to subsequent tokens; the context attributes that prevention to causal masking, not to the scaling factor.",
+        "rewritten_question": "What does the scaling factor (sequence alignment division factor) in self‑attention prevent?",
+        "final_draft": "Not in context.",
+        "final_judge_verdict": "PASS",
+        "judge_rule": "Rule 2 (CORRECT ABSTENTION ON MISSING CONTEXT)"
+      },
+      "condition_checklist": {
+        "condition_1_initial_failure_or_unsupported_claim": true,
+        "condition_2_initial_judge_fail": true,
+        "condition_3_rewrite_node_executes": true,
+        "condition_4_retrieval_executes_after_rewrite": true,
+        "condition_5_at_least_one_new_relevant_chunk_retrieved": false,
+        "condition_6_final_answer_uses_new_evidence": false,
+        "condition_7_final_judge_pass": true
+      },
+      "case_classification": "calibrated_abstention_not_evidence_correction"
+    }
+  ]
+}

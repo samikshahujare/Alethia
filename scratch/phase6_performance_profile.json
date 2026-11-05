@@ -1,0 +1,122 @@
+{
+  "local_benchmarks": {
+    "dense_retrieval": {
+      "mean_ms": 144.7,
+      "min_ms": 37.25,
+      "max_ms": 848.53
+    },
+    "bm25_retrieval": {
+      "mean_ms": 1.57,
+      "min_ms": 0.26,
+      "max_ms": 17.69
+    },
+    "hybrid_rrf_retrieval": {
+      "mean_ms": 79.05,
+      "min_ms": 41.12,
+      "max_ms": 246.42
+    },
+    "question_decomposition_rule": {
+      "mean_ms": 0.1,
+      "min_ms": 0.04,
+      "max_ms": 0.34
+    },
+    "generation_node_overhead": {
+      "mean_ms": 0.04,
+      "min_ms": 0.02,
+      "max_ms": 0.2
+    },
+    "judge_node_overhead": {
+      "mean_ms": 0.16,
+      "min_ms": 0.06,
+      "max_ms": 1.06
+    },
+    "rewrite_node_overhead": {
+      "mean_ms": 0.07,
+      "min_ms": 0.03,
+      "max_ms": 0.26
+    },
+    "full_graph_framework_overhead": {
+      "mean_ms": 23.65,
+      "min_ms": 18.53,
+      "max_ms": 38.19
+    }
+  },
+  "live_benchmarks": {
+    "source_artifacts": [
+      "phase4_live_correction.json",
+      "eval_benchmark_results.json"
+    ],
+    "operation_counts": {
+      "attempt_0_pass": {
+        "llm_calls": 2,
+        "retrievals": 1,
+        "rewrites": 0
+      },
+      "attempt_1_pass (self_correction)": {
+        "llm_calls": 5,
+        "retrievals": 2,
+        "rewrites": 1
+      },
+      "attempt_2_fail (max_exhaustion)": {
+        "llm_calls": 8,
+        "retrievals": 3,
+        "rewrites": 2
+      }
+    },
+    "phase4_audited_cases": [
+      {
+        "case_id": "LIVE-P4-01",
+        "category": "multi_attempt_cyclic_reformulation",
+        "query": "How does Adam calculate its second moment vector and why does it fail with standard L2 weight decay?",
+        "execution_counts": {
+          "rewrite_node_executions": 2,
+          "generate_node_executions": 3,
+          "judge_node_executions": 3,
+          "retrieve_node_executions": 3,
+          "total_attempts": 2,
+          "final_verdict": "PASS"
+        },
+        "final_verdict": "PASS",
+        "new_relevant_chunks": false
+      },
+      {
+        "case_id": "LIVE-P4-02",
+        "category": "targeted_rewrite_and_calibrated_abstention",
+        "query": "Why is Olympus Mons classified as a shield volcano, and what is its height in kilometers?",
+        "execution_counts": {
+          "rewrite_node_executions": 1,
+          "generate_node_executions": 2,
+          "judge_node_executions": 2,
+          "retrieve_node_executions": 2,
+          "total_attempts": 1,
+          "final_verdict": "PASS"
+        },
+        "final_verdict": "PASS",
+        "new_relevant_chunks": false
+      },
+      {
+        "case_id": "LIVE-P4-03",
+        "category": "conflation_detection_and_reformulation",
+        "query": "What is the sequence alignment division factor in self-attention, and what does it prevent?",
+        "execution_counts": {
+          "rewrite_node_executions": 1,
+          "generate_node_executions": 2,
+          "judge_node_executions": 2,
+          "retrieve_node_executions": 2,
+          "total_attempts": 1,
+          "final_verdict": "PASS"
+        },
+        "final_verdict": "PASS",
+        "new_relevant_chunks": false
+      }
+    ],
+    "benchmark_30_queries_live": {
+      "total_evaluated": 30,
+      "mean_latency_seconds": 7.066,
+      "min_latency_seconds": 1.345,
+      "max_latency_seconds": 11.507,
+      "average_cycles": 1.0,
+      "maximum_retries": 0
+    }
+  }
+}

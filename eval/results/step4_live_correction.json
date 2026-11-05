@@ -1,0 +1,184 @@
+{
+  "metadata": {
+    "title": "Alethia Step 4 Real Self-Correction Demonstration",
+    "model": "openai/gpt-oss-20b",
+    "provider": "Groq",
+    "timestamp": "2026-11-02T15:54:00Z",
+    "execution_type": "live_unmocked_groq_and_chromadb",
+    "target_ground_truth_chunks": [
+      "transformer_summary_txt_chunk_0004",
+      "optimizers_guide_txt_chunk_0002"
+    ],
+    "mandatory_facts": [
+      "adam",
+      "0.9",
+      "0.999"
+    ],
+    "max_allowed_rewrites": 2
+  },
+  "query_data": {
+    "original_question": "What optimizer was used in Attention Is All You Need, and what are the default beta_1 and beta_2 values of standard Adam?",
+    "expected_behavior": "rewrite_and_answer",
+    "target_documents": [
+      "transformer_summary.txt",
+      "optimizers_guide.txt"
+    ]
+  },
+  "execution_summary": {
+    "is_genuine_self_correction": true,
+    "classification": "successful_correction",
+    "total_attempts": 1,
+    "total_latency_seconds": 12.845,
+    "initial_retrieval_chunk_ids": [
+      "optimizers_guide_txt_chunk_0002",
+      "transformer_summary_txt_chunk_0001",
+      "attention_mechanisms_txt_chunk_0001",
+      "attention_mechanisms_txt_chunk_0003"
+    ],
+    "post_rewrite_chunk_ids": [
+      "optimizers_guide_txt_chunk_0002",
+      "optimizers_guide_txt_chunk_0003",
+      "transformer_summary_txt_chunk_0004",
+      "optimizers_guide_txt_chunk_0001"
+    ],
+    "newly_retrieved_chunk_ids": [
+      "optimizers_guide_txt_chunk_0001",
+      "optimizers_guide_txt_chunk_0003",
+      "transformer_summary_txt_chunk_0004"
+    ],
+    "newly_retrieved_relevant_chunk_ids": [
+      "transformer_summary_txt_chunk_0004"
+    ],
+    "initial_draft": "Not in context.",
+    "initial_judge_verdict": "FAIL",
+    "initial_judge_reason": "The context provides the default beta_1 (0.9) and beta_2 (0.999) values for standard Adam, so the answer “Not in context.” is incomplete and incorrect.",
+    "rewritten_question": "Which optimizer was employed in the Transformer paper “Attention Is All You Need,” and what are the default beta_1 and beta_2 hyperparameters for the Adam optimizer?",
+    "final_draft": "The Transformer paper “Attention Is All You Need” used the **Adam optimizer**.\nFor Adam, the default hyperparameters are **beta₁ = 0.9** and **beta₂ = 0.999**.",
+    "final_judge_verdict": "PASS",
+    "final_judge_reason": "The context states that the Transformer was trained with the Adam optimizer and that Adam’s default beta_1 and beta_2 values are 0.9 and 0.999."
+  },
+  "conditions_validation": {
+    "cond_1_initial_judge_fail": true,
+    "cond_2_rewrite_executed": true,
+    "cond_3_subsequent_retrieval_executed": true,
+    "cond_4_newly_retrieved_relevant_chunk": true,
+    "cond_5_final_generation_executed": true,
+    "cond_6_final_judge_pass": true,
+    "cond_7_final_answer_grounded": true,
+    "cond_8_unmocked_live_services": true
+  },
+  "strict_10_step_verification": {
+    "is_strictly_verified": true,
+    "criteria": {
+      "step_01_initial_retrieval": true,
+      "step_02_initial_generate": true,
+      "step_03_initial_judge_fail": true,
+      "step_04_rewrite_executed": true,
+      "step_05_query_changed": true,
+      "step_06_subsequent_retrieval": true,
+      "step_06_subsequent_retrieval_uses_rewrite": true,
+      "step_07_new_chunks_retrieved": true,
+      "step_07_ground_truth_chunks_retrieved": true,
+      "step_08_revised_answer_draft": true,
+      "step_09_final_judge_pass": true,
+      "step_09_final_judge_pass_after_generate": true,
+      "step_10_final_answer_grounded": true,
+      "step_10_all_mandatory_facts_present": true
+    }
+  },
+  "chronological_trace": [
+    {
+      "step": 0,
+      "node": "retrieve_node",
+      "question": "What optimizer was used in Attention Is All You Need, and what are the default beta_1 and beta_2 values of standard Adam?",
+      "chunk_count": 4,
+      "chunk_ids": [
+        "optimizers_guide_txt_chunk_0002",
+        "transformer_summary_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0003"
+      ],
+      "sources": [
+        "attention_mechanisms.txt",
+        "optimizers_guide.txt",
+        "transformer_summary.txt"
+      ],
+      "chunk_excerpts": {
+        "optimizers_guide_txt_chunk_0002": "Standard Adam uses default hyperparameter configurations: beta_1 equals 0.9 for first-moment momentum, beta_2 equals 0.999 for second-moment variance tracking, and epsilon equals 1e-8 to prevent division by zero. However, standard Adam implements weight decay incorrectly when paired with L2 regularization.",
+        "transformer_summary_txt_chunk_0001": "The network relies fundamentally on Multi-head attention. The primary computational component is Scaled dot-product attention, which computes attention weights across query, key, and value vectors while scaling by the inverse square root of the key dimension.",
+        "attention_mechanisms_txt_chunk_0001": "The foundational formulation is scaled dot-product attention. Given query matrix Q, key matrix K, and value matrix V, attention weights are computed by dividing the dot product of queries and keys by the square root of the key dimension, followed by a softmax activation: Softmax(Q * K^T / sqrt(d_k)) * V. The scaling factor sqrt(d_k) is critical because large dimension sizes push dot products into regions with extremely small gradients.",
+        "attention_mechanisms_txt_chunk_0003": "In multi-head attention, the model linearly projects queries, keys, and values into multiple lower-dimensional representation subspaces. In the standard architecture, eight parallel attention heads are computed simultaneously, each with dimension d_k = 64. The outputs of all heads are concatenated and projected with a final linear transformation matrix."
+      }
+    },
+    {
+      "step": 1,
+      "node": "generate_node",
+      "question": "What optimizer was used in Attention Is All You Need, and what are the default beta_1 and beta_2 values of standard Adam?",
+      "chunk_count": 4,
+      "draft": "Not in context."
+    },
+    {
+      "step": 2,
+      "node": "judge_node",
+      "question": "What optimizer was used in Attention Is All You Need, and what are the default beta_1 and beta_2 values of standard Adam?",
+      "draft": "Not in context.",
+      "verdict": "FAIL",
+      "reason": "The context provides the default beta_1 (0.9) and beta_2 (0.999) values for standard Adam, so the answer “Not in context.” is incomplete and incorrect.",
+      "raw_response": "VERDICT: FAIL\nREASON: The context provides the default beta_1 (0.9) and beta_2 (0.999) values for standard Adam, so the answer “Not in context.” is incomplete and incorrect."
+    },
+    {
+      "step": 3,
+      "node": "rewrite_node",
+      "attempt": 1,
+      "original_question": "What optimizer was used in Attention Is All You Need, and what are the default beta_1 and beta_2 values of standard Adam?",
+      "previous_question": "What optimizer was used in Attention Is All You Need, and what are the default beta_1 and beta_2 values of standard Adam?",
+      "rewritten_question": "Which optimizer was employed in the Transformer paper “Attention Is All You Need,” and what are the default beta_1 and beta_2 hyperparameters for the Adam optimizer?",
+      "verification_reason": "The context provides the default beta_1 (0.9) and beta_2 (0.999) values for standard Adam, so the answer “Not in context.” is incomplete and incorrect."
+    },
+    {
+      "step": 4,
+      "node": "retrieve_node",
+      "question": "Which optimizer was employed in the Transformer paper “Attention Is All You Need,” and what are the default beta_1 and beta_2 hyperparameters for the Adam optimizer?",
+      "chunk_count": 4,
+      "chunk_ids": [
+        "optimizers_guide_txt_chunk_0002",
+        "optimizers_guide_txt_chunk_0003",
+        "transformer_summary_txt_chunk_0004",
+        "optimizers_guide_txt_chunk_0001"
+      ],
+      "sources": [
+        "optimizers_guide.txt",
+        "transformer_summary.txt"
+      ],
+      "chunk_excerpts": {
+        "optimizers_guide_txt_chunk_0002": "Standard Adam uses default hyperparameter configurations: beta_1 equals 0.9 for first-moment momentum, beta_2 equals 0.999 for second-moment variance tracking, and epsilon equals 1e-8 to prevent division by zero. However, standard Adam implements weight decay incorrectly when paired with L2 regularization.",
+        "optimizers_guide_txt_chunk_0003": "The AdamW optimizer resolves this flaw by decoupling weight decay from gradient updates, directly decaying weights proportionally at each step. In transformer training, AdamW is typically paired with a learning rate warmup schedule, which linearly increases the learning rate during the initial steps before transitioning to cosine annealing decay.",
+        "transformer_summary_txt_chunk_0004": "Training was conducted using the Adam optimizer with warmup. The Transformer demonstrated superior performance on translation benchmarks, achieving 28.4 BLEU for English-to-German translation. On the WMT 2014 English-to-French benchmark, the model achieved 41.8 BLEU for English-to-French translation.",
+        "optimizers_guide_txt_chunk_0001": "Adaptive learning rate methods dynamically adjust step sizes for individual parameters. RMSprop divides the gradient by a running root-mean-square average of recent squared gradients, preventing rapid decay in frequent parameter directions. The Adam optimizer combines the benefits of momentum and RMSprop by tracking exponentially decaying averages of past gradients and squared gradients."
+      }
+    },
+    {
+      "step": 5,
+      "node": "generate_node",
+      "question": "Which optimizer was employed in the Transformer paper “Attention Is All You Need,” and what are the default beta_1 and beta_2 hyperparameters for the Adam optimizer?",
+      "chunk_count": 4,
+      "draft": "The Transformer paper “Attention Is All You Need” used the **Adam optimizer**.\nFor Adam, the default hyperparameters are **beta₁ = 0.9** and **beta₂ = 0.999**."
+    },
+    {
+      "step": 6,
+      "node": "judge_node",
+      "question": "Which optimizer was employed in the Transformer paper “Attention Is All You Need,” and what are the default beta_1 and beta_2 hyperparameters for the Adam optimizer?",
+      "draft": "The Transformer paper “Attention Is All You Need” used the **Adam optimizer**.\nFor Adam, the default hyperparameters are **beta₁ = 0.9** and **beta₂ = 0.999**.",
+      "verdict": "PASS",
+      "reason": "The context states that the Transformer was trained with the Adam optimizer and that Adam’s default beta_1 and beta_2 values are 0.9 and 0.999.",
+      "raw_response": "VERDICT: PASS\nREASON: The context states that the Transformer was trained with the Adam optimizer and that Adam’s default beta_1 and beta_2 values are 0.9 and 0.999."
+    },
+    {
+      "step": 7,
+      "event": "workflow_completed",
+      "final_verdict": "PASS",
+      "total_attempts": 1,
+      "total_trace_steps": 7
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+The Transformer model, introduced in the 2017 paper "Attention Is All You Need" by Vaswani et al., revolutionized natural language processing by replacing recurrence with attention mechanisms. The network relies fundamentally on Multi-head attention. The primary computational component is Scaled dot-product attention, which computes attention weights across query, key, and value vectors while scaling by the inverse square root of the key dimension.
+
+Structurally, the base architecture contains Six encoder layers and six decoder layers. Each encoder layer consists of a self-attention module and a position-wise fully connected feed-forward network, accompanied by residual connections and layer normalization. In addition, the decoder incorporates an attention mechanism over the encoder outputs. Because the architecture discards recurrence, Positional encodings are added to input and output embeddings to preserve sequence order.
+
+Training was conducted using the Adam optimizer with warmup. The Transformer demonstrated superior performance on translation benchmarks, achieving 28.4 BLEU for English-to-German translation. On the WMT 2014 English-to-French benchmark, the model achieved 41.8 BLEU for English-to-French translation.
+

@@ -1,0 +1,471 @@
+{
+  "total_queries": 30,
+  "retrieval_metrics": {
+    "hit_rate_at_k": 1.0,
+    "recall_at_k": 1.0,
+    "mean_reciprocal_rank": 0.9375,
+    "k": 4
+  },
+  "answer_quality_metrics": {
+    "overall_accuracy": 0.9,
+    "answer_correctness": 0.85,
+    "abstention_accuracy": 1.0,
+    "judge_pass_rate": 1.0
+  },
+  "operational_metrics": {
+    "average_latency_ms": 105.25,
+    "total_execution_time_s": 3.16
+  },
+  "per_query_results": [
+    {
+      "id": "FAC-01",
+      "category": "factual",
+      "question": "How many encoder and decoder layers does the base Transformer architecture use?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "transformer_summary_txt_chunk_0002",
+        "neural_network_training_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0004",
+        "transformer_summary_txt_chunk_0004"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 139.26
+    },
+    {
+      "id": "FAC-02",
+      "category": "factual",
+      "question": "What BLEU score did the original Transformer achieve on English-to-German translation?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "transformer_summary_txt_chunk_0004",
+        "nlp_concepts_txt_chunk_0004",
+        "transformer_summary_txt_chunk_0000",
+        "optimizers_guide_txt_chunk_0003"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 69.73
+    },
+    {
+      "id": "FAC-03",
+      "category": "factual",
+      "question": "What is the mathematical formulation of scaled dot-product attention?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "attention_mechanisms_txt_chunk_0001",
+        "transformer_summary_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0002",
+        "transformer_summary_txt_chunk_0000"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 72.35
+    },
+    {
+      "id": "FAC-04",
+      "category": "factual",
+      "question": "How many parallel attention heads are computed simultaneously in standard multi-head attention?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "attention_mechanisms_txt_chunk_0003",
+        "transformer_summary_txt_chunk_0000",
+        "transformer_summary_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0001"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 163.23
+    },
+    {
+      "id": "FAC-05",
+      "category": "factual",
+      "question": "What is the key difference in penalty formulation between L1 Lasso and L2 Ridge regularization?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "machine_learning_fundamentals_txt_chunk_0003",
+        "machine_learning_fundamentals_txt_chunk_0004",
+        "optimizers_guide_txt_chunk_0002",
+        "attention_mechanisms_txt_chunk_0001"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 89.07
+    },
+    {
+      "id": "FAC-06",
+      "category": "factual",
+      "question": "What standard ratio is recommended for partitioning training, validation, and test datasets?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "machine_learning_fundamentals_txt_chunk_0005",
+        "Tell_me_about_yourself_txt_chunk_0029",
+        "machine_learning_fundamentals_txt_chunk_0002",
+        "optimizers_guide_txt_chunk_0002"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 73.29
+    },
+    {
+      "id": "FAC-07",
+      "category": "factual",
+      "question": "Why is GELU preferred over ReLU activation in models like BERT and GPT?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "neural_network_training_txt_chunk_0002",
+        "neural_network_training_txt_chunk_0001",
+        "nlp_concepts_txt_chunk_0003",
+        "transformer_summary_txt_chunk_0004"
+      ],
+      "is_correct": false,
+      "verdict": "PASS",
+      "latency_ms": 82.03
+    },
+    {
+      "id": "FAC-08",
+      "category": "factual",
+      "question": "What maximum norm threshold is enforced during gradient clipping to prevent exploding gradients?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "neural_network_training_txt_chunk_0003",
+        "optimizers_guide_txt_chunk_0000",
+        "attention_mechanisms_txt_chunk_0002",
+        "optimizers_guide_txt_chunk_0001"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 73.35
+    },
+    {
+      "id": "FAC-09",
+      "category": "factual",
+      "question": "What default hyperparameter values are used for beta_1 and beta_2 in the Adam optimizer?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "optimizers_guide_txt_chunk_0002",
+        "transformer_summary_txt_chunk_0004",
+        "optimizers_guide_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0004"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 78.28
+    },
+    {
+      "id": "FAC-10",
+      "category": "factual",
+      "question": "How many officially recognized natural moons does Jupiter possess according to astronomical surveys?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "solar_system_txt_chunk_0001",
+        "solar_system_txt_chunk_0002",
+        "solar_system_txt_chunk_0000",
+        "Tell_me_about_yourself_txt_chunk_0019"
+      ],
+      "is_correct": false,
+      "verdict": "PASS",
+      "latency_ms": 68.1
+    },
+    {
+      "id": "ABS-01",
+      "category": "out_of_scope",
+      "question": "What is the capital city of Australia?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "Tell_me_about_yourself_txt_chunk_0000",
+        "solar_system_txt_chunk_0003",
+        "Tell_me_about_yourself_txt_chunk_0043",
+        "solar_system_txt_chunk_0000"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 68.24
+    },
+    {
+      "id": "ABS-02",
+      "category": "out_of_scope",
+      "question": "What is the molecular chemical formula for caffeine?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "Tell_me_about_yourself_txt_chunk_0027",
+        "Tell_me_about_yourself_txt_chunk_0041",
+        "nlp_concepts_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0001"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 71.46
+    },
+    {
+      "id": "ABS-03",
+      "category": "out_of_scope",
+      "question": "Which national team won the 1994 FIFA World Cup tournament?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "Tell_me_about_yourself_txt_chunk_0037",
+        "Tell_me_about_yourself_txt_chunk_0043",
+        "Tell_me_about_yourself_txt_chunk_0009",
+        "Tell_me_about_yourself_txt_chunk_0017"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 92.35
+    },
+    {
+      "id": "ABS-04",
+      "category": "out_of_scope",
+      "question": "What is the exact boiling point of liquid nitrogen expressed in Kelvin?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "attention_mechanisms_txt_chunk_0002",
+        "solar_system_txt_chunk_0004",
+        "optimizers_guide_txt_chunk_0002",
+        "transformer_summary_txt_chunk_0004"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 98.41
+    },
+    {
+      "id": "ABS-05",
+      "category": "out_of_scope",
+      "question": "What is the maximum structural payload capacity of the Boeing 747-8F freighter?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "nlp_concepts_txt_chunk_0002",
+        "neural_network_training_txt_chunk_0003",
+        "solar_system_txt_chunk_0002",
+        "attention_mechanisms_txt_chunk_0003"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 89.03
+    },
+    {
+      "id": "ABS-06",
+      "category": "out_of_scope",
+      "question": "How does the Mamba state-space architecture compare in memory overhead to Transformers?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "transformer_summary_txt_chunk_0003",
+        "optimizers_guide_txt_chunk_0003",
+        "neural_network_training_txt_chunk_0001",
+        "transformer_summary_txt_chunk_0000"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 115.4
+    },
+    {
+      "id": "ABS-07",
+      "category": "out_of_scope",
+      "question": "Who was officially crowned the first emperor of the Roman Empire?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "solar_system_txt_chunk_0001",
+        "Tell_me_about_yourself_txt_chunk_0034",
+        "optimizers_guide_txt_chunk_0002",
+        "solar_system_txt_chunk_0002"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 150.58
+    },
+    {
+      "id": "ABS-08",
+      "category": "out_of_scope",
+      "question": "What programming language was used to implement the initial Linux kernel in 1991?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "optimizers_guide_txt_chunk_0003",
+        "transformer_summary_txt_chunk_0004",
+        "Tell_me_about_yourself_txt_chunk_0034",
+        "optimizers_guide_txt_chunk_0002"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 138.81
+    },
+    {
+      "id": "ABS-09",
+      "category": "out_of_scope",
+      "question": "What is the approximate distance in light-years to the Andromeda Galaxy?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "solar_system_txt_chunk_0000",
+        "Tell_me_about_yourself_txt_chunk_0038",
+        "neural_network_training_txt_chunk_0001",
+        "solar_system_txt_chunk_0002"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 139.42
+    },
+    {
+      "id": "ABS-10",
+      "category": "out_of_scope",
+      "question": "How many strings are strung on a standard classical concert pedal harp?",
+      "expected_behavior": "abstain",
+      "retrieved_chunk_ids": [
+        "optimizers_guide_txt_chunk_0002",
+        "attention_mechanisms_txt_chunk_0003",
+        "Tell_me_about_yourself_txt_chunk_0017",
+        "Tell_me_about_yourself_txt_chunk_0040"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 143.27
+    },
+    {
+      "id": "AMB-01",
+      "category": "ambiguous",
+      "question": "How many layers?",
+      "expected_behavior": "rewrite_and_answer",
+      "retrieved_chunk_ids": [
+        "transformer_summary_txt_chunk_0002",
+        "neural_network_training_txt_chunk_0004",
+        "neural_network_training_txt_chunk_0001",
+        "attention_mechanisms_txt_chunk_0003"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 99.53
+    },
+    {
+      "id": "AMB-02",
+      "category": "ambiguous",
+      "question": "What are the beta parameters?",
+      "expected_behavior": "rewrite_and_answer",
+      "retrieved_chunk_ids": [
+        "optimizers_guide_txt_chunk_0002",
+        "machine_learning_fundamentals_txt_chunk_0003",
+        "machine_learning_fundamentals_txt_chunk_0004",
+        "optimizers_guide_txt_chunk_0001"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 109.76
+    },
+    {
+      "id": "AMB-03",
+      "category": "ambiguous",
+      "question": "What is the formula?",
+      "expected_behavior": "rewrite_and_answer",
+      "retrieved_chunk_ids": [
+        "Tell_me_about_yourself_txt_chunk_0027",
+        "Tell_me_about_yourself_txt_chunk_0034",
+        "neural_network_training_txt_chunk_0000",
+        "attention_mechanisms_txt_chunk_0001"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 74.61
+    },
+    {
+      "id": "AMB-04",
+      "category": "ambiguous",
+      "question": "Tell me about the moons.",
+      "expected_behavior": "rewrite_and_answer",
+      "retrieved_chunk_ids": [
+        "solar_system_txt_chunk_0001",
+        "Tell_me_about_yourself_txt_chunk_0000",
+        "solar_system_txt_chunk_0002",
+        "Tell_me_about_yourself_txt_chunk_0005"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 72.8
+    },
+    {
+      "id": "AMB-05",
+      "category": "ambiguous",
+      "question": "What is the split ratio?",
+      "expected_behavior": "rewrite_and_answer",
+      "retrieved_chunk_ids": [
+        "machine_learning_fundamentals_txt_chunk_0005",
+        "attention_mechanisms_txt_chunk_0002",
+        "optimizers_guide_txt_chunk_0002",
+        "Tell_me_about_yourself_txt_chunk_0041"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 68.43
+    },
+    {
+      "id": "CHL-01",
+      "category": "challenge",
+      "question": "How does AdamW resolve the weight decay flaw present in standard Adam paired with L2 regularization?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "optimizers_guide_txt_chunk_0002",
+        "optimizers_guide_txt_chunk_0003",
+        "machine_learning_fundamentals_txt_chunk_0004",
+        "machine_learning_fundamentals_txt_chunk_0003"
+      ],
+      "is_correct": false,
+      "verdict": "PASS",
+      "latency_ms": 283.94
+    },
+    {
+      "id": "CHL-02",
+      "category": "challenge",
+      "question": "What mathematical metric is defined as the exponentiated average negative log-likelihood per token?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "nlp_concepts_txt_chunk_0003",
+        "nlp_concepts_txt_chunk_0002",
+        "neural_network_training_txt_chunk_0000",
+        "optimizers_guide_txt_chunk_0001"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 150.1
+    },
+    {
+      "id": "CHL-03",
+      "category": "challenge",
+      "question": "In the original Transformer paper, what BLEU score was achieved on the WMT 2014 English-to-French benchmark?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "transformer_summary_txt_chunk_0004",
+        "nlp_concepts_txt_chunk_0004",
+        "transformer_summary_txt_chunk_0000",
+        "optimizers_guide_txt_chunk_0003"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 102.25
+    },
+    {
+      "id": "CHL-04",
+      "category": "challenge",
+      "question": "Which specific subword tokenization algorithm treats input text as a raw stream of characters including whitespace to avoid pre-segmentation?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "nlp_concepts_txt_chunk_0002",
+        "nlp_concepts_txt_chunk_0000",
+        "nlp_concepts_txt_chunk_0001",
+        "optimizers_guide_txt_chunk_0000"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 95.68
+    },
+    {
+      "id": "CHL-05",
+      "category": "challenge",
+      "question": "What is the name and height of the tallest planetary volcano documented in the solar system?",
+      "expected_behavior": "answer",
+      "retrieved_chunk_ids": [
+        "solar_system_txt_chunk_0003",
+        "solar_system_txt_chunk_0002",
+        "solar_system_txt_chunk_0001",
+        "solar_system_txt_chunk_0000"
+      ],
+      "is_correct": true,
+      "verdict": "PASS",
+      "latency_ms": 84.61
+    }
+  ]
+}
