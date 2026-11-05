@@ -153,18 +153,21 @@ def retrieve_node(
             from src.document_inspection import (
                 detect_document_intent,
                 resolve_target_document,
+                find_explicit_document_reference,
+                clean_targeted_query,
                 get_all_document_chunks,
                 extract_questions_from_chunks,
             )
             from src.store import get_vector_store
+            store = get_vector_store()
+            stats_records = store.collection.get(include=["metadatas"])
+            available_sources = sorted(list({
+                m.get("source") for m in stats_records.get("metadatas", [])
+                if isinstance(m, dict) and m.get("source")
+            }))
+
             doc_intent = detect_document_intent(question)
             if doc_intent:
-                store = get_vector_store()
-                stats_records = store.collection.get(include=["metadatas"])
-                available_sources = sorted(list({
-                    m.get("source") for m in stats_records.get("metadatas", [])
-                    if isinstance(m, dict) and m.get("source")
-                }))
                 target_doc = resolve_target_document(
                     question,
                     available_sources,
@@ -184,6 +187,25 @@ def retrieve_node(
                             ext_res = extract_questions_from_chunks(doc_chunks, target_doc)
                             new_state["draft"] = ext_res["answer"]
                             new_state["extracted_questions"] = ext_res["questions"]
+
+            if not doc_intent_handled:
+                explicit_doc = find_explicit_document_reference(question, available_sources)
+                if explicit_doc:
+                    target_doc = explicit_doc
+                    new_state["target_document"] = target_doc
+                    cleaned_q = clean_targeted_query(question, target_doc)
+                    from src.hybrid_retriever import hybrid_retrieve
+                    targeted_chunks = hybrid_retrieve(
+                        query=cleaned_q,
+                        k=k,
+                        strategy=strat,
+                        source_filter=target_doc,
+                    )
+                    if targeted_chunks:
+                        chunks = targeted_chunks
+                        new_state["decomposed_questions"] = [cleaned_q]
+                        new_state["subquestion_results"] = {cleaned_q: targeted_chunks}
+                        doc_intent_handled = True
         except Exception:
             doc_intent_handled = False
 
@@ -201,8 +223,15 @@ def retrieve_node(
                 except Exception:
                     chunks = []
     else:
+        target_doc = new_state.get("target_document")
         try:
-            chunks = caller(question, k=k)
+            if target_doc and callable(caller):
+                try:
+                    chunks = caller(question, k=k, source_filter=target_doc)
+                except TypeError:
+                    chunks = caller(question, k=k)
+            else:
+                chunks = caller(question, k=k)
         except Exception:
             chunks = []
 

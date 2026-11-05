@@ -27,13 +27,13 @@ def render_welcome_screen() -> None:
     st.markdown(
         """
         <div class="welcome-card">
-            <h3>Welcome to Alethia</h3>
-            <p>
-                Upload a document and ask anything about its contents. Alethia retrieves exact passages,
-                answers your questions, and strictly verifies every factual statement against the source text.
+            <h3 style="margin: 0 0 0.5rem 0; font-weight: 600; letter-spacing: -0.01em;">Knowledge Base Reasoning</h3>
+            <p style="margin: 0 0 1.25rem 0; line-height: 1.6; font-size: 0.9rem;">
+                Upload documents (PDF, TXT, or notes) and query any specific claim, comparison, or concept.
+                Alethia indexes exact passages and verifies factual consistency against source evidence.
             </p>
-            <div style="font-size: 0.8rem; font-weight: 600; color: #475569; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem;">
-                Try an example question:
+            <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.7; margin-bottom: 0.5rem;">
+                Example Prompts
             </div>
         </div>
         """,
@@ -42,16 +42,16 @@ def render_welcome_screen() -> None:
 
     sample_queries = [
         "Summarize this document.",
-        "What are the important topics?",
-        "Extract all questions from this file.",
-        "What is data validation?",
+        "What are the primary findings?",
+        "Extract key questions from this document.",
+        "What are the core technical constraints?",
     ]
 
     cols = st.columns(2)
     for idx, query in enumerate(sample_queries):
         col = cols[idx % 2]
         with col:
-            if st.button(f"💬 {query}", key=f"sample_{idx}", use_container_width=True):
+            if st.button(query, key=f"sample_{idx}", use_container_width=True):
                 st.session_state.pending_query = query
                 st.rerun()
 
@@ -77,17 +77,17 @@ def render_assistant_message(msg: Dict[str, Any]) -> None:
         # Header user-friendly status indicator
         if is_abstained:
             st.markdown(
-                '<div class="status-pill status-notfound"><span>●</span> Information not found in documents</div>',
+                '<div class="status-pill status-notfound">Not in context</div>',
                 unsafe_allow_html=True,
             )
         elif verdict.upper() == "PASS":
             st.markdown(
-                '<div class="status-pill status-verified"><span>✓</span> Answer verified</div>',
+                '<div class="status-pill status-verified">Verified</div>',
                 unsafe_allow_html=True,
             )
         elif verdict.upper() == "FAIL":
             st.markdown(
-                '<div class="status-pill status-partial"><span>⚠</span> Partially answered</div>',
+                '<div class="status-pill status-partial">Partially answered</div>',
                 unsafe_allow_html=True,
             )
 
@@ -139,7 +139,7 @@ def process_user_query(
     if not is_groq_configured():
         error_msg = {
             "role": "assistant",
-            "content": "⚠️ **Groq API is not configured.** Please add your `GROQ_API_KEY` to the `.env` file to enable question answering.",
+            "content": "GROQ_API_KEY is not configured in `.env`. Please add your API key to proceed.",
             "verdict": "FAIL",
             "reason": "Missing GROQ_API_KEY environment variable.",
             "attempts": 0,
@@ -153,12 +153,19 @@ def process_user_query(
             st.error(error_msg["content"])
         return
 
-    # 4. Execute pipeline with calm, informative loading indicator
+    # 4. Execute pipeline with stepped progressive loading indicator
     runner = pipeline_func or run_rag_pipeline
-    with st.spinner("Searching your documents & preparing answer..."):
+    with st.status("Analyzing question & context...", expanded=True) as status_box:
+        st.write("1. Scanning document chunks & search indices...")
         try:
+            st.write("2. Identifying relevant passages & citations...")
             final_state = runner(clean_query)
+            st.write("3. Synthesizing response & verifying factual consistency...")
+            if status_box is not None and hasattr(status_box, "update"):
+                status_box.update(label="Response ready", state="complete", expanded=False)
         except ConfigurationError as e:
+            if status_box is not None and hasattr(status_box, "update"):
+                status_box.update(label="Configuration error", state="error", expanded=False)
             final_state = {
                 "question": clean_query,
                 "original_question": clean_query,
@@ -170,6 +177,8 @@ def process_user_query(
                 "trace": [],
             }
         except LLMRateLimitError:
+            if status_box is not None and hasattr(status_box, "update"):
+                status_box.update(label="Rate limit reached", state="error", expanded=False)
             final_state = {
                 "question": clean_query,
                 "original_question": clean_query,
@@ -181,6 +190,8 @@ def process_user_query(
                 "trace": [],
             }
         except LLMError as e:
+            if status_box is not None and hasattr(status_box, "update"):
+                status_box.update(label="Inference error", state="error", expanded=False)
             final_state = {
                 "question": clean_query,
                 "original_question": clean_query,
@@ -192,6 +203,8 @@ def process_user_query(
                 "trace": [],
             }
         except Exception as e:
+            if status_box is not None and hasattr(status_box, "update"):
+                status_box.update(label="Execution error", state="error", expanded=False)
             final_state = {
                 "question": clean_query,
                 "original_question": clean_query,

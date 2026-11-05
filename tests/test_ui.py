@@ -158,24 +158,24 @@ def test_source_display_with_actual_metadata():
 
     with patch("streamlit.markdown") as mock_md, patch("streamlit.expander") as mock_expander:
         render_sources(chunks)
-        mock_expander.assert_called_with("📄 Retrieved Sources (1)", expanded=False)
+        mock_expander.assert_called_with("Retrieved Sources (1)", expanded=False)
         assert mock_md.called
         rendered_html = mock_md.call_args[0][0]
         assert "attention_mechanisms.txt" in rendered_html
         assert "chunk_doc1_0" in rendered_html
-        assert "0.8421" in rendered_html
+        assert "84.2%" in rendered_html
 
 
 def test_empty_source_handling():
     """Verify render_sources handles empty or None chunks safely."""
     with patch("streamlit.info") as mock_info, patch("streamlit.expander") as mock_expander:
         render_sources([])
-        mock_expander.assert_called_with("📄 Retrieved Sources (0)", expanded=False)
+        mock_expander.assert_called_with("Retrieved Sources (0)", expanded=False)
         mock_info.assert_called_with("No relevant document sources were retrieved for this question.")
 
     with patch("streamlit.info") as mock_info, patch("streamlit.expander") as mock_expander:
         render_sources(None)
-        mock_expander.assert_called_with("📄 Retrieved Sources (0)", expanded=False)
+        mock_expander.assert_called_with("Retrieved Sources (0)", expanded=False)
         mock_info.assert_called_with("No relevant document sources were retrieved for this question.")
 
 
@@ -205,7 +205,7 @@ def test_trace_rendering_with_multiple_retries():
             attempts=1,
             draft="Draft 2",
         )
-        mock_expander.assert_called_with("🔍 Advanced execution details (8 steps · 1 retries)", expanded=False)
+        mock_expander.assert_called_with("Execution Diagnostics (8 steps · 1 retries)", expanded=False)
         # Verify markdown calls were executed for trace summary and individual step cards
         assert mock_md.call_count >= 5
 
@@ -217,11 +217,11 @@ def test_correct_abstention_display():
     assert "badge-abstained" in badge_html
 
     badge_pass = _get_verdict_badge("PASS", is_abstained=False)
-    assert "✓ Passed" in badge_pass
+    assert "Passed" in badge_pass
     assert "badge-pass" in badge_pass
 
     badge_fail = _get_verdict_badge("FAIL", is_abstained=False)
-    assert "✗ Failed" in badge_fail
+    assert "Failed" in badge_fail
     assert "badge-fail" in badge_fail
 
 
@@ -240,20 +240,20 @@ class MockUploadedFile:
         return self._content
 
 
-def test_document_upload_validation_rejects_non_txt():
-    """Verify that non-.txt files are rejected with an error."""
+def test_document_upload_validation_rejects_unsupported_formats():
+    """Verify that unsupported file formats (like .csv or .exe) are rejected with an error."""
     mock_store = MagicMock()
-    pdf_file = MockUploadedFile("paper.pdf", b"Some PDF content")
+    csv_file = MockUploadedFile("table.csv", b"col1,col2\n1,2")
 
     with patch("streamlit.sidebar.error") as mock_err:
-        handle_document_upload([pdf_file], store=mock_store)
+        handle_document_upload([csv_file], store=mock_store)
         mock_err.assert_called_once()
         assert "Unsupported format" in mock_err.call_args[0][0]
         mock_store.index_chunks.assert_not_called()
 
 
 def test_document_upload_validation_rejects_empty():
-    """Verify that empty .txt files are flagged and skipped."""
+    """Verify that empty files are flagged and skipped."""
     mock_store = MagicMock()
     empty_file = MockUploadedFile("empty.txt", b"   \n  ")
 
@@ -291,7 +291,7 @@ def test_error_handling_missing_groq_api_key():
     with patch("ui.chat.is_groq_configured", return_value=False), patch("streamlit.error") as mock_err:
         process_user_query("Any question")
         assert len(st.session_state.messages) == 2
-        assert "Groq API is not configured" in st.session_state.messages[1]["content"]
+        assert "GROQ_API_KEY is not configured" in st.session_state.messages[1]["content"]
         mock_err.assert_called_once()
 
 

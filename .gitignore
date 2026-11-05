@@ -31,3 +31,8 @@ chroma_db/
 .DS_Store
 Thumbs.db
 
+chroma_db/
+.streamlit/secrets.toml
+scratch/
+
+data/

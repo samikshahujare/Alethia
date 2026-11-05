@@ -1,7 +1,7 @@
 """Execution trace visualization component for Alethia UI.
 
-Presents complete system diagnostics in a collapsed 'Advanced execution details' expander.
-Uses robust Markdown and Streamlit components to guarantee zero raw HTML leakage.
+Presents complete system diagnostics in a collapsed 'Execution diagnostics' expander.
+Guarantees clean, robust rendering with zero raw markup leakage.
 """
 
 from typing import Any, Dict, List, Optional
@@ -20,7 +20,16 @@ def _get_verdict_badge(verdict: str, is_abstained: bool = False) -> str:
     return f'<span class="badge badge-info">{verdict}</span>'
 
 
-_get_verdict_label = _get_verdict_badge
+def _get_verdict_label(verdict: str, is_abstained: bool = False) -> str:
+    """Return clean formatted text label for verdict."""
+    if is_abstained:
+        return "Abstained · Pass"
+    v_upper = (verdict or "").strip().upper()
+    if v_upper == "PASS":
+        return "Passed"
+    elif v_upper == "FAIL":
+        return "Failed"
+    return verdict or "Unknown"
 
 
 def render_trace(
@@ -44,7 +53,7 @@ def render_trace(
         decomposed_questions: Optional list of sub-questions from question decomposition.
     """
     if not trace:
-        with st.expander("🔍 Advanced execution details", expanded=False):
+        with st.expander("Execution Diagnostics", expanded=False):
             st.info("No execution trace available.")
         return
 
@@ -60,13 +69,13 @@ def render_trace(
         if e.get("event") == "workflow_completed" and "total_latency_ms" in e:
             latency_ms = e["total_latency_ms"]
 
-    verdict_label = _get_verdict_label(verdict, is_abstained)
+    verdict_display = _get_verdict_label(verdict, is_abstained)
 
-    with st.expander(f"🔍 Advanced execution details ({total_steps} steps · {attempts} retries)", expanded=False):
-        # 1. Summary Header Box using Markdown (zero raw HTML tags)
+    with st.expander(f"Execution Diagnostics ({total_steps} steps · {attempts} retries)", expanded=False):
+        # 1. Summary Header Box using clean Markdown (zero raw HTML tags or backtick escaping)
         summary_md = [
             f"**Execution Summary**",
-            f"- **Verdict:** `{verdict_label}`",
+            f"- **Verdict:** **{verdict_display}**",
             f"- **Original Question:** {original_question}",
         ]
         if final_question and final_question != original_question:
@@ -121,7 +130,7 @@ def render_trace(
             elif node == "judge_node":
                 v = entry.get("verdict", "")
                 reason = entry.get("reason", "")
-                badge_str = "✓ PASS" if v.upper() == "PASS" else "✗ FAIL"
+                badge_str = "PASS" if v.upper() == "PASS" else "FAIL"
 
                 st.markdown(
                     f"**Step {idx}: Factual Verification ({badge_str})**  \n"
@@ -143,4 +152,5 @@ def render_trace(
                 continue
 
             if idx < len(trace):
-                st.caption("↓")
+                st.caption("→")
+

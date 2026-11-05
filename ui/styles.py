@@ -1,16 +1,7 @@
-"""Modern, professional SaaS theme styling and custom CSS for Alethia.
+"""Modern, minimalist luxury theme styling and custom CSS for Alethia.
 
-Implements a calm, clean, high-contrast palette:
-- Main background: #F8FAFC
-- Main surface: #FFFFFF
-- Primary text: #172033
-- Secondary text: #64748B
-- Primary accent: #4F46E5
-- Subtle accent: #EEF2FF
-- Success: #15803D
-- Warning: #B45309
-- Error: #B91C1C
-- Borders: #E2E8F0
+Implements a dark-first, highly authentic, professional palette with clean typography,
+seamless theme adaptability, and zero cluttered or cartoonish elements.
 """
 
 import streamlit as st
@@ -20,11 +11,11 @@ def get_custom_css() -> str:
     """Return polished custom CSS string for modern, accessible SaaS UI."""
     return """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
     html, body, [class*="css"] {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        color: #172033;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        letter-spacing: -0.01em;
     }
 
     code, pre, .mono {
@@ -32,103 +23,133 @@ def get_custom_css() -> str:
     }
 
     .block-container {
-        max-width: 920px;
-        padding-top: 1.75rem;
+        max-width: 940px;
+        padding-top: 1.5rem;
         padding-bottom: 4rem;
     }
 
-    /* Header styling */
+    /* Minimalist header */
     .alethia-header {
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #E2E8F0;
+        margin-bottom: 1.75rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
     }
 
     .alethia-title {
-        font-size: 1.65rem;
+        font-size: 1.6rem;
         font-weight: 700;
-        letter-spacing: -0.02em;
-        color: #172033;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
+        letter-spacing: -0.03em;
+        line-height: 1.2;
+    }
+
+    .header-engine-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.2rem 0.55rem;
+        border-radius: 4px;
+        background: rgba(99, 102, 241, 0.1);
+        color: #818CF8;
+        border: 1px solid rgba(99, 102, 241, 0.25);
     }
 
     .alethia-subtitle {
-        font-size: 0.925rem;
-        color: #64748B;
-        margin-top: 0.25rem;
+        font-size: 0.88rem;
+        color: #94A3B8;
+        margin-top: 0.35rem;
+        line-height: 1.5;
     }
 
-    /* Clean User-Facing Status Badges */
+    /* Authentic, Understated Status Badges */
     .status-pill {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.775rem;
+        padding: 0.2rem 0.65rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
         font-weight: 600;
-        margin-bottom: 0.5rem;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        margin-bottom: 0.6rem;
     }
 
     .status-verified {
-        background: #DCFCE7;
-        color: #15803D;
-        border: 1px solid #BBF7D0;
+        background: rgba(16, 185, 129, 0.12);
+        color: #34D399;
+        border: 1px solid rgba(16, 185, 129, 0.28);
     }
 
     .status-partial {
-        background: #FEF3C7;
-        color: #B45309;
-        border: 1px solid #FDE68A;
+        background: rgba(245, 158, 11, 0.12);
+        color: #FBBF24;
+        border: 1px solid rgba(245, 158, 11, 0.28);
     }
 
     .status-notfound {
-        background: #F1F5F9;
-        color: #64748B;
-        border: 1px solid #E2E8F0;
+        background: rgba(100, 116, 139, 0.12);
+        color: #94A3B8;
+        border: 1px solid rgba(100, 116, 139, 0.25);
     }
 
     .status-error {
-        background: #FEE2E2;
-        color: #B91C1C;
-        border: 1px solid #FECACA;
+        background: rgba(239, 68, 68, 0.12);
+        color: #F87171;
+        border: 1px solid rgba(239, 68, 68, 0.28);
+    }
+
+    /* Diagnostics Verdict Badges */
+    .badge {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+    }
+
+    .badge-pass {
+        background: rgba(16, 185, 129, 0.15);
+        color: #34D399;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-fail {
+        background: rgba(239, 68, 68, 0.15);
+        color: #F87171;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .badge-abstained {
+        background: rgba(100, 116, 139, 0.15);
+        color: #94A3B8;
+        border: 1px solid rgba(100, 116, 139, 0.3);
+    }
+
+    .badge-info {
+        background: rgba(99, 102, 241, 0.15);
+        color: #818CF8;
+        border: 1px solid rgba(99, 102, 241, 0.3);
     }
 
     /* Welcome card */
     .welcome-card {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 0.75rem;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        border-radius: 0.65rem;
         padding: 1.5rem;
         margin-top: 0.5rem;
         margin-bottom: 1.5rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-    }
-
-    .welcome-card h3 {
-        margin-top: 0;
-        color: #172033;
-        font-size: 1.2rem;
-        font-weight: 600;
-    }
-
-    .welcome-card p {
-        color: #64748B;
-        font-size: 0.9rem;
-        line-height: 1.5;
-        margin-bottom: 1rem;
     }
 
     /* Source chunk cards */
     .source-card {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(148, 163, 184, 0.12);
         border-radius: 0.5rem;
         padding: 0.85rem 1rem;
         margin-bottom: 0.75rem;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
 
     .source-meta {
@@ -136,63 +157,139 @@ def get_custom_css() -> str:
         justify-content: space-between;
         align-items: center;
         font-size: 0.775rem;
-        color: #64748B;
-        margin-bottom: 0.45rem;
-        border-bottom: 1px solid #F1F5F9;
-        padding-bottom: 0.35rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+        padding-bottom: 0.4rem;
+    }
+
+    .file-type-pill {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.65rem;
+        font-weight: 600;
+        padding: 0.12rem 0.4rem;
+        border-radius: 3px;
+        background: rgba(99, 102, 241, 0.12);
+        color: #818CF8;
+        border: 1px solid rgba(99, 102, 241, 0.25);
+    }
+
+    .source-score-pill {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 0.12rem 0.45rem;
+        border-radius: 3px;
+        background: rgba(16, 185, 129, 0.12);
+        color: #34D399;
+        border: 1px solid rgba(16, 185, 129, 0.25);
     }
 
     .source-text {
         font-size: 0.85rem;
-        color: #334155;
-        line-height: 1.55;
+        line-height: 1.6;
         white-space: pre-wrap;
+        opacity: 0.9;
     }
 
-    /* Document item card in sidebar */
-    .doc-item-card {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
+    /* Sidebar minimal branding and components */
+    .sidebar-brand-box {
+        padding-bottom: 0.75rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .sidebar-brand-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: inherit;
+    }
+
+    .sidebar-brand-sub {
+        font-size: 0.75rem;
+        color: #94A3B8;
+        margin-top: 0.15rem;
+        letter-spacing: 0.02em;
+    }
+
+    .sidebar-divider {
+        height: 1px;
+        background: rgba(148, 163, 184, 0.12);
+        margin: 1.25rem 0;
+    }
+
+    .sidebar-section-title {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #94A3B8;
+        margin-bottom: 0.75rem;
+    }
+
+    .sidebar-doc-row {
+        overflow: hidden;
+    }
+
+    .sidebar-doc-name {
+        font-size: 0.825rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .sidebar-doc-meta {
+        font-size: 0.72rem;
+        color: #94A3B8;
+        margin-top: 0.15rem;
+    }
+
+    /* Knowledge base metrics card */
+    .kb-metrics-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(148, 163, 184, 0.12);
         border-radius: 0.5rem;
-        padding: 0.65rem 0.85rem;
-        margin-bottom: 0.5rem;
+        padding: 0.75rem 0.85rem;
+        margin-bottom: 0.75rem;
     }
 
-    .doc-item-header {
+    .kb-metric-row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size: 0.825rem;
-        font-weight: 600;
-        color: #172033;
-    }
-
-    .doc-item-sub {
-        font-size: 0.725rem;
-        color: #64748B;
-        margin-top: 0.2rem;
-    }
-
-    /* Clean diagnostic box */
-    .diagnostic-card {
-        background: #F8FAFC;
-        border: 1px solid #E2E8F0;
-        border-radius: 0.5rem;
-        padding: 0.75rem 1rem;
-        margin-bottom: 0.5rem;
         font-size: 0.8rem;
-        color: #475569;
-        line-height: 1.5;
+        padding: 0.25rem 0;
+        color: #94A3B8;
     }
 
-    /* Chat input override to eliminate harsh red borders */
+    .kb-metric-row strong {
+        color: inherit;
+    }
+
+    /* Streamlit interactive polish */
     .stChatInput > div {
-        border-color: #CBD5E1 !important;
+        border-color: rgba(148, 163, 184, 0.2) !important;
         border-radius: 0.5rem !important;
     }
     .stChatInput > div:focus-within {
-        border-color: #4F46E5 !important;
-        box-shadow: 0 0 0 1px #4F46E5 !important;
+        border-color: #6366F1 !important;
+        box-shadow: 0 0 0 1px #6366F1 !important;
+    }
+
+    /* Tabs styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 0.5rem;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        border-radius: 4px;
     }
     </style>
     """

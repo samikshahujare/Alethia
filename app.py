@@ -20,8 +20,7 @@ from ui.chat import render_chat_interface
 def main() -> None:
     """Main application layout and execution flow."""
     st.set_page_config(
-        page_title="Alethia · Self-Correcting RAG",
-        page_icon="⚡",
+        page_title="Alethia · Precision RAG",
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -36,16 +35,16 @@ def main() -> None:
     st.markdown(
         """
         <div class="alethia-header">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
                 <div class="alethia-title">
-                    <span>⚡</span> Alethia
+                    Alethia
                 </div>
-                <div class="status-pill status-verified" style="margin-bottom: 0;">
-                    <span>●</span> Ready
+                <div class="header-engine-tag">
+                    Self-Correcting RAG
                 </div>
             </div>
             <div class="alethia-subtitle">
-                Ask questions and get answers from your documents.
+                Deterministic factual retrieval and verification across multi-format documents.
             </div>
         </div>
         """,

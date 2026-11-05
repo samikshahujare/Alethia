@@ -175,12 +175,18 @@ class BM25Index:
 
         return self.doc_count
 
-    def search(self, query: str, k: int = 4) -> List[Dict[str, Any]]:
+    def search(
+        self,
+        query: str,
+        k: int = 4,
+        source_filter: Optional[str] = None,
+    ) -> List[Dict[str, Any]]:
         """Search the indexed corpus for a query using Okapi BM25 scoring.
 
         Args:
             query: Query string.
             k: Maximum number of results to return (default: 4).
+            source_filter: Optional source document name to filter results by.
 
         Returns:
             List of result dictionaries sorted by BM25 score descending,
@@ -208,6 +214,15 @@ class BM25Index:
 
         if not candidate_ids:
             return []
+
+        # Filter by source if requested
+        if source_filter:
+            candidate_ids = {
+                cid for cid in candidate_ids
+                if self.documents.get(cid, {}).get("source") == source_filter
+            }
+            if not candidate_ids:
+                return []
 
         scores: Dict[str, float] = defaultdict(float)
 

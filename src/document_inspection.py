@@ -86,6 +86,76 @@ def detect_document_intent(query: Optional[str]) -> Optional[str]:
     return None
 
 
+def find_explicit_document_reference(
+    query: str,
+    available_sources: List[str],
+) -> Optional[str]:
+    """Find whether a user query explicitly names or references an indexed document.
+
+    Checks for exact source name (e.g. 'abc.txt', 'report.pdf') or stem ('abc', 'report').
+    Returns the matched source name or None if no specific document is referenced.
+
+    Args:
+        query: User input query string.
+        available_sources: List of indexed document filenames in the store.
+
+    Returns:
+        Matched source name string, or None.
+    """
+    if not query or not available_sources:
+        return None
+
+    query_lower = query.lower()
+
+    # Sort sources by length descending to match longer specific filenames first (e.g. 'abc_v2.txt' before 'abc.txt')
+    sorted_sources = sorted(available_sources, key=len, reverse=True)
+
+    # 1. Exact filename match (e.g. 'abc.txt', 'abc.pdf')
+    for src in sorted_sources:
+        if src.lower() in query_lower:
+            return src
+
+    # 2. Word-boundary stem match (e.g. 'abc', 'solar_system')
+    common_stems = {"doc", "document", "file", "text", "notes", "data", "info", "a", "the", "in", "to"}
+    for src in sorted_sources:
+        stem = Path(src).stem.lower()
+        if len(stem) >= 3 and stem not in common_stems:
+            pattern = rf"\b{re.escape(stem)}\b"
+            if re.search(pattern, query_lower):
+                return src
+
+    return None
+
+
+def clean_targeted_query(query: str, target_doc: str) -> str:
+    """Strip explicit document references from the query to maximize semantic retrieval quality.
+
+    Args:
+        query: Original user query.
+        target_doc: Identified target document name.
+
+    Returns:
+        Cleaned query focusing on the topical request.
+    """
+    if not query or not target_doc:
+        return query
+
+    stem = Path(target_doc).stem
+    cleaned = query
+    patterns = [
+        rf"\b(according to|in|from|within|regarding|about|per)\s+(?:the\s+)?(?:file|document\s+)?{re.escape(target_doc)}\b",
+        rf"\b(according to|in|from|within|regarding|about|per)\s+(?:the\s+)?(?:file|document\s+)?{re.escape(stem)}\b",
+        rf"\b(?:file|document)\s+{re.escape(target_doc)}\b",
+        rf"\b(?:file|document)\s+{re.escape(stem)}\b",
+        rf"\b{re.escape(target_doc)}\b",
+    ]
+    for p in patterns:
+        cleaned = re.sub(p, "", cleaned, flags=re.IGNORECASE)
+
+    cleaned = re.sub(r"\s+", " ", cleaned).strip(" ,:;?-")
+    return cleaned if len(cleaned) >= 3 else query
+
+
 def resolve_target_document(
     query: str,
     available_sources: List[str],

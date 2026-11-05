@@ -97,12 +97,18 @@ class HybridRetriever:
         self._bm25_index = BM25Index.from_chromadb(self.vector_store)
         return self._bm25_index.doc_count
 
-    def retrieve_dense(self, query: str, k: int = 4) -> List[Dict[str, Any]]:
+    def retrieve_dense(
+        self,
+        query: str,
+        k: int = 4,
+        source_filter: Optional[str] = None,
+    ) -> List[Dict[str, Any]]:
         """Perform dense-only semantic search via ChromaDB vector store.
 
         Args:
             query: User query string.
             k: Maximum number of chunks to return (default: 4).
+            source_filter: Optional document source name to scope search.
 
         Returns:
             List of chunk dictionaries with dense diagnostics and ranking.
@@ -112,7 +118,10 @@ class HybridRetriever:
             return []
 
         try:
-            raw_chunks = self.vector_store.retrieve_chunks(clean_q, k=k)
+            if source_filter:
+                raw_chunks = self.vector_store.retrieve_chunks(clean_q, k=k, where={"source": source_filter})
+            else:
+                raw_chunks = self.vector_store.retrieve_chunks(clean_q, k=k)
         except Exception:
             return []
 
@@ -146,12 +155,18 @@ class HybridRetriever:
 
         return results
 
-    def retrieve_bm25(self, query: str, k: int = 4) -> List[Dict[str, Any]]:
+    def retrieve_bm25(
+        self,
+        query: str,
+        k: int = 4,
+        source_filter: Optional[str] = None,
+    ) -> List[Dict[str, Any]]:
         """Perform sparse-only lexical search via BM25Index.
 
         Args:
             query: User query string.
             k: Maximum number of chunks to return (default: 4).
+            source_filter: Optional document source name to scope search.
 
         Returns:
             List of chunk dictionaries with BM25 diagnostics and ranking.
@@ -160,7 +175,10 @@ class HybridRetriever:
         if not clean_q:
             return []
 
-        raw_chunks = self.bm25_index.search(clean_q, k=k)
+        if source_filter:
+            raw_chunks = self.bm25_index.search(clean_q, k=k, source_filter=source_filter)
+        else:
+            raw_chunks = self.bm25_index.search(clean_q, k=k)
 
         results: List[Dict[str, Any]] = []
         for rank, chunk in enumerate(raw_chunks, 1):
@@ -192,12 +210,13 @@ class HybridRetriever:
         query: str,
         k: int = 4,
         candidate_depth: Optional[int] = None,
+        source_filter: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
         """Perform hybrid search combining dense semantic search and BM25 via RRF.
 
         Steps:
-        1. Query dense ChromaDB store for top candidate chunks.
-        2. Query sparse BM25 index for top candidate chunks.
+        1. Query dense ChromaDB store for top candidate chunks (optionally scoped to source).
+        2. Query sparse BM25 index for top candidate chunks (optionally scoped to source).
         3. Merge candidate sets by chunk_id, deduplicating records.
         4. Calculate RRF score based strictly on ordinal ranks:
            RRF(d) = dense_weight/(60 + dense_rank) + bm25_weight/(60 + bm25_rank)
@@ -209,6 +228,7 @@ class HybridRetriever:
             k: Number of final results to return (default: 4).
             candidate_depth: Number of candidates to fetch from each retriever
                              before fusion. Defaults to max(k * 3, 20).
+            source_filter: Optional document source name to scope search.
 
         Returns:
             List of top-k fused chunk dictionaries.
@@ -223,12 +243,18 @@ class HybridRetriever:
         # 1. Fetch dense candidates
         dense_results: List[Dict[str, Any]] = []
         try:
-            dense_results = self.vector_store.retrieve_chunks(clean_q, k=pool_size)
+            if source_filter:
+                dense_results = self.vector_store.retrieve_chunks(clean_q, k=pool_size, where={"source": source_filter})
+            else:
+                dense_results = self.vector_store.retrieve_chunks(clean_q, k=pool_size)
         except Exception:
             dense_results = []
 
         # 2. Fetch BM25 candidates
-        bm25_results = self.bm25_index.search(clean_q, k=pool_size)
+        if source_filter:
+            bm25_results = self.bm25_index.search(clean_q, k=pool_size, source_filter=source_filter)
+        else:
+            bm25_results = self.bm25_index.search(clean_q, k=pool_size)
 
         if not dense_results and not bm25_results:
             return []
@@ -310,6 +336,7 @@ class HybridRetriever:
         query: str,
         k: int = 4,
         strategy: str = "hybrid",
+        source_filter: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
         """Unified retrieval entry point supporting multiple strategies.
 
@@ -317,16 +344,17 @@ class HybridRetriever:
             query: User query string.
             k: Maximum number of chunks to return (default: 4).
             strategy: One of 'hybrid' (default), 'dense', or 'bm25'.
+            source_filter: Optional source document name to filter retrieval by.
 
         Returns:
             List of retrieved chunk dictionaries.
         """
         strat = (strategy or "hybrid").lower().strip()
         if strat in ("dense", "semantic"):
-            return self.retrieve_dense(query=query, k=k)
+            return self.retrieve_dense(query=query, k=k, source_filter=source_filter)
         if strat in ("bm25", "sparse"):
-            return self.retrieve_bm25(query=query, k=k)
-        return self.retrieve_hybrid(query=query, k=k)
+            return self.retrieve_bm25(query=query, k=k, source_filter=source_filter)
+        return self.retrieve_hybrid(query=query, k=k, source_filter=source_filter)
 
 
 # Global default HybridRetriever instance
@@ -361,7 +389,11 @@ def hybrid_retrieve(
     k: int = 4,
     strategy: str = "hybrid",
     retriever: Optional[HybridRetriever] = None,
+    source_filter: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
+    """Convenience function to perform hybrid or single-strategy retrieval."""
+    active_retriever = retriever or get_hybrid_retriever()
+    return active_retriever.retrieve(query=query, k=k, strategy=strategy, source_filter=source_filter)
     """Convenience function to perform hybrid or single-strategy retrieval."""
     active_retriever = retriever or get_hybrid_retriever()
     return active_retriever.retrieve(query=query, k=k, strategy=strategy)

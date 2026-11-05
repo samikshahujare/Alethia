@@ -262,12 +262,18 @@ class VectorStore:
         self.collection = None
         self.client = None
 
-    def retrieve_chunks(self, question: str, k: int = 4) -> List[Dict[str, Any]]:
+    def retrieve_chunks(
+        self,
+        question: str,
+        k: int = 4,
+        where: Optional[Dict[str, Any]] = None,
+    ) -> List[Dict[str, Any]]:
         """Retrieve the top k most relevant chunks for a question.
 
         Args:
             question: User query string.
             k: Number of chunks to retrieve (default: 4).
+            where: Optional ChromaDB metadata filter dictionary (e.g. {"source": "doc.txt"}).
 
         Returns:
             List of retrieved chunk dictionaries containing chunk_id, text,
@@ -291,12 +297,16 @@ class VectorStore:
         # Convert question into embedding
         query_embedding = self.generate_embeddings([question.strip()])[0]
 
-        # Query ChromaDB collection
-        results = self.collection.query(
-            query_embeddings=[query_embedding],
-            n_results=n_results,
-            include=["documents", "metadatas", "distances"],
-        )
+        # Query ChromaDB collection with optional metadata filtering
+        query_kwargs: Dict[str, Any] = {
+            "query_embeddings": [query_embedding],
+            "n_results": n_results,
+            "include": ["documents", "metadatas", "distances"],
+        }
+        if where:
+            query_kwargs["where"] = where
+
+        results = self.collection.query(**query_kwargs)
 
         retrieved_items: List[Dict[str, Any]] = []
         if not results or not results.get("ids") or not results["ids"][0]:
@@ -353,7 +363,8 @@ def retrieve_chunks(
     question: str,
     k: int = 4,
     store: Optional[VectorStore] = None,
+    where: Optional[Dict[str, Any]] = None,
 ) -> List[Dict[str, Any]]:
     """Convenience function to retrieve chunks using default or custom VectorStore."""
     target_store = store or get_vector_store()
-    return target_store.retrieve_chunks(question=question, k=k)
+    return target_store.retrieve_chunks(question=question, k=k, where=where)

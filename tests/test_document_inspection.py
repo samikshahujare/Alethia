@@ -6,6 +6,8 @@ import pytest
 from src.document_inspection import (
     detect_document_intent,
     resolve_target_document,
+    find_explicit_document_reference,
+    clean_targeted_query,
     extract_questions_from_chunks,
     generate_document_overview,
     extract_document_list,
@@ -119,4 +121,33 @@ def test_generate_document_overview_extractive():
     summary = generate_document_overview(chunks, "notes.txt")
     assert "Summary of **notes.txt**" in summary
     assert "Overview of neural networks" in summary
+
+
+def test_find_explicit_document_reference():
+    """Verify explicit document references are accurately detected."""
+    sources = ["abc.txt", "bcd.txt", "annual_report.pdf", "solar_system.txt"]
+
+    # Exact filename references
+    assert find_explicit_document_reference("What does abc.txt say about revenue?", sources) == "abc.txt"
+    assert find_explicit_document_reference("Summarize annual_report.pdf please", sources) == "annual_report.pdf"
+
+    # Stem references with word boundaries
+    assert find_explicit_document_reference("In abc, what was the net profit?", sources) == "abc.txt"
+    assert find_explicit_document_reference("According to solar_system, how many planets exist?", sources) == "solar_system.txt"
+
+    # No document referenced
+    assert find_explicit_document_reference("What is machine learning?", sources) is None
+    assert find_explicit_document_reference("Tell me about the sun", sources) is None
+
+
+def test_clean_targeted_query():
+    """Verify clean_targeted_query strips document reference noise for cleaner retrieval."""
+    cleaned = clean_targeted_query("In abc.txt, what was the total revenue?", "abc.txt")
+    assert "abc.txt" not in cleaned.lower()
+    assert "total revenue" in cleaned.lower()
+
+    cleaned_pdf = clean_targeted_query("According to annual_report.pdf, what are the risks?", "annual_report.pdf")
+    assert "annual_report" not in cleaned_pdf.lower()
+    assert "risks" in cleaned_pdf.lower()
+
 
