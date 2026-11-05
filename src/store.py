@@ -23,10 +23,8 @@ def get_embedding_model(model_name: str = DEFAULT_EMBEDDING_MODEL) -> SentenceTr
     global _CACHED_EMBEDDER
     if _CACHED_EMBEDDER is None:
         try:
-            # Try loading from local cached weights first to operate efficiently offline
             _CACHED_EMBEDDER = SentenceTransformer(model_name, local_files_only=True)
         except Exception:
-            # Fall back to online loading if local files are missing
             _CACHED_EMBEDDER = SentenceTransformer(model_name)
     return _CACHED_EMBEDDER
 
@@ -52,7 +50,6 @@ class VectorStore:
         self.collection_name = collection_name
         self.model_name = model_name
 
-        # Initialize official ChromaDB PersistentClient
         self.client: ClientAPI = chromadb.PersistentClient(path=str(self.persist_directory))
         self.collection: Collection = self.client.get_or_create_collection(
             name=self.collection_name,
@@ -99,7 +96,6 @@ class VectorStore:
         if not chunks:
             return 0
 
-        # Group input chunks by source document
         chunks_by_source: Dict[str, List[TextChunk]] = {}
         for chunk in chunks:
             src = str(chunk.source)
@@ -110,10 +106,8 @@ class VectorStore:
         chunks_to_index: List[TextChunk] = []
 
         for src, doc_chunks in chunks_by_source.items():
-            # Compute deterministic content hash for the incoming document
             incoming_hash = hashlib.sha256("".join(c.text for c in doc_chunks).encode("utf-8")).hexdigest()[:16]
 
-            # Attach doc_hash to chunk metadata
             for c in doc_chunks:
                 if not hasattr(c, "metadata") or c.metadata is None:
                     c.metadata = {}
@@ -124,7 +118,6 @@ class VectorStore:
                 chunks_to_index.extend(doc_chunks)
                 continue
 
-            # Query existing records for this specific document source
             try:
                 existing_records = self.collection.get(
                     where={"source": src},
@@ -138,10 +131,8 @@ class VectorStore:
             existing_metas = existing_records.get("metadatas", [])
 
             if not existing_ids:
-                # Completely new document
                 chunks_to_index.extend(doc_chunks)
             else:
-                # Check if content has changed
                 existing_hash = None
                 if existing_metas and isinstance(existing_metas[0], dict):
                     existing_hash = existing_metas[0].get("doc_hash")
@@ -152,7 +143,6 @@ class VectorStore:
                 elif len(existing_ids) != len(doc_chunks):
                     content_changed = True
                 else:
-                    # Sort existing texts by chunk_index to compare sequential text
                     indexed_pairs = []
                     for doc, meta in zip(existing_docs, existing_metas):
                         c_idx = meta.get("chunk_index", 0) if isinstance(meta, dict) else 0
@@ -164,11 +154,9 @@ class VectorStore:
                         content_changed = True
 
                 if content_changed:
-                    # Safely purge only this outdated document's chunks and re-index
                     self.delete_document(src)
                     chunks_to_index.extend(doc_chunks)
                 else:
-                    # Identical content; skip re-indexing
                     pass
 
         if not chunks_to_index:
@@ -177,7 +165,6 @@ class VectorStore:
         texts = [chunk.text for chunk in chunks_to_index]
         chunk_ids = [chunk.chunk_id for chunk in chunks_to_index]
 
-        # Prepare metadata conforming to ChromaDB (primitive scalar types only)
         metadatas = []
         for chunk in chunks_to_index:
             meta: Dict[str, Any] = {
@@ -186,7 +173,6 @@ class VectorStore:
                 "char_count": int(len(chunk.text)),
                 "doc_hash": chunk.metadata.get("doc_hash", ""),
             }
-            # Add other flat metadata if present
             for k, v in chunk.metadata.items():
                 if k not in meta and isinstance(v, (str, int, float, bool)):
                     meta[k] = v
@@ -194,7 +180,6 @@ class VectorStore:
 
         embeddings = self.generate_embeddings(texts)
 
-        # Upsert into ChromaDB
         self.collection.upsert(
             ids=chunk_ids,
             documents=texts,
@@ -263,6 +248,7 @@ class VectorStore:
         question: str,
         k: int = 4,
         where: Optional[Dict[str, Any]] = None,
+        source_filter: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
         """Retrieve the top k most relevant chunks for a question.
 
@@ -270,6 +256,7 @@ class VectorStore:
             question: User query string.
             k: Number of chunks to retrieve (default: 4).
             where: Optional ChromaDB metadata filter dictionary (e.g. {"source": "doc.txt"}).
+            source_filter: Optional source document name to filter results by.
 
         Returns:
             List of retrieved chunk dictionaries containing chunk_id, text,
@@ -285,22 +272,22 @@ class VectorStore:
         if total_chunks == 0:
             return []
 
-        # Adjust k if fewer chunks exist than requested
         n_results = min(k, total_chunks)
         if n_results <= 0:
             return []
 
-        # Convert question into embedding
         query_embedding = self.generate_embeddings([question.strip()])[0]
 
-        # Query ChromaDB collection with optional metadata filtering
         query_kwargs: Dict[str, Any] = {
             "query_embeddings": [query_embedding],
             "n_results": n_results,
             "include": ["documents", "metadatas", "distances"],
         }
-        if where:
-            query_kwargs["where"] = where
+        filter_dict = where
+        if source_filter and not filter_dict:
+            filter_dict = {"source": source_filter}
+        if filter_dict:
+            query_kwargs["where"] = filter_dict
 
         results = self.collection.query(**query_kwargs)
 
@@ -318,7 +305,6 @@ class VectorStore:
             meta = metas[i] if i < len(metas) else {}
             distance = float(distances[i]) if i < len(distances) else 0.0
 
-            # Cosine distance in Chroma ranges [0, 2]; cosine similarity = 1 - distance
             similarity = round(max(0.0, 1.0 - distance), 4)
 
             retrieved_items.append({
@@ -334,7 +320,6 @@ class VectorStore:
         return retrieved_items
 
 
-# Global default store instance
 _DEFAULT_STORE: Optional[VectorStore] = None
 
 
@@ -360,7 +345,8 @@ def retrieve_chunks(
     k: int = 4,
     store: Optional[VectorStore] = None,
     where: Optional[Dict[str, Any]] = None,
+    source_filter: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """Convenience function to retrieve chunks using default or custom VectorStore."""
     target_store = store or get_vector_store()
-    return target_store.retrieve_chunks(question=question, k=k, where=where)
+    return target_store.retrieve_chunks(question=question, k=k, where=where, source_filter=source_filter)

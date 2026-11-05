@@ -32,14 +32,11 @@ def clean_text(text: Optional[str]) -> str:
     if not isinstance(text, str):
         text = str(text)
 
-    # 1. Strip unwanted control characters (ASCII 0-8, 11-12, 14-31, 127)
     # Retain \t (9) and \n (10)
     cleaned = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", text)
 
-    # 2. Normalize carriage return newlines
     cleaned = cleaned.replace("\r\n", "\n").replace("\r", "\n")
 
-    # 3. Normalize horizontal whitespace (tabs and spaces) within lines
     lines = cleaned.split("\n")
     normalized_lines = []
     for line in lines:
@@ -49,7 +46,6 @@ def clean_text(text: Optional[str]) -> str:
 
     cleaned = "\n".join(normalized_lines)
 
-    # 4. Normalize consecutive newlines (max 2 consecutive newlines)
     cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
 
     return cleaned.strip()

@@ -81,12 +81,10 @@ def handle_document_upload(uploaded_files: List[Any], store: Optional[VectorStor
         filename = getattr(file, "name", "uploaded_document.txt")
         suffix = Path(filename).suffix.lower()
 
-        # 1. Validate file extension (.txt or .pdf)
         if suffix not in (".txt", ".pdf"):
             st.sidebar.error(f"Unsupported format: `{filename}`. Supported formats: `.pdf`, `.txt`.")
             continue
 
-        # 2. Read bytes and parse using document loader
         try:
             raw_bytes = file.read()
             if not raw_bytes or not raw_bytes.strip():
@@ -101,7 +99,6 @@ def handle_document_upload(uploaded_files: List[Any], store: Optional[VectorStor
             st.sidebar.error(f"Failed to parse `{filename}`: {str(e)}")
             continue
 
-        # 3. Clean and chunk using backend pipeline
         try:
             cleaned = clean_document(doc)
             chunks = chunk_document(cleaned)
@@ -110,12 +107,10 @@ def handle_document_upload(uploaded_files: List[Any], store: Optional[VectorStor
                 st.sidebar.warning(f"No valid text chunks generated from `{filename}`.")
                 continue
 
-            # 4. Store in ChromaDB with intelligent content-change detection
             newly_indexed = target_store.index_chunks(chunks, overwrite=False)
             if newly_indexed > 0:
                 indexed_total += newly_indexed
                 st.sidebar.success(f"Indexed {newly_indexed} chunks from `{filename}`.")
-                # Synchronize BM25 index with ChromaDB to keep hybrid retrieval consistent
                 try:
                     from src.hybrid_retriever import get_hybrid_retriever
                     get_hybrid_retriever().sync_bm25()
@@ -204,7 +199,6 @@ def render_sidebar(store: Optional[VectorStore] = None) -> None:
     target_store = store or get_vector_store()
 
     with st.sidebar:
-        # Branding
         st.markdown(
             """
             <div class="sidebar-brand-box">
@@ -215,7 +209,6 @@ def render_sidebar(store: Optional[VectorStore] = None) -> None:
             unsafe_allow_html=True,
         )
 
-        # Chat session controls
         col1, col2 = st.columns(2)
         with col1:
             if st.button("New Chat", use_container_width=True, type="secondary"):
@@ -229,7 +222,6 @@ def render_sidebar(store: Optional[VectorStore] = None) -> None:
 
         st.markdown('<div class="sidebar-divider"></div>', unsafe_allow_html=True)
 
-        # Document Ingestion Section
         st.markdown('<div class="sidebar-section-title">Documents & Ingestion</div>', unsafe_allow_html=True)
 
         tab_upload, tab_paste = st.tabs(["Upload Files", "Paste Text"])
@@ -259,7 +251,6 @@ def render_sidebar(store: Optional[VectorStore] = None) -> None:
                 else:
                     st.warning("Please paste or type text first.")
 
-        # Live document list & management
         stats = get_database_stats(target_store)
         doc_details = stats.get("doc_details", {})
 
@@ -289,7 +280,6 @@ def render_sidebar(store: Optional[VectorStore] = None) -> None:
 
         st.markdown('<div class="sidebar-divider"></div>', unsafe_allow_html=True)
 
-        # Knowledge Base Summary Section
         st.markdown('<div class="sidebar-section-title">Knowledge Base</div>', unsafe_allow_html=True)
         st.markdown(
             f"""
@@ -311,7 +301,6 @@ def render_sidebar(store: Optional[VectorStore] = None) -> None:
             unsafe_allow_html=True,
         )
 
-        # About & Capacity Details
         with st.expander("System Specs & Capacity", expanded=False):
             st.markdown(
                 """
@@ -329,7 +318,6 @@ def render_sidebar(store: Optional[VectorStore] = None) -> None:
                 """
             )
 
-        # System API status check
         configured = is_groq_configured()
         if not configured:
             st.warning("`GROQ_API_KEY` is not configured in `.env`.")

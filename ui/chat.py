@@ -128,14 +128,11 @@ def process_user_query(
         st.warning("Please enter a non-empty question.")
         return
 
-    # 1. Append user message to history
     st.session_state.messages.append({"role": "user", "content": clean_query})
 
-    # 2. Render user message in UI
     with st.chat_message("user"):
         st.write(clean_query)
 
-    # 3. Check configuration upfront to provide clear guidance
     if not is_groq_configured():
         error_msg = {
             "role": "assistant",
@@ -153,7 +150,6 @@ def process_user_query(
             st.error(error_msg["content"])
         return
 
-    # 4. Execute pipeline with stepped progressive loading indicator
     runner = pipeline_func or run_rag_pipeline
     with st.status("Analyzing question & context...", expanded=True) as status_box:
         st.write("1. Scanning document chunks & search indices...")
@@ -216,7 +212,6 @@ def process_user_query(
                 "trace": [],
             }
 
-    # 5. Format and store assistant response
     assistant_msg = {
         "role": "assistant",
         "content": final_state.get("draft", "No answer generated."),
@@ -231,26 +226,18 @@ def process_user_query(
         "retrieval_strategy": final_state.get("retrieval_strategy", "hybrid"),
     }
     st.session_state.messages.append(assistant_msg)
-
-    # 6. Render assistant response immediately
     render_assistant_message(assistant_msg)
 
 
 def render_chat_interface(
     pipeline_func: Optional[Callable[[str], Dict[str, Any]]] = None,
 ) -> None:
-    """Render the main chat area with historical messages and input bar.
-
-    Args:
-        pipeline_func: Optional custom pipeline runner for testing.
-    """
+    """Render the main chat area with historical messages and input bar."""
     init_session_state()
 
-    # If there are no messages, show welcome card
     if not st.session_state.messages:
         render_welcome_screen()
     else:
-        # Render existing conversation history (never re-invoking LLM on reruns)
         for msg in st.session_state.messages:
             if msg.get("role") == "user":
                 with st.chat_message("user"):
@@ -258,13 +245,11 @@ def render_chat_interface(
             elif msg.get("role") == "assistant":
                 render_assistant_message(msg)
 
-    # Check if a sample query was clicked
     active_query = None
     if st.session_state.pending_query:
         active_query = st.session_state.pending_query
         st.session_state.pending_query = None
 
-    # Chat input bar at bottom
     user_input = st.chat_input("Ask a question about your documents...")
     query_to_run = user_input or active_query
 

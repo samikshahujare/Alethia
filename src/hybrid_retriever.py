@@ -231,7 +231,6 @@ class HybridRetriever:
         # Candidate depth bounds candidate pool for fusion
         pool_size = candidate_depth or max(k * 3, 20)
 
-        # 1. Fetch dense candidates
         dense_results: List[Dict[str, Any]] = []
         try:
             if source_filter:
@@ -241,7 +240,6 @@ class HybridRetriever:
         except Exception:
             dense_results = []
 
-        # 2. Fetch BM25 candidates
         if source_filter:
             bm25_results = self.bm25_index.search(clean_q, k=pool_size, source_filter=source_filter)
         else:
@@ -253,7 +251,6 @@ class HybridRetriever:
         # Candidate map: chunk_id -> unified record
         candidates: Dict[str, Dict[str, Any]] = {}
 
-        # Ingest dense candidates
         for rank, chunk in enumerate(dense_results, 1):
             cid = chunk.get("chunk_id", "")
             if not cid:
@@ -277,7 +274,6 @@ class HybridRetriever:
                 "bm25_score": None,
             }
 
-        # Ingest BM25 candidates (merge or insert)
         for rank, chunk in enumerate(bm25_results, 1):
             cid = chunk.get("chunk_id", "")
             if not cid:
@@ -302,7 +298,6 @@ class HybridRetriever:
                     "bm25_score": chunk.get("bm25_score"),
                 }
 
-        # 4. Compute RRF scores for each candidate
         for cid, record in candidates.items():
             record["rrf_score"] = calculate_rrf_score(
                 dense_rank=record["dense_rank"],
@@ -313,13 +308,11 @@ class HybridRetriever:
             )
             record["retrieval_strategy"] = "hybrid_rrf"
 
-        # 5. Sort by RRF score descending, then chunk_id ascending for deterministic tie-breaking
         sorted_candidates = sorted(
             candidates.values(),
             key=lambda c: (-c["rrf_score"], c["chunk_id"]),
         )
 
-        # 6. Return top-k
         return sorted_candidates[:k]
 
     def retrieve(
@@ -348,7 +341,6 @@ class HybridRetriever:
         return self.retrieve_hybrid(query=query, k=k, source_filter=source_filter)
 
 
-# Global default HybridRetriever instance
 _DEFAULT_HYBRID_RETRIEVER: Optional[HybridRetriever] = None
 
 
@@ -385,7 +377,4 @@ def hybrid_retrieve(
     """Convenience function to perform hybrid or single-strategy retrieval."""
     active_retriever = retriever or get_hybrid_retriever()
     return active_retriever.retrieve(query=query, k=k, strategy=strategy, source_filter=source_filter)
-    """Convenience function to perform hybrid or single-strategy retrieval."""
-    active_retriever = retriever or get_hybrid_retriever()
-    return active_retriever.retrieve(query=query, k=k, strategy=strategy)
 

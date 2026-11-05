@@ -19,12 +19,10 @@ class GraphState(TypedDict, total=False):
     reason: str
     attempts: int
     trace: List[Dict[str, Any]]
-    # Phase 3: Question Decomposition & Multi-Part Retrieval
     decomposed_questions: List[str]
     subquestion_results: Dict[str, List[Dict[str, Any]]]
     retrieval_strategy: str
     retrieval_diagnostics: Dict[str, Any]
-    # Phase 4: Targeted Rewriting & Evidence-Aware Retrieval
     query_history: List[str]
     current_rewrite: str
     initial_chunk_ids: List[str]
@@ -32,7 +30,6 @@ class GraphState(TypedDict, total=False):
     newly_retrieved_chunk_ids: List[str]
     newly_retrieved_relevant_chunks: List[Dict[str, Any]]
     total_latency_ms: float
-    # Product Redesign: Document-Level Inspection & Extraction
     document_intent: Optional[str]
     target_document: Optional[str]
     extracted_questions: List[str]

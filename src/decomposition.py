@@ -66,11 +66,9 @@ def is_multi_intent_question(query: Optional[str]) -> bool:
     if not clean_q:
         return False
 
-    # Check for multiple sentence-ending question marks (e.g. "What is X? How does Y work?")
     if len(re.findall(r"\?", clean_q)) >= 2:
         return True
 
-    # Check for coordinated clauses containing interrogatives
     if CONJUNCTION_INTERROGATIVE_PATTERN.search(clean_q):
         return True
 
@@ -93,7 +91,6 @@ def decompose_question_rule_based(query: str) -> List[str]:
     if not clean_q:
         return []
 
-    # Case 1: Multiple questions separated by question marks
     if len(re.findall(r"\?", clean_q)) >= 2:
         parts = [p.strip() for p in re.split(r"\?+", clean_q) if p.strip()]
         sub_questions: List[str] = []
@@ -106,7 +103,6 @@ def decompose_question_rule_based(query: str) -> List[str]:
         if len(sub_questions) >= 2:
             return sub_questions[:MAX_SUBQUESTIONS]
 
-    # Case 2: Coordinated clauses connected by conjunctions
     parts = [p.strip() for p in CLAUSE_SPLIT_PATTERN.split(clean_q) if p.strip()]
     if len(parts) >= 2:
         sub_questions = []
@@ -122,7 +118,6 @@ def decompose_question_rule_based(query: str) -> List[str]:
         if len(sub_questions) >= 2:
             return sub_questions[:MAX_SUBQUESTIONS]
 
-    # Fallback to single original query
     return [clean_q]
 
 
@@ -159,13 +154,11 @@ def decompose_question_llm(
             max_tokens=512,
         )
     except Exception:
-        # LLM call failure: fall back safely to rule-based decomposition
         return decompose_question_rule_based(clean_q)
 
     if not raw_response or not raw_response.strip():
         return decompose_question_rule_based(clean_q)
 
-    # Robust JSON extraction: handle markdown code blocks or raw JSON object
     json_text = raw_response.strip()
     match_code_block = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", json_text, re.DOTALL)
     if match_code_block:
@@ -178,7 +171,6 @@ def decompose_question_llm(
     try:
         data = json.loads(json_text)
     except Exception:
-        # Malformed JSON: fall back to rule-based
         return decompose_question_rule_based(clean_q)
 
     if not isinstance(data, dict):
@@ -188,7 +180,6 @@ def decompose_question_llm(
     if not isinstance(raw_subs, list) or not raw_subs:
         return decompose_question_rule_based(clean_q)
 
-    # Validate, clean, and deduplicate sub-questions
     seen: Set[str] = set()
     cleaned_subs: List[str] = []
     for item in raw_subs:
@@ -234,11 +225,9 @@ def decompose_question(
     if not clean_q:
         return []
 
-    # Optimization: Skip decomposition completely for single-intent questions
     if not is_multi_intent_question(clean_q):
         return [clean_q]
 
-    # For multi-intent queries, try LLM decomposition if allowed
     if use_llm_fallback:
         try:
             llm_subs = decompose_question_llm(clean_q, llm_func=llm_func)
@@ -247,12 +236,10 @@ def decompose_question(
         except Exception:
             pass
 
-    # Try rule-based decomposition
     rule_subs = decompose_question_rule_based(clean_q)
     if len(rule_subs) >= 2:
         return rule_subs
 
-    # Final fallback: original question
     return [clean_q]
 
 
@@ -280,7 +267,6 @@ def merge_subquestion_chunks(
             if not cid:
                 continue
 
-            # Clone chunk to avoid modifying original structures
             chunk_copy = dict(chunk)
             existing_meta = dict(chunk_copy.get("metadata", {}))
 
@@ -300,7 +286,6 @@ def merge_subquestion_chunks(
                 target_meta["matched_subqueries"] = matched_subs
                 target["metadata"] = target_meta
 
-                # Update RRF score: taking max ensures highest ordinal retrieval strength is kept
                 current_score = float(target.get("rrf_score") or 0.0)
                 new_score = float(chunk.get("rrf_score") or 0.0)
                 target["rrf_score"] = round(max(current_score, new_score), 6)
@@ -331,7 +316,6 @@ def merge_subquestion_chunks(
 
         return [candidates[cid] for cid in selected_ids]
 
-    # Sort deterministically by rrf_score descending, tie-breaking by chunk_id ascending
     sorted_chunks = sorted(
         candidates.values(),
         key=lambda c: (-float(c.get("rrf_score") or 0.0), str(c.get("chunk_id", ""))),
@@ -393,15 +377,12 @@ def retrieve_decomposed(
             },
         }
 
-    # Obtain retriever if not provided
     if retriever is None:
         from src.hybrid_retriever import get_hybrid_retriever
         retriever = get_hybrid_retriever()
 
-    # Decompose query
     sub_questions = decompose_question(clean_q, use_llm_fallback=use_llm, llm_func=llm_func)
 
-    # Single-intent path (1 question)
     if len(sub_questions) <= 1:
         raw_chunks = _call_retriever(retriever, clean_q, k, strategy)
         for c in raw_chunks:
@@ -423,7 +404,6 @@ def retrieve_decomposed(
             },
         }
 
-    # Multi-intent path (>1 questions)
     sub_results: Dict[str, List[Dict[str, Any]]] = {}
     for sq in sub_questions:
         sq_chunks = _call_retriever(retriever, sq, k, strategy)

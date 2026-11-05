@@ -33,9 +33,9 @@ class TestDocumentLoader:
         finally:
             Path(temp_path).unlink(missing_ok=True)
 
-    def test_reject_non_txt_file(self):
-        with tempfile.NamedTemporaryFile("w", suffix=".pdf", delete=False, encoding="utf-8") as f:
-            f.write("Dummy PDF content")
+    def test_reject_unsupported_file(self):
+        with tempfile.NamedTemporaryFile("w", suffix=".docx", delete=False, encoding="utf-8") as f:
+            f.write("Dummy Word content")
             temp_path = f.name
 
         try:

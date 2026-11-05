@@ -66,20 +66,14 @@ class BM25Index:
         self.k1 = float(k1)
         self.b = float(b)
 
-        # Storage for indexed documents
         self.doc_count: int = 0
         self.avg_doc_len: float = 0.0
         self.total_tokens: int = 0
 
-        # Document registry: chunk_id -> raw document record
         self.documents: Dict[str, Dict[str, Any]] = {}
-        # Document token lengths: chunk_id -> int
         self.doc_lengths: Dict[str, int] = {}
-        # Document term frequencies: chunk_id -> Counter(token -> int)
         self.doc_term_freqs: Dict[str, Counter] = {}
-        # Inverted index document frequencies: token -> set(chunk_ids)
         self.term_docs: Dict[str, Set[str]] = defaultdict(set)
-        # Precomputed IDF cache: token -> float
         self._idf_cache: Dict[str, float] = {}
 
     def clear(self) -> None:
@@ -151,7 +145,6 @@ class BM25Index:
             tokens = tokenize(text)
             doc_len = len(tokens)
 
-            # Store document record
             self.documents[chunk_id] = {
                 "chunk_id": chunk_id,
                 "text": text,
@@ -164,7 +157,6 @@ class BM25Index:
             tf = Counter(tokens)
             self.doc_term_freqs[chunk_id] = tf
 
-            # Update inverted index
             for term in tf.keys():
                 self.term_docs[term].add(chunk_id)
 
@@ -202,11 +194,9 @@ class BM25Index:
         if not query_tokens:
             return []
 
-        # Focus candidate retrieval on content tokens when available to avoid stopword swamping
         content_tokens = [qt for qt in query_tokens if qt not in QUESTION_STOPWORDS]
         candidate_search_tokens = content_tokens if content_tokens else query_tokens
 
-        # Find candidate documents that contain at least one content query term
         candidate_ids: Set[str] = set()
         for qt in candidate_search_tokens:
             candidate_ids.update(self.term_docs.get(qt, ()))
@@ -214,7 +204,6 @@ class BM25Index:
         if not candidate_ids:
             return []
 
-        # Filter by source if requested
         if source_filter:
             candidate_ids = {
                 cid for cid in candidate_ids
@@ -225,14 +214,12 @@ class BM25Index:
 
         scores: Dict[str, float] = defaultdict(float)
 
-        # Precompute query term IDF values
         query_idfs = {qt: self.idf(qt) for qt in set(query_tokens)}
 
         for chunk_id in candidate_ids:
             doc_len = float(self.doc_lengths.get(chunk_id, 0))
             tf_map = self.doc_term_freqs.get(chunk_id, {})
 
-            # Document length normalization factor B
             denom_norm = 1.0 - self.b + self.b * (doc_len / self.avg_doc_len if self.avg_doc_len > 0 else 1.0)
 
             score = 0.0
@@ -240,7 +227,6 @@ class BM25Index:
                 f = float(tf_map.get(qt, 0))
                 if f > 0.0:
                     idf_val = query_idfs.get(qt, 0.0)
-                    # Standard BM25 term weighting
                     tf_component = (f * (self.k1 + 1.0)) / (f + self.k1 * denom_norm)
                     score += idf_val * tf_component
 
@@ -250,7 +236,6 @@ class BM25Index:
         if not scores:
             return []
 
-        # Sort candidate documents: score descending, then chunk_id ascending for deterministic tie-breaking
         sorted_candidates = sorted(
             scores.items(),
             key=lambda item: (-item[1], item[0]),

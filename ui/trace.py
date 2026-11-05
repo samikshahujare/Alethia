@@ -72,7 +72,6 @@ def render_trace(
     verdict_display = _get_verdict_label(verdict, is_abstained)
 
     with st.expander(f"Execution Diagnostics ({total_steps} steps · {attempts} retries)", expanded=False):
-        # 1. Summary Header Box using clean Markdown (zero raw HTML tags or backtick escaping)
         summary_md = [
             f"**Execution Summary**",
             f"- **Verdict:** **{verdict_display}**",
@@ -92,7 +91,6 @@ def render_trace(
         st.markdown("\n".join(summary_md))
         st.markdown("---")
 
-        # 2. Chronological Timeline of Steps
         st.markdown("**State Transition Timeline:**")
 
         for idx, entry in enumerate(trace, 1):

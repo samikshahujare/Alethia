@@ -86,16 +86,13 @@ def generate_targeted_keyword_fallback(
 
     candidates: List[str] = []
 
-    # Candidate 1: Key terms from reason combined with key entities from original question
     combined_tokens = list(dict.fromkeys(reason_tokens[:4] + orig_tokens[:3]))
     if combined_tokens:
         candidates.append(" ".join(combined_tokens))
 
-    # Candidate 2: Informative reason tokens only
     if reason_tokens:
         candidates.append(" ".join(reason_tokens[:5]))
 
-    # Candidate 3: Topic-specific phrases based on entity
     for phrase in ["hyperparameter values", "beta values", "optimizer details", "architecture parameters", "training configuration"]:
         lead = orig_tokens[0] if orig_tokens else "model"
         candidates.append(f"{lead} {phrase}".strip())
@@ -105,7 +102,6 @@ def generate_targeted_keyword_fallback(
         if norm_cand and norm_cand not in hist_set:
             return cand
 
-    # Absolute fallback: append discriminative retry token
     novel_suffix = f"details attempt {len(history or []) + 1}"
     return f"{original_question.rstrip('?.! ')} {novel_suffix}"
 
@@ -132,6 +128,7 @@ def retrieve_node(
     question = new_state.get("question", "").strip()
     attempt = new_state.get("attempts", 0)
 
+    caller: Any
     if retriever_func is not None:
         caller = retriever_func
     else:
@@ -234,7 +231,6 @@ def retrieve_node(
 
     chunk_ids = [c.get("chunk_id", "") for c in chunks if c.get("chunk_id")]
 
-    # Distinguish between initial retrieval (attempt 0) and re-retrieval (attempt >= 1)
     if attempt == 0:
         new_state["initial_chunk_ids"] = chunk_ids
         new_state["subsequent_chunk_ids"] = []
@@ -247,8 +243,6 @@ def retrieve_node(
         newly_retrieved_ids = identify_new_chunks(init_ids, chunk_ids)
         new_state["newly_retrieved_chunk_ids"] = newly_retrieved_ids
 
-        # Evidence preservation: keep all post-rewrite chunks (targeted search),
-        # plus prior chunks from earlier attempts not in the new set
         post_id_set = {cid for cid in chunk_ids if cid}
         prior_chunks = [c for c in state.get("chunks", []) if c.get("chunk_id") not in post_id_set]
         final_chunks = list(chunks) + prior_chunks
@@ -298,7 +292,6 @@ def generate_node(
     question = new_state.get("question", "").strip()
     chunks = new_state.get("chunks", [])
 
-    # Check for document inspection intents
     doc_intent = new_state.get("document_intent")
     target_doc = new_state.get("target_document", "document")
 
@@ -331,7 +324,6 @@ def generate_node(
             "draft": draft,
             "note": "Document list extraction completed across all document chunks.",
         }
-    # If no chunks were retrieved, handle immediately without unnecessary inference
     elif not chunks:
         draft = "Not in context."
         trace_entry = {
@@ -385,18 +377,15 @@ def _parse_judge_response(raw_text: str) -> tuple[str, str]:
 
     text = raw_text.strip()
 
-    # Search for VERDICT: PASS or VERDICT: FAIL
     verdict_match = re.search(r"VERDICT:\s*(PASS|FAIL)\b", text, re.IGNORECASE)
     reason_match = re.search(r"REASON:\s*(.+)", text, re.IGNORECASE | re.DOTALL)
 
     if not verdict_match:
-        # Malformed verdict - fail safely
         return "FAIL", f"Malformed judge verdict format; failed safely. Output: {text[:100]}"
 
     verdict = verdict_match.group(1).upper()
     reason = reason_match.group(1).strip() if reason_match else "No explicit reason provided."
 
-    # Clean up multi-line reason to a concise single summary line
     reason = re.sub(r"\s+", " ", reason)
 
     return verdict, reason
@@ -518,14 +507,12 @@ def rewrite_node(
     attempts = new_state.get("attempts", 0) + 1
     decomposed_qs = new_state.get("decomposed_questions", [])
 
-    # Anti-looping: initialize or retrieve query history
     query_history = list(new_state.get("query_history", []))
     if not query_history and original_q:
         query_history = [original_q]
     if current_q and current_q not in query_history:
         query_history.append(current_q)
 
-    # Set of normalized queries for duplicate detection
     norm_history = {re.sub(r"[^\w\s]", "", q.lower()).strip() for q in query_history if q}
 
     user_prompt = format_targeted_rewrite_prompt(
@@ -552,7 +539,6 @@ def rewrite_node(
     clean_rewritten = raw_rewritten.strip().strip('"').strip("'")
     norm_candidate = re.sub(r"[^\w\s]", "", clean_rewritten.lower()).strip()
 
-    # Anti-looping check: reject empty or duplicate queries via exact and normalized textual comparison (case-folding and punctuation removal)
     if not clean_rewritten or norm_candidate in norm_history or norm_candidate == "":
         clean_rewritten = generate_targeted_keyword_fallback(
             original_question=original_q,
@@ -560,7 +546,6 @@ def rewrite_node(
             history=query_history,
         )
 
-    # Record updated history
     query_history.append(clean_rewritten)
 
     trace_entry = {

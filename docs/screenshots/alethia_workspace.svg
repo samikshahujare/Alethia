@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F17"/>
+      <stop offset="100%" stop-color="#07090E"/>
+    </linearGradient>
+    <linearGradient id="sidebarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0E131F"/>
+      <stop offset="100%" stop-color="#0A0D14"/>
+    </linearGradient>
+    <linearGradient id="primaryAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'Courier New', monospace; }
+    .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1200" height="750" fill="url(#bgGrad)"/>
+
+  <!-- Window Frame -->
+  <rect x="20" y="20" width="1160" height="710" rx="12" fill="#0E131F" stroke="#1E293B" stroke-width="1.5"/>
+
+  <!-- Window Header Bar -->
+  <rect x="20" y="20" width="1160" height="42" rx="12" fill="#131926"/>
+  <rect x="20" y="50" width="1160" height="12" fill="#131926"/>
+  <line x1="20" y1="62" x2="1180" y2="62" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- Window Dots -->
+  <circle cx="48" cy="41" r="6" fill="#EF4444" opacity="0.8"/>
+  <circle cx="68" cy="41" r="6" fill="#F59E0B" opacity="0.8"/>
+  <circle cx="88" cy="41" r="6" fill="#10B981" opacity="0.8"/>
+
+  <!-- Window Title -->
+  <text x="600" y="45" fill="#64748B" font-size="12" text-anchor="middle" font-weight="500" class="sans">Alethia · Self-Correcting Precision RAG</text>
+
+  <!-- SIDEBAR (Width: 320) -->
+  <rect x="20" y="63" width="320" height="667" fill="url(#sidebarGrad)"/>
+  <line x1="340" y1="63" x2="340" y2="730" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- Brand Box -->
+  <text x="46" y="105" fill="#F8FAFC" font-size="16" font-weight="700" letter-spacing="1.5" class="sans">ALETHIA</text>
+  <text x="46" y="123" fill="#64748B" font-size="11" font-weight="500" class="sans">Precision Document Intelligence</text>
+
+  <!-- Chat Action Buttons -->
+  <rect x="46" y="145" width="125" height="32" rx="6" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+  <text x="108" y="165" fill="#E2E8F0" font-size="12" font-weight="500" text-anchor="middle" class="sans">New Chat</text>
+
+  <rect x="185" y="145" width="125" height="32" rx="6" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+  <text x="247" y="165" fill="#94A3B8" font-size="12" font-weight="500" text-anchor="middle" class="sans">Clear</text>
+
+  <!-- Section Title: Ingestion -->
+  <text x="46" y="215" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.8" class="sans">DOCUMENTS &amp; INGESTION</text>
+
+  <!-- Ingestion Tabs -->
+  <rect x="46" y="228" width="130" height="28" rx="4" fill="#1E293B"/>
+  <text x="111" y="246" fill="#F8FAFC" font-size="11" font-weight="500" text-anchor="middle" class="sans">Upload Files</text>
+
+  <rect x="180" y="228" width="130" height="28" rx="4" fill="transparent"/>
+  <text x="245" y="246" fill="#64748B" font-size="11" font-weight="500" text-anchor="middle" class="sans">Paste Text</text>
+
+  <!-- File Upload Box -->
+  <rect x="46" y="268" width="264" height="65" rx="6" fill="#0B0F17" stroke="#334155" stroke-dasharray="3 3"/>
+  <text x="178" y="297" fill="#94A3B8" font-size="12" font-weight="500" text-anchor="middle" class="sans">Drop .pdf or .txt files</text>
+  <text x="178" y="316" fill="#475569" font-size="10" text-anchor="middle" class="sans">Semantic chunking up to 25 MB</text>
+
+  <!-- Managed Documents List -->
+  <text x="46" y="365" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.8" class="sans">MANAGED DOCUMENTS</text>
+
+  <!-- Doc Row 1 -->
+  <rect x="46" y="378" width="264" height="48" rx="6" fill="#131926" stroke="#1E293B" stroke-width="1"/>
+  <rect x="56" y="388" width="30" height="18" rx="3" fill="#DC2626" opacity="0.2"/>
+  <text x="71" y="401" fill="#F87171" font-size="9" font-weight="700" text-anchor="middle" class="sans">PDF</text>
+  <text x="94" y="398" fill="#E2E8F0" font-size="12" font-weight="500" class="sans">quarterly_audit.pdf</text>
+  <text x="94" y="414" fill="#64748B" font-size="10" class="sans">1.4 MB · 42 passages</text>
+
+  <!-- Doc Row 2 -->
+  <rect x="46" y="434" width="264" height="48" rx="6" fill="#131926" stroke="#1E293B" stroke-width="1"/>
+  <rect x="56" y="444" width="30" height="18" rx="3" fill="#2563EB" opacity="0.2"/>
+  <text x="71" y="457" fill="#60A5FA" font-size="9" font-weight="700" text-anchor="middle" class="sans">TXT</text>
+  <text x="94" y="454" fill="#E2E8F0" font-size="12" font-weight="500" class="sans">transformer_guide.txt</text>
+  <text x="94" y="470" fill="#64748B" font-size="10" class="sans">14.2 KB · 12 passages</text>
+
+  <!-- Knowledge Base Stats -->
+  <rect x="46" y="505" width="264" height="100" rx="8" fill="#131926" stroke="#1E293B" stroke-width="1"/>
+  <text x="62" y="530" fill="#64748B" font-size="11" class="sans">Indexed Documents</text>
+  <text x="290" y="530" fill="#F8FAFC" font-size="12" font-weight="600" text-anchor="end" class="sans">2</text>
+  <line x1="62" y1="542" x2="294" y2="542" stroke="#1E293B" stroke-width="1"/>
+
+  <text x="62" y="562" fill="#64748B" font-size="11" class="sans">Total Passages</text>
+  <text x="290" y="562" fill="#F8FAFC" font-size="12" font-weight="600" text-anchor="end" class="sans">54</text>
+  <line x1="62" y1="574" x2="294" y2="574" stroke="#1E293B" stroke-width="1"/>
+
+  <text x="62" y="594" fill="#64748B" font-size="11" class="sans">Engine Status</text>
+  <text x="290" y="594" fill="#34D399" font-size="12" font-weight="600" text-anchor="end" class="sans">Online</text>
+
+  <!-- System Capacity Tag -->
+  <rect x="46" y="625" width="264" height="38" rx="6" fill="#0B0F17" stroke="#1E293B" stroke-width="1"/>
+  <text x="62" y="649" fill="#94A3B8" font-size="11" class="sans">Hybrid Dense + BM25 Engine</text>
+  <text x="290" y="649" fill="#818CF8" font-size="10" font-weight="600" text-anchor="end" class="mono">RRF k=60</text>
+
+  <!-- MAIN CHAT PANE (X: 340 to 1180, Width: 840) -->
+  <rect x="340" y="63" width="840" height="667" fill="#0B0F17"/>
+
+  <!-- Chat Header -->
+  <text x="380" y="105" fill="#F8FAFC" font-size="22" font-weight="700" letter-spacing="-0.5" class="sans">Alethia</text>
+  <rect x="468" y="90" width="145" height="22" rx="4" fill="rgba(99, 102, 241, 0.12)" stroke="rgba(99, 102, 241, 0.3)" stroke-width="1"/>
+  <text x="540" y="105" fill="#818CF8" font-size="10" font-weight="600" letter-spacing="0.8" text-anchor="middle" class="mono">SELF-CORRECTING RAG</text>
+  <text x="380" y="128" fill="#94A3B8" font-size="13" class="sans">Deterministic factual retrieval and verification across multi-format documents.</text>
+  <line x1="380" y1="145" x2="1140" y2="145" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- User Query Bubble -->
+  <rect x="580" y="165" width="560" height="44" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="192" fill="#F8FAFC" font-size="13" class="sans">What are the beta parameters and learning rates for the Adam optimizer?</text>
+
+  <!-- Progressive Status Box -->
+  <rect x="380" y="225" width="760" height="34" rx="6" fill="#131926" stroke="#1E293B" stroke-width="1"/>
+  <circle cx="398" cy="242" r="4" fill="#34D399"/>
+  <text x="412" y="246" fill="#34D399" font-size="11" font-weight="600" class="mono">VERIFIED</text>
+  <text x="480" y="246" fill="#64748B" font-size="12" class="sans">· Scanning chunks &gt; Context matching &gt; Factual verification complete (18.4 ms)</text>
+
+  <!-- Assistant Response Card -->
+  <rect x="380" y="272" width="760" height="165" rx="8" fill="#0E131F" stroke="#1E293B" stroke-width="1"/>
+  
+  <rect x="400" y="288" width="75" height="20" rx="3" fill="rgba(16, 185, 129, 0.15)" stroke="rgba(16, 185, 129, 0.3)" stroke-width="1"/>
+  <text x="437" y="302" fill="#34D399" font-size="10" font-weight="600" letter-spacing="0.5" text-anchor="middle" class="mono">VERIFIED</text>
+
+  <text x="400" y="332" fill="#E2E8F0" font-size="13.5" class="sans" line-height="1.5">
+    Based on the retrieved technical documentation in <tspan fill="#818CF8" class="mono">transformer_guide.txt</tspan>:
+  </text>
+  <text x="400" y="358" fill="#CBD5E1" font-size="13" class="sans">
+    • <tspan font-weight="600" fill="#F8FAFC">Exponential Decay Rates:</tspan> The default first moment coefficient <tspan class="mono">beta_1 = 0.9</tspan>,
+  </text>
+  <text x="415" y="378" fill="#CBD5E1" font-size="13" class="sans">
+    and the second moment coefficient <tspan class="mono">beta_2 = 0.999</tspan>.
+  </text>
+  <text x="400" y="402" fill="#CBD5E1" font-size="13" class="sans">
+    • <tspan font-weight="600" fill="#F8FAFC">Learning Rate &amp; Epsilon:</tspan> Default step size <tspan class="mono">alpha = 0.001</tspan> with stability denominator <tspan class="mono">eps = 1e-8</tspan>.
+  </text>
+
+  <!-- Source References Card -->
+  <rect x="380" y="450" width="760" height="98" rx="8" fill="#0D1117" stroke="#1E293B" stroke-width="1"/>
+  <text x="400" y="474" fill="#94A3B8" font-size="12" font-weight="600" class="sans">Retrieved Sources (2 citations)</text>
+
+  <rect x="400" y="488" width="720" height="48" rx="6" fill="#131926" stroke="#1E293B" stroke-width="1"/>
+  <rect x="412" y="498" width="28" height="16" rx="2" fill="#2563EB" opacity="0.2"/>
+  <text x="426" y="510" fill="#60A5FA" font-size="8.5" font-weight="700" text-anchor="middle" class="sans">TXT</text>
+  <text x="446" y="510" fill="#E2E8F0" font-size="12" font-weight="500" class="sans">transformer_guide.txt</text>
+  <text x="590" y="510" fill="#64748B" font-size="11" class="mono">chunk_0004</text>
+  <rect x="1040" y="498" width="70" height="18" rx="3" fill="#1E293B"/>
+  <text x="1075" y="511" fill="#34D399" font-size="10" font-weight="600" text-anchor="middle" class="mono">94.8% Match</text>
+  <text x="446" y="527" fill="#64748B" font-size="11" class="sans">"...Adam optimizer utilizes beta_1 = 0.9 and beta_2 = 0.999 with eps = 1e-8 for stochastic..."</text>
+
+  <!-- Execution Diagnostics Expander -->
+  <rect x="380" y="560" width="760" height="38" rx="6" fill="#131926" stroke="#1E293B" stroke-width="1"/>
+  <text x="400" y="584" fill="#94A3B8" font-size="12" font-weight="500" class="sans">▸ Execution Diagnostics (3 state transitions · 0 retries · Passed · 18.4 ms)</text>
+
+  <!-- Input Bar -->
+  <rect x="380" y="660" width="760" height="46" rx="8" fill="#131926" stroke="#334155" stroke-width="1"/>
+  <text x="400" y="688" fill="#475569" font-size="13" class="sans">Ask a question about your documents...</text>
+  <rect x="1075" y="667" width="55" height="32" rx="5" fill="url(#primaryAccent)"/>
+  <text x="1102" y="687" fill="#FFFFFF" font-size="12" font-weight="600" text-anchor="middle" class="sans">Send</text>
+</svg>
+

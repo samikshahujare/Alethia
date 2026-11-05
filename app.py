@@ -18,20 +18,15 @@ from ui.chat import render_chat_interface
 
 
 def main() -> None:
-    """Main application layout and execution flow."""
     st.set_page_config(
         page_title="Alethia · Precision RAG",
         layout="wide",
         initial_sidebar_state="expanded",
     )
 
-    # 1. Apply custom SaaS theme styles
     apply_custom_styles()
-
-    # 2. Render sidebar (controls, document management & database stats)
     render_sidebar()
 
-    # 3. Main header
     st.markdown(
         """
         <div class="alethia-header">
@@ -51,7 +46,6 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    # 4. Render interactive chat interface
     render_chat_interface()
 
 

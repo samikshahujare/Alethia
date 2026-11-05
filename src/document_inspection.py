@@ -105,12 +105,10 @@ def find_explicit_document_reference(
     # Sort sources by length descending to match longer specific filenames first (e.g. 'abc_v2.txt' before 'abc.txt')
     sorted_sources = sorted(available_sources, key=len, reverse=True)
 
-    # 1. Exact filename match (e.g. 'abc.txt', 'abc.pdf')
     for src in sorted_sources:
         if src.lower() in query_lower:
             return src
 
-    # 2. Word-boundary stem match (e.g. 'abc', 'solar_system')
     common_stems = {"doc", "document", "file", "text", "notes", "data", "info", "a", "the", "in", "to"}
     for src in sorted_sources:
         stem = Path(src).stem.lower()
@@ -169,11 +167,9 @@ def resolve_target_document(
     if not available_sources:
         return None
 
-    # 1. Check if an active document was explicitly specified in the UI
     if active_document and active_document in available_sources:
         return active_document
 
-    # 2. Check if a source name is explicitly mentioned in the query text
     query_lower = query.lower()
     for src in available_sources:
         src_clean = src.lower()
@@ -181,12 +177,10 @@ def resolve_target_document(
         if src_clean in query_lower or src_stem in query_lower:
             return src
 
-    # 3. If there are user-uploaded documents (non-baseline), prioritize the most recent user document
     user_uploaded = [s for s in available_sources if s not in BASELINE_DOCUMENTS]
     if user_uploaded:
         return user_uploaded[-1]
 
-    # 4. Fallback to the first available source
     return available_sources[0]
 
 
@@ -271,7 +265,6 @@ def extract_questions_from_chunks(
             if not line:
                 continue
 
-            # Strip leading numbers, bullets, dashes (e.g. '1. ', '- ', '• ')
             cleaned = re.sub(r"^(?:[0-9]+[\.\)]|[-*•])\s*", "", line).strip()
             if not cleaned:
                 continue
@@ -279,9 +272,7 @@ def extract_questions_from_chunks(
             is_q = False
             q_text = ""
 
-            # Case A: Explicit question mark
             if "?" in cleaned:
-                # Match question up to question mark
                 m = re.match(r"^(.*?\?)(?:\s+(.*))?$", cleaned)
                 if m:
                     candidate = m.group(1).strip()
@@ -289,7 +280,6 @@ def extract_questions_from_chunks(
                         is_q = True
                         q_text = candidate
 
-            # Case B: Prompt or heading ending with colon
             elif cleaned.endswith(":"):
                 prompt_cand = cleaned.rstrip(":").strip()
                 lower_cand = prompt_cand.lower()
@@ -340,10 +330,8 @@ def generate_document_overview(
     if not chunks:
         return f"No document content found for '{source_name}'."
 
-    # Assemble full or representative document text
     combined_text = "\n\n".join(c.get("text", "") for c in chunks)
 
-    # If an LLM callable is available, use it with a structured summary prompt
     if llm_func is not None:
         prompt = (
             f"You are a strict document analysis assistant. Based ONLY on the following text from '{source_name}', "
@@ -366,7 +354,6 @@ def generate_document_overview(
         except Exception:
             pass
 
-    # Deterministic extractive summary fallback (for offline tests)
     sample_snippets = [c.get("text", "").strip() for c in chunks[:3] if c.get("text", "").strip()]
     preview = "\n\n".join(sample_snippets)
     return (
@@ -422,7 +409,6 @@ def extract_document_list(
         except Exception:
             pass
 
-    # Deterministic extraction of skills and technical tools mentioned in text
     discovered: List[str] = []
     text_lower = combined_text.lower()
     known_skills = [
