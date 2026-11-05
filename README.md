@@ -15,7 +15,7 @@ Alethia combines dense semantic embeddings, Okapi BM25 lexical search, reciproca
 ## Live Demo & Interface
 
 Experience the deployed application on Streamlit Community Cloud:  
-**[Launch Alethia Web Application]([https://share.streamlit.io](https://alethia-ufsjglwwwe87gc9ilkyydx.streamlit.app/))**
+**[Launch Alethia Web Application](https://alethia-ufsjglwwwe87gc9ilkyydx.streamlit.app/)**
 
 ![Alethia Workspace](docs/screenshots/alethia_workspace.svg)
 
